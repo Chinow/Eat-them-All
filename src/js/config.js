@@ -11,7 +11,7 @@ ETA.config = {
 	stageHeight: 580,
 	nbTileWidth: 20,
 	nbTileHeight: 11,
-	keyDownSign: Crafty.keys.ENTER,
+	keyDownSign: Crafty.keys.SPACE,
 	tile:{
 		tileWidth: 50,
 		tileHeight: 50
