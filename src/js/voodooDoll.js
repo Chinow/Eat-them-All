@@ -99,6 +99,7 @@ Crafty.c('VoodooDoll', {
 					}
 				}
 				var cell = ETA.grid.getCell(this._x, this._y);
+				console.log(cell);
 				if(this.inInterval(parseInt(this._x), parseInt(cell.center.x), 15) && this.inInterval(parseInt(this._y), parseInt(cell.center.y), 15)) {
 					this.drawSign(cell);
 				}			

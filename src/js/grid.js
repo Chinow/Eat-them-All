@@ -4,8 +4,8 @@ Crafty.c('BGGrid', {
 	cells: [],
 	background : {},
 	init : function(){
-		this.cells = [];
-		this.cells[0] = [];
+		cells = [];
+		cells[0] = [];
 		background = Crafty.e("2D, DOM, bg")
 			.attr({ x:0 , y:0, z:1 });
 		return this;
@@ -46,7 +46,6 @@ Crafty.c('BGGrid', {
 	getCell: function(x, y) {
 		var vX = x / ETA.config.tile.tileWidth;
 		var vY = y / ETA.config.tile.tileHeight;
-		console.log(this.cells[parseInt(vX)][parseInt(vY)]);
 		return this.cells[parseInt(vX)][parseInt(vY)];
 	}
 	
