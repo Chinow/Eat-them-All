@@ -52,18 +52,21 @@ Crafty.c('Zombie', {
 				var prevDirection = this.walkingDirection;
 				if (this.currentCell.elemType == "sign")
 				{
-					isThereaSignHere = true;
-					this.walkingDirection =  this.currentCell.elem.direction;
+					if ( this.currentCell.elem.direction != "none")
+					{
+						isThereaSignHere = true;
+						this.walkingDirection =  this.currentCell.elem.direction;
+					}
 				}
-				if (this.currentCell.y < ETA.config.stageHeight)
+				if (this.currentCell.y < ETA.config.stageHeight/2)
 				{
-					if (this.walkingDirection == "s")
+					if (this.walkingDirection == "n")
 					{
 						this.walkingDirection = prevDirection;
 					}
 				}else
 				{
-					if (this.walkingDirection == "n")
+					if (this.walkingDirection == "s")
 					{
 						this.walkingDirection = prevDirection;
 					}
@@ -84,21 +87,24 @@ Crafty.c('Zombie', {
 				//check sign
 				if (this.currentCell.elemType == "sign")
 				{
-					isThereaSignHere = true;
-					this.walkingDirection =  this.currentCell.elem.direction;
+					if ( this.currentCell.elem.direction != "none")
+					{
+						isThereaSignHere = true;
+						this.walkingDirection =  this.currentCell.elem.direction;
+					}
 				}
 				//if no sign
 				if (this.currentCell.borderCell)
 				{
-					if (this.currentCell.y < ETA.config.stageHeight)
+					if (this.currentCell.y < ETA.config.stageHeight/2)
 					{
-						if (this.walkingDirection == "s")
+						if (this.walkingDirection == "n")
 						{
 							isThereaSignHere = false;
 						}
 					}else
 					{
-						if (this.walkingDirection == "n")
+						if (this.walkingDirection == "s")
 						{
 							isThereaSignHere= false;
 						}
@@ -134,8 +140,8 @@ Crafty.c('Zombie', {
 				}
 			}
 		}	
-		//if (!collided)
-		//{
+		if (!collided)
+		{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 			if (this.walkingDirection == "w") {
 				if (!this.isPlaying("walk_left"))
@@ -153,7 +159,7 @@ Crafty.c('Zombie', {
 				if (!this.isPlaying("walk_down"))
 					this.stop().animate("walk_down", rate, -1);
 			}
-		//}
+		}
 		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
 		if (newCell != this.currentCell)
 		{
