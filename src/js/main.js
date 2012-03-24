@@ -4,7 +4,7 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/sign.png"], function () {
+		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/panneau.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -53,7 +53,7 @@ window.onload = function() {
 			dollSpriteLeft: [0, 0],
 			dollSpriteRight: [3, 0]
 		});
-		Crafty.sprite(ETA.config.tile.tileWidth, "img/sign.png", {
+		Crafty.sprite(65, "img/panneau.png", {
 			signSprite: [0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);

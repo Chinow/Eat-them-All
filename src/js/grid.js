@@ -14,12 +14,14 @@ Crafty.c('BGGrid', {
 		
 		this.width = w;
 		this.height = h;
+		var id		= 1;
 		for (var i = 0; i < w; i++) {
 			this.cells[i] = [];
 			for (var j = 0; j < h; j++) {
 				this.cells[i][j] = Crafty.e("Cell")
 				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight+30, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight})
-				.cell();
+				.cell(id);
+				id ++;
 			}
 		}
 		
