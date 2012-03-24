@@ -24,7 +24,7 @@ Crafty.c('Sign', {
 		this.bind('KeyDown', function(el) {
 			this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
 						
-			if(el.key == player.actionKey &&  this.cell == player.currentCellId) {
+			if(el.key == this.player.actionKey &&  this.cell == this.player.currentCellId) {
 				if (!this.isPlaying("up") && this.mvt =="none")  {
 					Crafty.audio.play("signCreate", 0);
 					this.stop().animate("up", rateBegin, 0);
