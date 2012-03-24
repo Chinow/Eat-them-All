@@ -1,0 +1,57 @@
+//adding audio managment
+Crafty.audio.add({
+    bgmusic: ["", // wav
+            "media/ZombieBattleQN.mp3", //map3
+            "media/ZombieBattleQN.ogg"], //ogg
+    sign-create: ["",
+            "",
+            ""],
+    sign-move: ["",
+            "",
+            ""],
+    sign-delete: ["",
+            "",
+            ""],
+    sign-broken: ["",
+            "",
+            ""],
+    door-open: ["",
+            "",
+            ""],
+    door-close: ["",
+            "",
+            ""],
+    hole-dig: ["",
+            "",
+            ""],
+    zombie-die: ["",
+            "",
+            ""],
+    zombie-sounds: ["",
+            "",
+            ""],
+    zombie-rage: ["",
+            "",
+            ""],
+    fortress-attack: ["",
+            "",
+            ""],
+    soldier-die: ["",
+            "",
+            ""],
+    city-conquered: ["",
+            "",
+            ""],
+    city-die: ["",
+            "",
+            ""],
+    game-over: ["",
+            "",
+            ""],
+    pause: ["",
+            "",
+            ""]
+
+});
+
+// Use Crafty.audio.play(String id, number repeat); to play sounds repeat time (-1 => loop)
