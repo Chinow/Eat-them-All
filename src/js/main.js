@@ -33,6 +33,12 @@ window.onload = function() {
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
 
+		var cemetery = [];
+		cemetery.push(Crafty.e("Cemetery, signSprite")
+				.Cemetery(1, 3));
+		cemetery.push(Crafty.e("Cemetery, signSprite")
+				.Cemetery(1, 7));
+
 		var player3 = Crafty.e("Zombie, zombieRougeSprite")
 		.Zombie()
 		.attr({ x: 40, y: 80, z: 1000 });
