@@ -3,10 +3,11 @@ Crafty.c('Grid', {
 	height:0,
 	cells: [],
 	init : function(){
-		return this.requires('2D','DOM');
-		
-		//this.cells[0] = [];
-		//this.cells[0][0] = 
+		cells = [];
+		cells[0] = [];
+		cells[0][0] = Crafty.e("2D, DOM, bg")
+			.attr({ x:0 , y:0, z:1 });
+		return this;
 	},
 	grid: function(){
 		return this;
