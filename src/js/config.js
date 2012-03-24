@@ -31,15 +31,11 @@ ETA.config = {
 		keyset: "zqsd",
 		//keyset:"wasd",
 		actionKey: Crafty.keys.SPACE,
-		popSign:0,
-		nbSign:3
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
 		keyset: "arrows",
-		actionKey: Crafty.keys.ENTER,
-		popSign:0,
-		nbSign:3
+		actionKey: Crafty.keys.ENTER
 	}
 };
 

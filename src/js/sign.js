@@ -32,6 +32,7 @@ Crafty.c('Sign', {
 					Crafty.audio.play("signCreate");
 					this.stop().animate("up", rateBegin, 0);
 					this.mvt  = "turn_right";
+					this.player.popSign ++;
 					return this;
 				};
 				
@@ -59,11 +60,7 @@ Crafty.c('Sign', {
 				if (!this.isPlaying("turn_up") && this.mvt =="turn_up")  {
 					Crafty.audio.play("signDelete");
 					this.stop().animate("turn_up", rate, 0);
-					if(this.player.currentCellId == 1) {
-						ETA.config.p1.popSign --;
-					}else{
-						ETA.config.p2.popSign --;
-					}
+					this.player.popSign --;
 					this.mvt = "none";
 					return this;
 				};

@@ -3,13 +3,14 @@ Crafty.c('VoodooDoll', {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
-	_pop: 0,
-    maxSigns: ETA.config.game.nbSign,
-	actionKey: Crafty.keys.ENTER,
-    walking:"none",
+	walking:"none",
+	popSign: 0,
     id: 0,
     currentCellId:0,
-	VoodooDoll : function(playerId) {
+    maxSigns: ETA.config.game.nbSign,
+	actionKey: Crafty.keys.ENTER,
+ 
+    VoodooDoll : function(playerId) {
 			this.id = playerId;
 			
 			// Setup keyboard
@@ -147,14 +148,12 @@ Crafty.c('VoodooDoll', {
 	drawSign : function(cell) {
 		if(this.id ==1) {
 			var signSprite 	= "signRougeSprite";
-			var popSign 	= ETA.config.p1.popSign;
-			var nbSign		= ETA.config.p1.nbSign;
 		}else{
 			var signSprite 	= "signBleuSprite";
-			var popSign 	= ETA.config.p2.popSign;
-			var nbSign		= ETA.config.p2.nbSign;	
 		}
-		if(popSign < nbSign) {
+		console.log('Pop' + this.popSign);
+		console.log('ETAT ' + ETA.config.game.nbSign);
+		if(this.popSign < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, " + signSprite).attr({
 					x: cell.center.x - 10,
@@ -163,11 +162,7 @@ Crafty.c('VoodooDoll', {
 					w: 65,
 					h: 65
 				}).sign(this);
-				if(this.id == 1) {
-					ETA.config.p1.popSign ++;
-				}else{
-					ETA.config.p2.popSign ++;
-				}
+				this.popSign ++;
 			}
 			this.z = this.y;
 		}		
