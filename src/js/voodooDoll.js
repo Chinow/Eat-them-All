@@ -5,9 +5,10 @@ Crafty.c('VoodooDoll', {
 	},
 	_pop: 0,
     maxSigns: ETA.config.game.nbSign,
-	_key: Crafty.keys.ENTER,
+	actionKey: Crafty.keys.ENTER,
     walking:"none",
     id: 0,
+    currentCellId:0,
 	VoodooDoll : function(playerId) {
 			this.id = playerId;
 			
@@ -16,12 +17,12 @@ Crafty.c('VoodooDoll', {
 				this.keyboard1Controls(ETA.config.game.dollSpeed)
 				.attr(ETA.config.p1.startPosition);
 				
-				this._key = ETA.config.p1.actionKey;
+				this.actionKey = ETA.config.p1.actionKey;
 			} else {
 				this.keyboard2Controls(ETA.config.game.dollSpeed)
 				.attr(ETA.config.p2.startPosition);
 				
-				this._key = ETA.config.p2.actionKey;
+				this.actionKey = ETA.config.p2.actionKey;
 			}
 			
 			//Setup animation
@@ -124,7 +125,7 @@ Crafty.c('VoodooDoll', {
 		
 			})
 			.bind('KeyDown', function(el) {
-				if (el.key !== this._key) {
+				if (el.key !== this.actionKey) {
 					return;
 				}
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
