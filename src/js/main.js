@@ -4,7 +4,7 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/sign.png"], function () {
+		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/panneau.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -22,23 +22,24 @@ window.onload = function() {
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
-		var player2 = Crafty.e("Zombie, zombieSprite")
-		.Zombie()
-		.attr({ x: 16, y: 40, z: 1000 });
+
 		var player3 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 80, z: 1000 });
+		.attr({ x: 40, y: 80, z: 1000 });
 		var player4 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 160, z: 1000 });
+		.attr({ x: 70, y: 160, z: 1000 });
 		var player5 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 200, z: 1000 });
+		.attr({ x: 160, y: 200, z: 1000 });
 		var player6 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 304, z: 1000 });
-		var player1 = Crafty.e("VoodooDoll, dollSprite")
-				.VoodooDoll();
+		.attr({ x: 500, y: 304, z: 1000 });
+		
+		var player1 = Crafty.e("VoodooDoll, dollSpriteLeft")
+				.VoodooDoll(1);
+		var player2 = Crafty.e("VoodooDoll, dollSpriteRight")
+				.VoodooDoll(2);
 	});
 
 	function generateWorld() {
@@ -50,9 +51,10 @@ window.onload = function() {
 			zombieSprite: [0, 0]
 		});
 		Crafty.sprite(65, "img/walkingDoll.png", {
-			dollSprite: [0, 0]
+			dollSpriteLeft: [0, 0],
+			dollSpriteRight: [3, 0]
 		});
-		Crafty.sprite(ETA.config.tile.tileWidth, "img/sign.png", {
+		Crafty.sprite(65, "img/panneau.png", {
 			signSprite: [0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);

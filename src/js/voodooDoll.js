@@ -5,13 +5,28 @@ Crafty.c('VoodooDoll', {
 	},
 	_pop: 0,
     maxSigns: ETA.config.game.nbSign,
-   _key: Crafty.keys.ENTER,
+	actionKey: Crafty.keys.ENTER,
     walking:"none",
-	VoodooDoll : function(){
-			this.attr({ x: 16, y: 304, z: 1000 })
-			.keyboard1Controls(ETA.config.game.dollSpeed)
+    id: 0,
+    currentCellId:0,
+	VoodooDoll : function(playerId) {
+			this.id = playerId;
+			
+			// Setup keyboard
+			if (playerId == 1) {
+				this.keyboard1Controls(ETA.config.game.dollSpeed)
+				.attr(ETA.config.p1.startPosition);
+				
+				this.actionKey = ETA.config.p1.actionKey;
+			} else {
+				this.keyboard2Controls(ETA.config.game.dollSpeed)
+				.attr(ETA.config.p2.startPosition);
+				
+				this.actionKey = ETA.config.p2.actionKey;
+			}
+			
 			//Setup animation
-			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
+			this.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
 			.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 			.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 			.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
@@ -59,6 +74,8 @@ Crafty.c('VoodooDoll', {
 				//Move unit out of solid tile
 			})
 			.bind('Moved', function(from) {
+				this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
+				
 				if (this.isPlaying("summon_sign"))
 				{
 					this.attr({x: from.x, y:from.y});
@@ -101,7 +118,7 @@ Crafty.c('VoodooDoll', {
 		
 			})
 			.bind('KeyDown', function(el) {
-				if (el.key !== this._key) {
+				if (el.key !== this.actionKey) {
 					return;
 				}
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
@@ -122,10 +139,9 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
-		console.log("Enter DrawSign");
 		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 100, w:50, h:50 });
+				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 50000, w:50, h:50 }).sign(this);
 				this._pop++;
 			}
 		}			
