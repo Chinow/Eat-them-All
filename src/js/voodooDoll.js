@@ -141,25 +141,19 @@ Crafty.c('VoodooDoll', {
 			return true;
 		}else{
 			return false;
-		}
+		} 
 	},
 	
 	drawSign : function(cell) {
-		switch(this.id) {
-			case 2:
-				console.log("toto");
-				var signSprite 	= "signBleuSprite";
-				var popSign 	= ETA.config.p2.popSign;
-				var nbSign);	= ETA.config.p2.nbSign;
-				break;
-			case 1:
-			default:
-				var signSprite 	= "signRougeSprite";
-				var popSign 	= ETA.config.p1.popSign;
-				var nbSign		= ETA.config.p1.nbSign;
-				break;
+		if(this.id ==1) {
+			var signSprite 	= "signRougeSprite";
+			var popSign 	= ETA.config.p1.popSign;
+			var nbSign		= ETA.config.p1.nbSign;
+		}else{
+			var signSprite 	= "signBleuSprite";
+			var popSign 	= ETA.config.p2.popSign;
+			var nbSign		= ETA.config.p2.nbSign;	
 		}
-		console.log('Avant ' + popSign + " --> " + nbSign);
 		if(popSign < nbSign) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, " + signSprite).attr({
@@ -170,12 +164,12 @@ Crafty.c('VoodooDoll', {
 					h: 65
 				}).sign(this);
 				if(this.id == 1) {
+					console.log('ici sign 1 ++');
 					ETA.config.p1.popSign ++;
 				}else{
+					console.log('ici sign 2 ++');
 					ETA.config.p2.popSign ++;
 				}
-				
-				console.log('Après ' + ETA.config.p1.popSign);
 			}
 			this.z = this.y;
 		}		
