@@ -7,13 +7,17 @@ Crafty.c('Cemetery', {
 	spawnDirection:"e",
 
 	init: function() {
-		this.requires("2D, DOM");
+		this.requires("2D, DOM, SpriteAnimation");
 		return this;
 	},
 
 	Cemetery: function(cellX, cellY) {
+		var rateBegin = ETA.config.frameRate/ETA.config.signBeginAnimationRate;
+		var rate = ETA.config.frameRate / ETA.config.signAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
-		this.attr({ x: this.cell.x, y: this.cell.y, z: 500 });
+		this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
+		this.animate("torch_burn", [[0,0],[1,0]])
+			.animate("torch_burn", rate / 2, -1);
 		this.spawn();
 		return this;
 	},
