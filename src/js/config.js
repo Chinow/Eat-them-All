@@ -24,3 +24,7 @@ ETA.config = {
 		timeSpawnFortress:2
 	}
 };
+
+ETA.debug = {
+	play: 1
+};
