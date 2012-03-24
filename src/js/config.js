@@ -6,7 +6,7 @@ ETA.config = {
 	//keyset:"wasd",
 	frameRate: 60,
 	zombieAnimationRate:5,
-	dollAnimationRate:5,
+	dollAnimationRate:10,
 	stageWidth: 1000,
 	stageHeight: 580,
 	nbTileWidth: 20,
