@@ -4,6 +4,7 @@ Crafty.c('Zombie', {
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
 	targetPixel:{x:500, y:250},
+	currentCell:null,
 	walkingDirection:"e",
 	Zombie : function(){
 			//.keyboard1Controls(3)
@@ -32,7 +33,41 @@ Crafty.c('Zombie', {
 	},
 	moveZombi: function(){
 		
-		var direction = {x:this.x - this.targetPixel.x , y:this.y - this.targetPixel.y};
+		if (!this.currentCell)
+			this.currentCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
+		var direction = {x:this.x + this.w/2 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
+		
+		if (this.walkingDirection == "w" || this.walkingDirection == "e")
+		{
+			if (direction.y > 1)
+				this.move("n",1);
+			else if (direction.y < -1)
+				this.move("s",1);
+				
+			var dx = this.x + this.w/2 - this.currentCell.center.x
+			if (dx < 5 && dx > -5)
+			{
+				//check sign
+			}
+		}
+		else if (this.walkingDirection == "s" || this.walkingDirection == "n")
+		{
+			if (direction.x > 1)
+				this.move("w",1);
+			else if (direction.x < -1)
+				this.move("e",1);
+				
+			var dy = this.y + this.h/2 - this.currentCell.center.y
+			if (dy < 5 && dy > -5)
+			{
+				//check sign
+			}
+		}
+		/*if (direction.x > 0)
+			this.walkingDirection = "w";
+		if (direction.x < 0)
+			this.walkingDirection = "e";
+		*/
 		var rate = ETA.config.frameRate/ETA.config.zombiAnimationRate;
 		var collide = this.hit('gridBounds');
 		var collided = false;
@@ -42,6 +77,7 @@ Crafty.c('Zombie', {
 				if (collide[i].type == "SAT")
 				{
 					collided = true;
+					break;
 				}
 			}
 		}	
@@ -64,6 +100,12 @@ Crafty.c('Zombie', {
 				if (!this.isPlaying("walk_down"))
 					this.stop().animate("walk_down", rate, -1);
 			}
+		}
+		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
+		if (newCell != this.currentCell)
+		{
+			// check new cell content
+			//this.currentCell = newCell;
 		}
 	}
 });
