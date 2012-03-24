@@ -7,7 +7,7 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function () {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png"], function () {
+		Crafty.load(["img/bgSprite.png","img/walkingZombie.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -23,7 +23,11 @@ window.onload = function() {
 	
 	Crafty.scene("main", function () {
 		generateWorld();
-
+		
+		 var player1 = Crafty.e("2D, DOM, Zombie, zombieSprite, Controls")
+            .attr({ x: 16, y: 304, z: 1 })
+            .keyboard1Controls(1)
+            .Zombie();
 	});
 	
 	function generateWorld() {
@@ -31,7 +35,10 @@ window.onload = function() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});
-		Crafty.e("Grid").grid();
+		Crafty.sprite(ETA.config.tile.tileWidth, "img/walkingZombie.png", {
+			zombieSprite: [0, 0]
+		});
+		Crafty.e("BGGrid").grid();
 		
 		//Crafty.e('2D, DOM, bg')
 		//	.attr({ x:0, y:0 , z:1 });
