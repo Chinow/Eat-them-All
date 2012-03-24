@@ -4,8 +4,8 @@ Crafty.c('BGGrid', {
 	cells: [],
 	background : {},
 	init : function(){
-		cells = [];
-		cells[0] = [];
+		this.cells = [];
+		this.cells[0] = [];
 		background = Crafty.e("2D, DOM, bg")
 			.attr({ x:0 , y:0, z:1 });
 		return this;
@@ -15,10 +15,11 @@ Crafty.c('BGGrid', {
 		this.width = w;
 		this.height = h;
 		for (var i = 0; i < w; i++) {
-			cells[i] = [];
+			this.cells[i] = [];
 			for (var j = 0; j < h; j++) {
-				cells[i][j] = Crafty.e("Cell").cell()
-				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight});
+				this.cells[i][j] = Crafty.e("Cell")
+				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight})
+				.cell();
 			}
 		}
 		
@@ -40,6 +41,13 @@ Crafty.c('BGGrid', {
 			.collision();
 			
 		return this;
+	},
+	
+	getCell: function(x, y) {
+		var vX = x / ETA.config.tile.tileWidth;
+		var vY = y / ETA.config.tile.tileHeight;
+		console.log(this.cells[parseInt(vX)][parseInt(vY)]);
+		return this.cells[parseInt(vX)][parseInt(vY)];
 	}
 	
 });

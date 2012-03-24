@@ -97,6 +97,10 @@ Crafty.c('VoodooDoll', {
 							this.attr({x: from.x, y:from.y});
 						}
 					}
+				}
+				var cell = ETA.grid.getCell(this._x, this._y);
+				if(this.inInterval(parseInt(this._x), parseInt(cell.center.x), 15) && this.inInterval(parseInt(this._y), parseInt(cell.center.y), 15)) {
+					this.drawSign(cell);
 				}			
 			})
 			.bind('KeyDown', function(el) {
@@ -111,5 +115,24 @@ Crafty.c('VoodooDoll', {
 				}
 			})
 		return this;
+	},
+	
+	inInterval: function(x, y, z) {
+		if(parseInt(y) > parseInt(x-z) && parseInt(y)  < parseInt(x+z) ) {
+			return true;
+		}else{
+			return false;
+		}
+	},
+	
+	drawSign : function(cell) {
+		console.log("Enter DrawSign");
+		if(this._pop < this.maxSigns) {
+			if(cell.attribute('sign')) {
+				Crafty.e("Sign, signSprite").attr({x: this.x,y: this.y, z: 100, w:50, h:50 });
+				this._pop++;
+			}
+		}			
 	}
+	
 });
