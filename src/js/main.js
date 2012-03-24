@@ -1,11 +1,12 @@
 window.onload = function() {
+	var pop = 0;
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	Crafty.canvas.init();
 	
 	
 	
 	//the loading screen that will display while our assets load
-	Crafty.scene("loading", function () {
+	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
 		Crafty.load(["img/bgSprite.png","img/walkingZombie.png", "img/sign.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
@@ -21,7 +22,8 @@ window.onload = function() {
 	//automatically play the loading scene
 	Crafty.scene("loading");
 	
-	Crafty.scene("main", function () {
+	Crafty.scene("main", function (e) {
+		//var Env = Crafty.e("Env").display();
 		generateWorld();
 		
 		 var player1 = Crafty.e("Zombie, zombieSprite, Controls")
