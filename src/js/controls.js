@@ -3,15 +3,24 @@ Crafty.c("Controls", {
         this.requires('Multiway');
     },
     
+    getMultiway: function(keyset) {
+		if (keyset == "zqsd") {
+			return {Z: -90, S: 90, D: 0, Q: 180};
+		} else if (keyset == "wasd") {
+			return {W: -90, S: 90, D: 0, A: 180};
+		} else if (keyset == "arrows") {
+			return {UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180};
+		}
+	},
+    
     keyboard1Controls: function(speed) {
-		if (ETA.config.keyset == "zqsd")
-		{
-			this.multiway(speed, {Z: -90, S: 90, D: 0, Q: 180})
-		}
-		else if (ETA.config.keyset == "wasd")
-		{
-			this.multiway(speed, {W: -90, S: 90, D: 0, A: 180})
-		}
+		this.multiway(speed, this.getMultiway(ETA.config.p1.keyset));
+        return this;
+    },
+    
+    keyboard2Controls: function(speed) {
+		this.multiway(speed, this.getMultiway(ETA.config.p2.keyset));
         return this;
     }
 });
+

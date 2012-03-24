@@ -4,7 +4,17 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/sign.png"], function () {
+		Crafty.load(["img/bgSprite.png",
+		"img/walkingZombi_rouge.png",
+		"img/walkingZombi_bleu.png",
+		"img/walkingDoll_rouge.png",
+		"img/walkingDoll_bleu.png",
+		"img/panneau_rouge.png",  
+		"img/panneau_bleu.png", 
+		"img/cimetierre_bleu.png", 
+		"img/cimetierre_rouge.png",
+		"img/forteresse_bleu.png",
+		"img/forteresse_rouge.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -22,13 +32,30 @@ window.onload = function() {
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
+
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, signSprite")
 				.Cemetery(1, 3));
 		cemetery.push(Crafty.e("Cemetery, signSprite")
 				.Cemetery(1, 7));
-		var player1 = Crafty.e("VoodooDoll, dollSprite")
-				.VoodooDoll();
+
+		var player3 = Crafty.e("Zombie, zombieRougeSprite")
+		.Zombie()
+		.attr({ x: 40, y: 80, z: 1000 });
+		var player4 = Crafty.e("Zombie, zombieRougeSprite")
+		.Zombie()
+		.attr({ x: 70, y: 160, z: 1000 });
+		var player5 = Crafty.e("Zombie, zombieRougeSprite")
+		.Zombie()
+		.attr({ x: 160, y: 200, z: 1000 });
+		var player6 = Crafty.e("Zombie, zombieRougeSprite")
+		.Zombie()
+		.attr({ x: 500, y: 304, z: 1000 });
+		
+		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
+				.VoodooDoll(1);
+		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
+				.VoodooDoll(2);
 	});
 
 	function generateWorld() {
@@ -36,14 +63,25 @@ window.onload = function() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});
-		Crafty.sprite(65, "img/walkingZombi.png", {
-			zombieSprite: [0, 0]
+		Crafty.sprite(65, "img/walkingZombi_rouge.png", {
+			zombieRougeSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/walkingDoll.png", {
-			dollSprite: [0, 0]
+		Crafty.sprite(65, "img/walkingZombi_bleu.png", {
+			zombieBleuSprite: [0, 0]
 		});
-		Crafty.sprite(ETA.config.tile.tileWidth, "img/sign.png", {
-			signSprite: [0, 0]
+		Crafty.sprite(65, "img/walkingDoll_rouge.png", {
+			dollRougeSpriteLeft: [0, 0],
+			dollRougeSpriteRight: [3, 0]
+		});
+		Crafty.sprite(65, "img/walkingDoll_bleu.png", {
+			dollBleuSpriteLeft: [0, 0],
+			dollBleuSpriteRight: [3, 0]
+		});
+		Crafty.sprite(65, "img/panneau_rouge.png", {
+			signRougeSprite: [0, 0]
+		});
+		Crafty.sprite(65, "img/panneau_bleu.png", {
+			signBleuSprite: [0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 

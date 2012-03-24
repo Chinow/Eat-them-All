@@ -16,4 +16,17 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=-1
+current_page=0
+FILE_NAME_0=397;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/sign.js;0;4
+FILE_NAME_1=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/audio.js;0;4
+FILE_NAME_2=267;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/cell.js;0;4
+FILE_NAME_3=173;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/config.js;0;4
+FILE_NAME_4=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/controls.js;0;4
+FILE_NAME_5=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/env.js;0;4
+FILE_NAME_6=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/fortress.js;0;4
+FILE_NAME_7=566;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/grid.js;0;4
+FILE_NAME_8=1863;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/main.js;0;4
+FILE_NAME_9=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/signPop.js;0;4
+FILE_NAME_10=0;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/temp.js;0;4
+FILE_NAME_11=1386;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/voodooDoll.js;0;4
+FILE_NAME_12=848;Javascript;0;16;1;1;0;/home/dev/gdp/Eat-them-All/src/js/zombie.js;0;4
