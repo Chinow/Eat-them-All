@@ -32,7 +32,7 @@ Crafty.c('Zombie', {
 		return this;
 	},
 	moveZombi: function(){
-		
+		this.z = this.y;
 		if (!this.currentCell)
 			this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
 		var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
@@ -64,8 +64,13 @@ Crafty.c('Zombie', {
 			if (dy < 5 && dy > -5)
 			{
 				//check sign
+				//if (this.currentCell.)
+				//{
+					
+				//}
 				//if no sign
-				if (this.currentCell.borderCell)
+				//else
+				 if (this.currentCell.borderCell)
 				{
 					var direction = Crafty.math.randomInt(1, 2);
 					if (direction == 1)

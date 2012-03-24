@@ -4,7 +4,17 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/panneau.png"], function () {
+		Crafty.load(["img/bgSprite.png",
+		"img/walkingZombi_rouge.png",
+		"img/walkingZombi_bleu.png",
+		"img/walkingDoll_rouge.png",
+		"img/walkingDoll_bleu.png",
+		"img/panneau_rouge.png",  
+		"img/panneau_bleu.png", 
+		"img/cimetierre_bleu.png", 
+		"img/cimetierre_rouge.png",
+		"img/forteresse_bleu.png",
+		"img/forteresse_rouge.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -23,22 +33,22 @@ window.onload = function() {
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
 
-		var player3 = Crafty.e("Zombie, zombieSprite")
+		var player3 = Crafty.e("Zombie, zombieRougeSprite")
 		.Zombie()
 		.attr({ x: 40, y: 80, z: 1000 });
-		var player4 = Crafty.e("Zombie, zombieSprite")
+		var player4 = Crafty.e("Zombie, zombieRougeSprite")
 		.Zombie()
 		.attr({ x: 70, y: 160, z: 1000 });
-		var player5 = Crafty.e("Zombie, zombieSprite")
+		var player5 = Crafty.e("Zombie, zombieRougeSprite")
 		.Zombie()
 		.attr({ x: 160, y: 200, z: 1000 });
-		var player6 = Crafty.e("Zombie, zombieSprite")
+		var player6 = Crafty.e("Zombie, zombieRougeSprite")
 		.Zombie()
 		.attr({ x: 500, y: 304, z: 1000 });
 		
-		var player1 = Crafty.e("VoodooDoll, dollSpriteLeft")
+		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
 				.VoodooDoll(1);
-		var player2 = Crafty.e("VoodooDoll, dollSpriteRight")
+		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
 				.VoodooDoll(2);
 	});
 
@@ -47,15 +57,25 @@ window.onload = function() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});
-		Crafty.sprite(65, "img/walkingZombi.png", {
-			zombieSprite: [0, 0]
+		Crafty.sprite(65, "img/walkingZombi_rouge.png", {
+			zombieRougeSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/walkingDoll.png", {
-			dollSpriteLeft: [0, 0],
-			dollSpriteRight: [3, 0]
+		Crafty.sprite(65, "img/walkingZombi_bleu.png", {
+			zombieBleuSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/panneau.png", {
-			signSprite: [0, 0]
+		Crafty.sprite(65, "img/walkingDoll_rouge.png", {
+			dollRougeSpriteLeft: [0, 0],
+			dollRougeSpriteRight: [3, 0]
+		});
+		Crafty.sprite(65, "img/walkingDoll_bleu.png", {
+			dollBleuSpriteLeft: [0, 0],
+			dollBleuSpriteRight: [3, 0]
+		});
+		Crafty.sprite(65, "img/panneau_rouge.png", {
+			signRougeSprite: [0, 0]
+		});
+		Crafty.sprite(65, "img/panneau_bleu.png", {
+			signBleuSprite: [0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 
