@@ -2,7 +2,8 @@
 ETA = window.ETA || {};
 
 ETA.config = {
-	keyse:"zqsd",
+	keyset:"zqsd",
+	//keyset:"wasd",
 	frameRate: 60,
 	animationRate:5,
 	stageWidth: 1000,
