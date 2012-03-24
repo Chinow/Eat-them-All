@@ -130,6 +130,9 @@ Crafty.c('VoodooDoll', {
 				if (!cell.elem)
 					this.drawSign(cell);	
 			})
+		
+		this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
+		
 		return this;
 	},
 	
