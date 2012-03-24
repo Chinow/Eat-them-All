@@ -5,13 +5,15 @@ Crafty.c('Cemetery', {
 	gridY: 0,
 	cell: null,
 	spawnDirection:"e",
-
+	playerId: 0,
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
 		return this;
 	},
 
-	Cemetery: function(cellX, cellY) {
+	Cemetery: function(playerId, cellX, cellY) {
+		this.playerId = playerId;
+		
 		var rateBegin = ETA.config.frameRate/ETA.config.signBeginAnimationRate;
 		var rate = ETA.config.frameRate / ETA.config.signAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
