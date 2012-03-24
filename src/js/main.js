@@ -24,19 +24,19 @@ window.onload = function() {
 		generateWorld();
 		var player2 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 40, z: 1000 });
+		.attr({ x: 17, y: 40, z: 1000 });
 		var player3 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 80, z: 1000 });
+		.attr({ x: 40, y: 80, z: 1000 });
 		var player4 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 160, z: 1000 });
+		.attr({ x: 70, y: 160, z: 1000 });
 		var player5 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 200, z: 1000 });
+		.attr({ x: 160, y: 200, z: 1000 });
 		var player6 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
-		.attr({ x: 16, y: 304, z: 1000 });
+		.attr({ x: 500, y: 304, z: 1000 });
 		var player1 = Crafty.e("VoodooDoll, dollSprite")
 				.VoodooDoll();
 	});

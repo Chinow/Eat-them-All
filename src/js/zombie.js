@@ -5,7 +5,7 @@ Crafty.c('Zombie', {
 	},
 	targetPixel:{x:500, y:250},
 	currentCell:null,
-	walkingDirection:"e",
+	walkingDirection:"s",
 	Zombie : function(){
 			//.keyboard1Controls(3)
 			//Setup animation
@@ -18,7 +18,7 @@ Crafty.c('Zombie', {
 			})
 			.bind('Moved', function(from) {
 				var collide = this.hit('gridBounds');
-				if(collide){
+				/*if(collide){
 					var collideLength = collide.length;
 					for (var i = 0; i < collideLength; i++) {
 						if (collide[i].type == "SAT")
@@ -26,7 +26,7 @@ Crafty.c('Zombie', {
 							this.attr({x: from.x, y:from.y});
 						}
 					}
-				}			
+				}	*/		
 			})
 			.bind("EnterFrame",this.moveZombi)
 		return this;
@@ -34,8 +34,8 @@ Crafty.c('Zombie', {
 	moveZombi: function(){
 		
 		if (!this.currentCell)
-			this.currentCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
-		var direction = {x:this.x + this.w/2 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
+			this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
+		var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
 		
 		if (this.walkingDirection == "w" || this.walkingDirection == "e")
 		{
@@ -44,7 +44,7 @@ Crafty.c('Zombie', {
 			else if (direction.y < -1)
 				this.move("s",1);
 				
-			var dx = this.x + this.w/2 - this.currentCell.center.x
+			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 			if (dx < 5 && dx > -5)
 			{
 				//check sign
@@ -57,10 +57,24 @@ Crafty.c('Zombie', {
 			else if (direction.x < -1)
 				this.move("e",1);
 				
-			var dy = this.y + this.h/2 - this.currentCell.center.y
+			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
+			
+
+			
 			if (dy < 5 && dy > -5)
 			{
 				//check sign
+				//if no sign
+				if (this.currentCell.borderCell)
+				{
+					var direction = Crafty.math.randomInt(1, 2);
+					if (direction == 1)
+					{
+						this.walkingDirection = "w";
+					}else{
+						this.walkingDirection = "e";
+					}
+				}
 			}
 		}
 		/*if (direction.x > 0)
@@ -105,7 +119,7 @@ Crafty.c('Zombie', {
 		if (newCell != this.currentCell)
 		{
 			// check new cell content
-			//this.currentCell = newCell;
+			this.currentCell = newCell;
 		}
 	}
 });
