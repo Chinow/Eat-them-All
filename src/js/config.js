@@ -30,13 +30,11 @@ ETA.config = {
 		startPosition: { x: 150, y: 250, z: 1000 },
 		keyset: "zqsd",
 		//keyset:"wasd",
-		actionKey: Crafty.keys.SPACE,
-		cellVoodooDoll:null
+		actionKey: Crafty.keys.SPACE
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
 		keyset: "arrows",
-		actionKey: Crafty.keys.ENTER,
-		cellVoodooDoll:null
+		actionKey: Crafty.keys.ENTER
 	}
 };

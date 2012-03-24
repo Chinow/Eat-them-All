@@ -1,10 +1,13 @@
 Crafty.c('Sign', {
 	mvt:"none",
 	cell:null,
+	player:null,
 	init:function() {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 	},
-	sign : function(playerId){
+	sign : function(player){
+		this.player = player;
+		
 		this.animate("up", [[0,0],[1,0],[2,0],[3,0]]);
 		this.animate("turn_right", [[4,0],[5,0]]);
 		this.animate("turn_bottom", [[6,0],[7,0]]);
@@ -20,20 +23,15 @@ Crafty.c('Sign', {
 		};
 		this.bind('KeyDown', function(el) {
 			this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
-			if(playerId == 1) {
-				var id  = ETA.config.p1.cellVoodooDoll;
-				var key = ETA.config.p1.actionKey;
-			}else{
-				var id  = ETA.config.p2.cellVoodooDoll;
-				var key = ETA.config.p2.actionKey;
-			}				
-			if(el.key == key &&  this.cell == id) {
+						
+			if(el.key == player.actionKey &&  this.cell == player.currentCellId) {
 				if (!this.isPlaying("up") && this.mvt =="none")  {
 					Crafty.audio.play("signCreate", 0);
 					this.stop().animate("up", rateBegin, 0);
 					this.mvt  = "turn_right";
 					return this;
 				};
+				
 				if (!this.isPlaying("turn_right") && this.mvt =="turn_right")  {
 					Crafty.audio.play("signMove", 0);
 
@@ -41,18 +39,21 @@ Crafty.c('Sign', {
 					this.mvt = "turn_bottom";
 					return this;
 				};
+				
 				if (!this.isPlaying("turn_bottom") && this.mvt =="turn_bottom")  {
 					Crafty.audio.play("signMove", 0);
 					this.stop().animate("turn_bottom", rate, 0);
 					this.mvt = "turn_left";
 					return this;
 				};
+				
 				if (!this.isPlaying("turn_left") && this.mvt =="turn_left")  {
 					Crafty.audio.play("signDelete", 0);
 					this.stop().animate("turn_left", rate, 0);
 					this.mvt = "turn_up";
 					return this;
 				};
+				
 				if (!this.isPlaying("turn_up") && this.mvt =="turn_up")  {
 					this.stop().animate("turn_up", rate, 0);
 					this.mvt = "none";
