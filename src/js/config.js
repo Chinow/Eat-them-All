@@ -22,7 +22,6 @@ ETA.config = {
 	game:{
 		dollSpeed:4,
 		zombiSpeed:1,
-		nbSign:300,
 		hitPointsFortress:100,
 		timeSpawnFortress:2
 	},
@@ -30,12 +29,16 @@ ETA.config = {
 		startPosition: { x: 150, y: 250, z: 1000 },
 		keyset: "zqsd",
 		//keyset:"wasd",
-		actionKey: Crafty.keys.SPACE
+		actionKey: Crafty.keys.SPACE,
+		popSign:0,
+		nbSign:3
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
 		keyset: "arrows",
-		actionKey: Crafty.keys.ENTER
+		actionKey: Crafty.keys.ENTER,
+		popSign:0,
+		nbSign:3
 	}
 };
 

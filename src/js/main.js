@@ -1,5 +1,4 @@
 window.onload = function() {
-	var pop = 0;
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
