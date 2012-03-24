@@ -14,8 +14,7 @@ ETA.config = {
 	dollAnimationRate:10,
 	signBeginAnimationRate:5,
 	signAnimationRate:8,
-	
-	cellVoodooDool:null,
+
 	keyDownSign: Crafty.keys.ENTER,
 	
 	tile:{
@@ -31,11 +30,13 @@ ETA.config = {
 		startPosition: { x: 150, y: 250, z: 1000 },
 		keyset: "zqsd",
 		//keyset:"wasd",
-		actionKey: Crafty.keys.SPACE
+		actionKey: Crafty.keys.SPACE,
+		cellVoodooDoll:null
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
 		keyset: "arrows",
-		actionKey: Crafty.keys.ENTER
+		actionKey: Crafty.keys.ENTER,
+		cellVoodooDoll:null
 	}
 };
