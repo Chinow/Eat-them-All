@@ -1,13 +1,10 @@
 Crafty.c('Zombie', {
 	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
+		this.requires("2D, DOM, SpriteAnimation, Collision")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
-	_pop: 0,
-    maxSigns: 3,
-   _key: Crafty.keys.ENTER,
 	Zombie : function(){
-			this.attr({ x: 16, y: 304, z: 1000 })
+			/*this.attr({ x: 16, y: 304, z: 1000 })
 			.keyboard1Controls(3)
 			//Setup animation
 			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
@@ -60,7 +57,7 @@ Crafty.c('Zombie', {
 					Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })			
 					this._pop++;
 				}
-			})
+			})*/
 		return this;
 	}
 });
