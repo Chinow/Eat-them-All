@@ -29,28 +29,22 @@ Crafty.c('BGGrid', {
 			}
 		}
 		
-		Crafty.e("Line, 2D, DOM, gridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, gridBounds, Collision")
 			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight })
 			.collision();
-		Crafty.e("Line, 2D, DOM, gridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, gridBounds, Collision")
 			.attr({ x:ETA.config.stageWidth-2, y:30 , w:2, h:ETA.config.stageHeight })
 			.collision();
-		Crafty.e("Line, 2D, DOM, dollGridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, dollGridBounds, Collision")
 			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight })
 			.collision();
-		Crafty.e("Line, 2D, DOM, dollGridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, dollGridBounds, Collision")
 			.attr({ x:ETA.config.stageWidth-2, y:30 , w:2, h:ETA.config.stageHeight })
 			.collision();
-		Crafty.e("Line, 2D, DOM, dollGridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, dollGridBounds, Collision")
 			.attr({ x:0, y:29 , w:ETA.config.stageWidth, h:2 })
 			.collision();
-		Crafty.e("Line, 2D, DOM, dollGridBounds, Color, Collision")
-			.color('rgb(30,150,30)')
+		Crafty.e("Line, 2D, DOM, dollGridBounds, Collision")
 			.attr({ x:0, y:ETA.config.stageHeight-2 , w:ETA.config.stageWidth , h:2 })
 			.collision();
 			

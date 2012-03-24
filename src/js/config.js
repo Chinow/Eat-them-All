@@ -20,19 +20,29 @@ ETA.config = {
 		tileHeight: 50
 	},
 	game:{
-		dollSpeed:4,
-		zombiSpeed:1,
-		nbSign:300
+		dollSpeed: 4,
+		zombiSpeed: 1,
+		nbSign: 5,
+		hitPointsFortress: 100,
+		timeSpawnFortress: 2
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
 		keyset: "zqsd",
 		//keyset:"wasd",
-		actionKey: Crafty.keys.SPACE
+		actionKey: Crafty.keys.SPACE,
+		popSign:0,
+		nbSign:3
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
 		keyset: "arrows",
-		actionKey: Crafty.keys.ENTER
+		actionKey: Crafty.keys.ENTER,
+		popSign:0,
+		nbSign:3
 	}
+};
+
+ETA.debug = {
+	play: 1
 };
