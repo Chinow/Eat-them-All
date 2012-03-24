@@ -36,22 +36,52 @@ window.onload = function() {
 
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 3));
+				.Cemetery(1, 1, 3));
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 7));
-
-		var player3 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 40, y: 80, z: 1000 });
-		var player4 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 70, y: 160, z: 1000 });
-		var player5 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 160, y: 200, z: 1000 });
-		var player6 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 500, y: 304, z: 1000 });
+				.Cemetery(1, 1, 7));
+				
+		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
+				.Cemetery(2, 18, 3));
+		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
+				.Cemetery(2, 18, 7));
+		
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,0,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,1,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,2,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,4,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,5,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,6,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,8,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,9,"left");
+		Crafty.e("Fortress, fortresseRougeSprite")
+			.Fortress(1,10,"left");
+			
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,0,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,1,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,2,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,4,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,5,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,6,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,8,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,9,"right");
+		Crafty.e("Fortress, fortresseBleuSprite")
+			.Fortress(18,10,"right");
 		
 		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
 				.VoodooDoll(1);
@@ -86,6 +116,15 @@ window.onload = function() {
 		});
 		Crafty.sprite(110, "img/cimetierre_rouge.png", {
 			cemeteryRougeSprite: [0, 0]
+		});
+		Crafty.sprite(110, "img/cimetierre_bleu.png", {
+			cemeteryBleuSprite: [0, 0]
+		});
+		Crafty.sprite(70, "img/forteresse_rouge.png", {
+			fortresseRougeSprite:[0, 0]
+		});
+		Crafty.sprite(70, "img/forteresse_bleu.png", {
+			fortresseBleuSprite:[0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 
