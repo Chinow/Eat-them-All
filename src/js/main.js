@@ -12,7 +12,7 @@ window.onload = function() {
 		});
 
 		//black background with some loading text
-		Crafty.background("#505");
+		Crafty.background("#000");
 		Crafty.e("2D, DOM, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
 				.text("Loading")
 				.css({ "text-align": "center" });
@@ -35,10 +35,10 @@ window.onload = function() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});
-		Crafty.sprite(ETA.config.tile.tileWidth, "img/walkingZombie.png", {
+		Crafty.sprite(65, "img/walkingZombie.png", {
 			zombieSprite: [0, 0]
 		});
-		Crafty.e("BGGrid").grid();
+		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 		
 		//Crafty.e('2D, DOM, bg')
 		//	.attr({ x:0, y:0 , z:1 });
