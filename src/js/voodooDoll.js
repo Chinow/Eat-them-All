@@ -98,22 +98,24 @@ Crafty.c('VoodooDoll', {
 						}
 					}
 				}
-				var cell = ETA.grid.getCell(this._x, this._y);
-				console.log(cell);
-				if(this.inInterval(parseInt(this._x), parseInt(cell.center.x), 15) && this.inInterval(parseInt(this._y), parseInt(cell.center.y), 15)) {
-					this.drawSign(cell);
-				}			
+		
 			})
 			.bind('KeyDown', function(el) {
 				if (el.key !== this._key) {
 					return;
 				}
-				if(this._pop < this.maxSigns) {
-					var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
-					this.stop().animate("summon_sign", rate, 0);
-					Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })			
-					this._pop++;
-				}
+				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
+				this.stop().animate("summon_sign", rate, 0);
+				var cell = ETA.grid.getCell(this._x+29, this._y+48);
+				if (!cell.elem)
+					this.drawSign(cell);
+					//Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })	
+					
+				/*var cell = ETA.grid.getCell(this._x, this._y);
+				console.log(cell);
+				if(this.inInterval(parseInt(this._x), parseInt(cell.center.x), 15) && this.inInterval(parseInt(this._y), parseInt(cell.center.y), 15)) {
+					this.drawSign(cell);
+				}	*/		
 			})
 		return this;
 	},
@@ -128,9 +130,9 @@ Crafty.c('VoodooDoll', {
 	
 	drawSign : function(cell) {
 		console.log("Enter DrawSign");
-		if(this._pop < this.maxSigns) {
+		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				Crafty.e("Sign, signSprite").attr({x: this.x,y: this.y, z: 100, w:50, h:50 });
+				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 100, w:50, h:50 });
 				this._pop++;
 			}
 		}			

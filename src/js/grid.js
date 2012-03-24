@@ -18,7 +18,7 @@ Crafty.c('BGGrid', {
 			this.cells[i] = [];
 			for (var j = 0; j < h; j++) {
 				this.cells[i][j] = Crafty.e("Cell")
-				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight})
+				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight+30, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight})
 				.cell();
 			}
 		}
@@ -44,8 +44,12 @@ Crafty.c('BGGrid', {
 	},
 	
 	getCell: function(x, y) {
-		var vX = x / ETA.config.tile.tileWidth;
-		var vY = y / ETA.config.tile.tileHeight;
+		var vX = x / ETA.config.tile.tileWidth ;
+		var vY = (y-30) / ETA.config.tile.tileHeight  ;
+		if (vX < 0)
+			vX = 0;
+		if (vY < 0)
+			vY = 0;
 		return this.cells[parseInt(vX)][parseInt(vY)];
 	}
 	

@@ -6,7 +6,7 @@ Crafty.c("Cell", {
         return this;
     },
     cell : function() {
-		this.center = {x:this._x +25 + this._w/2, y:this._y + 25 + this._h/2};
+		this.center = {x:this._x+ this._w/2, y:this._y + this._h/2};
 		return this;
 	},
 	attribute : function(p) {
