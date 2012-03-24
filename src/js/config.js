@@ -15,8 +15,6 @@ ETA.config = {
 	signBeginAnimationRate:5,
 	signAnimationRate:8,
 
-	keyDownSign: Crafty.keys.ENTER,
-	
 	tile:{
 		tileWidth: 50,
 		tileHeight: 50
