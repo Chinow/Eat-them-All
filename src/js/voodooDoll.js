@@ -85,9 +85,9 @@ Crafty.c('VoodooDoll', {
 				}
 				
 				if (this.id == 1) {
-					ETA.config.p1.cellVoodooDool = ETA.grid.getCell(this._x+29, this._y+48).id;
+					ETA.config.p1.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
 				}else{
-					ETA.config.p2.cellVoodooDool = ETA.grid.getCell(this._x+29, this._y+48).id;
+					ETA.config.p2.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
 				}
 				this.z = this.y;
 				

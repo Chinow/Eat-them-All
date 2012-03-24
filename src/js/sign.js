@@ -21,10 +21,10 @@ Crafty.c('Sign', {
 		this.bind('KeyDown', function(el) {
 			this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
 			if(playerId == 1) {
-				var id  = ETA.config.p1.cellVoodooDool;
+				var id  = ETA.config.p1.cellVoodooDoll;
 				var key = ETA.config.p1.actionKey;
 			}else{
-				var id  = ETA.config.p2.cellVoodooDool;
+				var id  = ETA.config.p2.cellVoodooDoll;
 				var key = ETA.config.p2.actionKey;
 			}				
 			if(el.key == key &&  this.cell == id) {
