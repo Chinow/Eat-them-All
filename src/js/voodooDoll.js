@@ -147,9 +147,17 @@ Crafty.c('VoodooDoll', {
 	drawSign : function(cell) {
 		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
+				if (this.id == 1)
+				{
+					Crafty.e("Sign, signRougeSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
+				}
+				if (this.id == 2)
+				{
+					Crafty.e("Sign, signBleuSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
+				}
 				this._pop++;
 			}
+			this.z = this.y;
 		}			
 	}
 	
