@@ -164,10 +164,8 @@ Crafty.c('VoodooDoll', {
 					h: 65
 				}).sign(this);
 				if(this.id == 1) {
-					console.log('ici sign 1 ++');
 					ETA.config.p1.popSign ++;
 				}else{
-					console.log('ici sign 2 ++');
 					ETA.config.p2.popSign ++;
 				}
 			}
