@@ -1,10 +1,13 @@
-Crafty.c('Zombie', {
+Crafty.c('VoodooDoll', {
 	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision")
+		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
-	Zombie : function(){
-			/*this.attr({ x: 16, y: 304, z: 1000 })
+	_pop: 0,
+    maxSigns: 3,
+   _key: Crafty.keys.ENTER,
+	VoodooDoll : function(){
+			this.attr({ x: 16, y: 304, z: 1000 })
 			.keyboard1Controls(3)
 			//Setup animation
 			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
@@ -13,7 +16,7 @@ Crafty.c('Zombie', {
 			.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
 			//Change direction when 
 			.bind("NewDirection", function (direction) {
-				var rate = ETA.config.frameRate/ETA.config.animationRate;
+				var rate = ETA.config.frameRate/ETA.config.zombieAnimationRate;
 				if (direction.x < 0) {
 					if (!this.isPlaying("walk_left"))
 						this.stop().animate("walk_left", rate, -1);
@@ -57,7 +60,7 @@ Crafty.c('Zombie', {
 					Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })			
 					this._pop++;
 				}
-			})*/
+			})
 		return this;
 	}
 });

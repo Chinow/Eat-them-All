@@ -8,7 +8,7 @@ window.onload = function() {
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png","img/walkingZombie.png", "img/sign.png"], function () {
+		Crafty.load(["img/bgSprite.png","img/walkingZombi.png","img/walkingDoll.png", "img/sign.png"], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
@@ -25,8 +25,11 @@ window.onload = function() {
 	Crafty.scene("main", function (e) {
 		//var Env = Crafty.e("Env").display();
 		generateWorld();
-		 var player1 = Crafty.e("Zombie, zombieSprite")
-            .Zombie();
+		 //var player1 = Crafty.e("Zombie, zombieSprite")
+         //   .Zombie();
+         
+         var player1 = Crafty.e("VoodooDoll, dollSprite")
+            .VoodooDoll();
 	});
 	
 	function generateWorld() {
@@ -34,8 +37,11 @@ window.onload = function() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});
-		Crafty.sprite(65, "img/walkingZombie.png", {
+		Crafty.sprite(65, "img/walkingZombi.png", {
 			zombieSprite: [0, 0]
+		});
+		Crafty.sprite(65, "img/walkingDoll.png", {
+			dollSprite: [0, 0]
 		});
 		Crafty.sprite(ETA.config.tile.tileWidth, "img/sign.png", {
 			signSprite: [0, 0]
