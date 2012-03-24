@@ -19,7 +19,7 @@ Crafty.c('Cemetery', {
 	},
 	spawn: function() {
 		if(this.spawnRun && ETA.debug.play) {
-			Crafty.e("Zombie, zombieSprite")
+			Crafty.e("Zombie, zombieRougeSprite")
 				.Zombie()
 				.attr({ x: this.cell.center.x, y: this.cell.center.y, z: 900 });
 		}

@@ -34,9 +34,9 @@ window.onload = function() {
 		generateWorld();
 
 		var cemetery = [];
-		cemetery.push(Crafty.e("Cemetery, signSprite")
+		cemetery.push(Crafty.e("Cemetery, signRougeSprite")
 				.Cemetery(1, 3));
-		cemetery.push(Crafty.e("Cemetery, signSprite")
+		cemetery.push(Crafty.e("Cemetery, signRougeSprite")
 				.Cemetery(1, 7));
 
 		var player3 = Crafty.e("Zombie, zombieRougeSprite")
