@@ -1,4 +1,4 @@
-Crafty.c('Grid', {
+Crafty.c('BGGrid', {
 	width:0,
 	height:0,
 	cells: [],
