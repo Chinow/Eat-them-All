@@ -74,7 +74,23 @@ Crafty.c('VoodooDoll', {
 				//Move unit out of solid tile
 			})
 			.bind('Moved', function(from) {
-				this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
+				var collide = this.hit('dollGridBounds');
+				if(collide){
+					var collideLength = collide.length;
+					for (var i = 0; i < collideLength; i++) {
+						if (collide[i].type == "SAT")
+						{
+							this.attr({x: from.x, y:from.y});
+						}
+					}
+				}
+				
+				if (this.id == 1) {
+					ETA.config.p1.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
+				}else{
+					ETA.config.p2.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
+				}
+				this.z = this.y;
 				
 				if (this.isPlaying("summon_sign"))
 				{
@@ -105,16 +121,7 @@ Crafty.c('VoodooDoll', {
 						this.walking = "down"
 					}
 				}
-				var collide = this.hit('gridBounds');
-				if(collide){
-					var collideLength = collide.length;
-					for (var i = 0; i < collideLength; i++) {
-						if (collide[i].type == "SAT")
-						{
-							this.attr({x: from.x, y:from.y});
-						}
-					}
-				}
+				
 		
 			})
 			.bind('KeyDown', function(el) {
@@ -141,9 +148,17 @@ Crafty.c('VoodooDoll', {
 	drawSign : function(cell) {
 		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 50000, w:50, h:50 }).sign(this);
+				if (this.id == 1)
+				{
+					Crafty.e("Sign, signRougeSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
+				}
+				if (this.id == 2)
+				{
+					Crafty.e("Sign, signBleuSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
+				}
 				this._pop++;
 			}
+			this.z = this.y;
 		}			
 	}
 	
