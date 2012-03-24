@@ -22,9 +22,6 @@ window.onload = function() {
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
-		var player2 = Crafty.e("Zombie, zombieSprite")
-		.Zombie()
-		.attr({ x: 16, y: 40, z: 1000 });
 		var player3 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
 		.attr({ x: 16, y: 80, z: 1000 });
@@ -37,8 +34,11 @@ window.onload = function() {
 		var player6 = Crafty.e("Zombie, zombieSprite")
 		.Zombie()
 		.attr({ x: 16, y: 304, z: 1000 });
-		var player1 = Crafty.e("VoodooDoll, dollSprite")
-				.VoodooDoll();
+		
+		var player1 = Crafty.e("VoodooDoll, dollSpriteLeft")
+				.VoodooDoll(1);
+		var player2 = Crafty.e("VoodooDoll, dollSpriteRight")
+				.VoodooDoll(2);
 	});
 
 	function generateWorld() {
@@ -50,7 +50,8 @@ window.onload = function() {
 			zombieSprite: [0, 0]
 		});
 		Crafty.sprite(65, "img/walkingDoll.png", {
-			dollSprite: [0, 0]
+			dollSpriteLeft: [0, 0],
+			dollSpriteRight: [3, 0]
 		});
 		Crafty.sprite(ETA.config.tile.tileWidth, "img/sign.png", {
 			signSprite: [0, 0]

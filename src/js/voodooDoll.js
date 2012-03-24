@@ -5,13 +5,27 @@ Crafty.c('VoodooDoll', {
 	},
 	_pop: 0,
     maxSigns: ETA.config.game.nbSign,
-   _key: Crafty.keys.ENTER,
+	_key: Crafty.keys.ENTER,
     walking:"none",
-	VoodooDoll : function(){
-			this.attr({ x: 16, y: 304, z: 1000 })
-			.keyboard1Controls(ETA.config.game.dollSpeed)
+    id: 0,
+	VoodooDoll : function(playerId) {
+			this.id = playerId;
+			
+			// Setup keyboard
+			if (playerId == 1) {
+				this.keyboard1Controls(ETA.config.game.dollSpeed)
+				.attr(ETA.config.p1.startPosition);
+				
+				this._key = ETA.config.p1.actionKey;
+			} else {
+				this.keyboard2Controls(ETA.config.game.dollSpeed)
+				.attr(ETA.config.p2.startPosition);
+				
+				this._key = ETA.config.p2.actionKey;
+			}
+			
 			//Setup animation
-			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
+			this.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
 			.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 			.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 			.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
