@@ -5,7 +5,7 @@ ETA.config = {
 	keyset:"zqsd",
 	//keyset:"wasd",
 	frameRate: 60,
-	zombieAnimationRate:5,
+	zombiAnimationRate:5,
 	dollAnimationRate:10,
 	stageWidth: 1000,
 	stageHeight: 580,
