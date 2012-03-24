@@ -27,6 +27,16 @@ Crafty.c('Zombie', {
 						}
 					}
 				}	
+				collide = this.hit('fortress')
+				if (collide){
+					var collideLength = collide.length;
+					for (var i = 0; i < collideLength; i++) {
+						if (collide[i].type == "SAT")
+						{
+							this.attr({x: from.x, y:from.y});
+						}
+					}
+				}
 			})
 			.bind("EnterFrame",this.moveZombi)
 		return this;
@@ -132,8 +142,20 @@ Crafty.c('Zombie', {
 					break;
 				}
 			}
-		}	
-		if (!collided)
+		}
+		var collided2 = false;
+		var collide2 = this.hit('fortress')
+		if (collide2){
+			var collideLength = collide2.length;
+			for (var i = 0; i < collideLength; i++) {
+				if (collide2[i].type == "SAT")
+				{
+					collided2 = true;
+					break;
+				}
+			}
+		}
+		if (!collided && !collided2)
 		{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 			if (this.walkingDirection == "w") {

@@ -24,7 +24,7 @@ Crafty.c('Cemetery', {
 		}
 		else if (size == "right")
 		{
-			this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
+			this.attr({ x: this.cell.x , y: this.cell.y - 50, z: 1100 });
 			this.animate("torch_burn", [[0,0],[1,0]])
 				.animate("torch_burn", rate / 2, -1);
 			spawnDirection = "w"

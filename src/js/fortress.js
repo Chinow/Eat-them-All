@@ -1,7 +1,8 @@
 Crafty.c('Fortress', {
 	hitPoints: ETA.config.game.hitPointsFortress,
 	init: function() {
-		this.requires("2D,DOM");
+		this.requires("2D, DOM, fortress, Collision");
+		this.collision();
 		return this;
 	},
 	Fortress : function(cellX, cellY, size) {
