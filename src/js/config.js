@@ -16,5 +16,10 @@ ETA.config = {
 	tile:{
 		tileWidth: 50,
 		tileHeight: 50
+	},
+	game:{
+		dollSpeed:4,
+		zombiSpeed:1,
+		nbSign:3
 	}
 };
