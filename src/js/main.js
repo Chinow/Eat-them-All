@@ -22,9 +22,8 @@ window.onload = function() {
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
-		//var player1 = Crafty.e("Zombie, zombieSprite")
-		//		.Zombie();
-				
+		var player2 = Crafty.e("Zombie, zombieSprite")
+				.Zombie();
 		var player1 = Crafty.e("VoodooDoll, dollSprite")
 				.VoodooDoll();
 	});

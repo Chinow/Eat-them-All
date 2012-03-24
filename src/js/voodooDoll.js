@@ -4,12 +4,12 @@ Crafty.c('VoodooDoll', {
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
 	_pop: 0,
-    maxSigns: 3,
+    maxSigns: ETA.config.game.nbSign,
    _key: Crafty.keys.ENTER,
     walking:"none",
 	VoodooDoll : function(){
 			this.attr({ x: 16, y: 304, z: 1000 })
-			.keyboard1Controls(3)
+			.keyboard1Controls(ETA.config.game.dollSpeed)
 			//Setup animation
 			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
 			.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
