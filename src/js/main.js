@@ -24,9 +24,7 @@ window.onload = function() {
 	Crafty.scene("main", function () {
 		generateWorld();
 		
-		 var player1 = Crafty.e("2D, DOM, Zombie, zombieSprite, Controls")
-            .attr({ x: 16, y: 304, z: 1 })
-            .keyboard1Controls(3)
+		 var player1 = Crafty.e("Zombie, zombieSprite")
             .Zombie();
 	});
 	
