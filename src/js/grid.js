@@ -14,16 +14,14 @@ Crafty.c('BGGrid', {
 		
 		this.width = w;
 		this.height = h;
-		/*for (var i = 0; i < w; i++) {
-			Crafty.e("Line, 2D, DOM, Color")
-			.color('rgb(255,255,255)')
-			.attr({ x: i*ETA.config.tile.tileWidth-1, y:30, w: 2, h: ETA.config.stageHeight });
+		for (var i = 0; i < w; i++) {
+			cells[i] = [];
+			for (var j = 0; j < h; j++) {
+				cells[i][j] = Crafty.e("Cell").cell()
+				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight});
+			}
 		}
-		for (var j = 0; j < h; j++) {
-				Crafty.e("Line, 2D, DOM, Color")
-			.color('rgb(255,255,255)')
-			.attr({ x:0 , y:j*ETA.config.tile.tileHeight+29, w: ETA.config.stageWidth, h:2 });
-		}*/
+		
 		Crafty.e("Line, 2D, DOM, gridBounds, Color, Collision")
 			.color('rgb(30,150,30)')
 			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight })
