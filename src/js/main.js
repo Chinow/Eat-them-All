@@ -25,8 +25,10 @@ window.onload = function() {
 	Crafty.scene("main", function (e) {
 		//var Env = Crafty.e("Env").display();
 		generateWorld();
-		 //var player1 = Crafty.e("Zombie, zombieSprite")
-         //   .Zombie();
+		 //
+		 
+		 var player2 = Crafty.e("Zombie, zombieSprite")
+            .Zombie();
          
          var player1 = Crafty.e("VoodooDoll, dollSprite")
             .VoodooDoll();
