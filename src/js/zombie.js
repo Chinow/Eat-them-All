@@ -18,7 +18,7 @@ Crafty.c('Zombie', {
 			})
 			.bind('Moved', function(from) {
 				var collide = this.hit('gridBounds');
-				/*if(collide){
+				if(collide){
 					var collideLength = collide.length;
 					for (var i = 0; i < collideLength; i++) {
 						if (collide[i].type == "SAT")
@@ -26,7 +26,7 @@ Crafty.c('Zombie', {
 							this.attr({x: from.x, y:from.y});
 						}
 					}
-				}	*/		
+				}	
 			})
 			.bind("EnterFrame",this.moveZombi)
 		return this;
@@ -47,7 +47,27 @@ Crafty.c('Zombie', {
 			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 			if (dx < 5 && dx > -5)
 			{
+				var isThereaSignHere = false;
 				//check sign
+				var prevDirection = this.walkingDirection;
+				if (this.currentCell.elemType == "sign")
+				{
+					isThereaSignHere = true;
+					this.walkingDirection =  this.currentCell.elem.direction;
+				}
+				if (this.currentCell.y < ETA.config.stageHeight)
+				{
+					if (this.walkingDirection == "s")
+					{
+						this.walkingDirection = prevDirection;
+					}
+				}else
+				{
+					if (this.walkingDirection == "n")
+					{
+						this.walkingDirection = prevDirection;
+					}
+				}
 			}
 		}
 		else if (this.walkingDirection == "s" || this.walkingDirection == "n")
@@ -58,26 +78,40 @@ Crafty.c('Zombie', {
 				this.move("e",1);
 				
 			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
-			
-
-			
 			if (dy < 5 && dy > -5)
 			{
+				var isThereaSignHere = false;
 				//check sign
-				//if (this.currentCell.)
-				//{
-					
-				//}
+				if (this.currentCell.elemType == "sign")
+				{
+					isThereaSignHere = true;
+					this.walkingDirection =  this.currentCell.elem.direction;
+				}
 				//if no sign
-				//else 
 				if (this.currentCell.borderCell)
 				{
-					var direction = Crafty.math.randomInt(1, 2);
-					if (direction == 1)
+					if (this.currentCell.y < ETA.config.stageHeight)
 					{
-						this.walkingDirection = "w";
-					}else{
-						this.walkingDirection = "e";
+						if (this.walkingDirection == "s")
+						{
+							isThereaSignHere = false;
+						}
+					}else
+					{
+						if (this.walkingDirection == "n")
+						{
+							isThereaSignHere= false;
+						}
+					}
+					if (!isThereaSignHere)
+					{
+						var direction = Crafty.math.randomInt(1, 2);
+						if (direction == 1)
+						{
+							this.walkingDirection = "w";
+						}else{
+							this.walkingDirection = "e";
+						}
 					}
 				}
 			}
@@ -100,8 +134,8 @@ Crafty.c('Zombie', {
 				}
 			}
 		}	
-		if (!collided)
-		{
+		//if (!collided)
+		//{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 			if (this.walkingDirection == "w") {
 				if (!this.isPlaying("walk_left"))
@@ -119,7 +153,7 @@ Crafty.c('Zombie', {
 				if (!this.isPlaying("walk_down"))
 					this.stop().animate("walk_down", rate, -1);
 			}
-		}
+		//}
 		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
 		if (newCell != this.currentCell)
 		{

@@ -58,6 +58,14 @@ Crafty.c('BGGrid', {
 			vX = 0;
 		if (vY < 0)
 			vY = 0;
+		if(vX >= this.cells.length)
+		{
+			vX = this.cells.length -1;
+		}
+		if(vY >= this.cells[0].length)
+		{
+			vY = this.cells[0].length -1;
+		}
 		return this.cells[parseInt(vX)][parseInt(vY)];
 	}
 	

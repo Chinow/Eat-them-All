@@ -1,6 +1,8 @@
 Crafty.c('Sign', {
 	mvt:"none",
 	cell:null,
+	cellObj:null,
+	direction:"none",
 	player:null,
 	init:function() {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
@@ -19,15 +21,23 @@ Crafty.c('Sign', {
 		if (!this.isPlaying("up") && this.mvt =="none")  {
 			this.stop().animate("up", rateBegin, 0);
 			this.mvt  = "turn_right";
+			this.direction ="n"
 			Crafty.audio.play("signCreate", 0);
 		};
+		this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
+		this.cellObj = ETA.grid.getCell(this._x+29, this._y+48);
+		this.cellObj.elem = this;
+		this.cellObj.elemType = "sign";
 		this.bind('KeyDown', function(el) {
 			this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
-			
+			this.cellObj = ETA.grid.getCell(this._x+29, this._y+48);
+			this.cellObj.elem = this;
+			this.cellObj.elemType = "sign";
 			if(el.key == this.player.actionKey && this.cell == this.player.currentCellId) {
 				if (!this.isPlaying("up") && this.mvt =="none")  {
 					Crafty.audio.play("signCreate", 0);
 					this.stop().animate("up", rateBegin, 0);
+					this.direction = "n"; 
 					this.mvt  = "turn_right";
 					return this;
 				};
@@ -36,6 +46,7 @@ Crafty.c('Sign', {
 					Crafty.audio.play("signMove", 0);
 
 					this.stop().animate("turn_right", rate, 0);
+					this.direction = "e"; 
 					this.mvt = "turn_bottom";
 					return this;
 				};
@@ -43,6 +54,7 @@ Crafty.c('Sign', {
 				if (!this.isPlaying("turn_bottom") && this.mvt =="turn_bottom")  {
 					Crafty.audio.play("signMove", 0);
 					this.stop().animate("turn_bottom", rate, 0);
+					this.direction = "s"; 
 					this.mvt = "turn_left";
 					return this;
 				};
@@ -50,13 +62,19 @@ Crafty.c('Sign', {
 				if (!this.isPlaying("turn_left") && this.mvt =="turn_left")  {
 					Crafty.audio.play("signDelete", 0);
 					this.stop().animate("turn_left", rate, 0);
+					this.direction = "w"; 
 					this.mvt = "turn_up";
 					return this;
 				};
 				
 				if (!this.isPlaying("turn_up") && this.mvt =="turn_up")  {
 					this.stop().animate("turn_up", rate, 0);
+					this.direction = "none"; 
 					this.mvt = "none";
+					this.cellObj.elem = null;
+					this.cellObj.elemType = null;
+					this.cellObj = null;
+					
 					return this;
 				};
 			}
