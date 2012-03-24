@@ -47,28 +47,20 @@ Crafty.c('Zombie', {
 			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 			if (dx < 5 && dx > -5)
 			{
-				var isThereaSignHere = false;
-				//check sign
-				var prevDirection = this.walkingDirection;
-				if (this.currentCell.elemType == "sign")
-				{
-					if ( this.currentCell.elem.direction != "none")
-					{
-						isThereaSignHere = true;
-						this.walkingDirection =  this.currentCell.elem.direction;
-					}
+				var signPresent = false;
+				var signDirection = "none";
+				
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+					signPresent = true;
+					signDirection =  this.currentCell.elem.direction;
 				}
-				if (this.currentCell.y < ETA.config.stageHeight/2)
-				{
-					if (this.walkingDirection == "n")
-					{
-						this.walkingDirection = prevDirection;
-					}
-				}else
-				{
-					if (this.walkingDirection == "s")
-					{
-						this.walkingDirection = prevDirection;
+				
+				// Have sign
+				if (signPresent) {
+					// Sign and upper border
+					if (!(this.currentCell.upperCell && signDirection == "n"
+					|| this.currentCell.lowerCell && signDirection == "s")) {
+						this.walkingDirection = signDirection;
 					}
 				}
 			}
@@ -83,41 +75,42 @@ Crafty.c('Zombie', {
 			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
 			if (dy < 5 && dy > -5)
 			{
-				var isThereaSignHere = false;
-				//check sign
-				if (this.currentCell.elemType == "sign")
-				{
-					if ( this.currentCell.elem.direction != "none")
-					{
-						isThereaSignHere = true;
-						this.walkingDirection =  this.currentCell.elem.direction;
+				var signPresent = false;
+				var signDirection = "none";
+				
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+					signPresent = true;
+					signDirection =  this.currentCell.elem.direction;
+				}
+				
+				// Have sign
+				if (signPresent) {
+					// Sign and upper border
+					if (this.currentCell.upperCell && signDirection == "n") {
+						if (this.walkingDirection == "n") {
+							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? "w" : "e";
+						}
+					}
+					// Sign and lower border
+					else if (this.currentCell.lowerCell && signDirection == "s") {
+						if (this.walkingDirection == "s") {
+							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? "w" : "e";
+						}
+					}
+					// Sign
+					else {
+						this.walkingDirection = signDirection;
 					}
 				}
-				//if no sign
-				if (this.currentCell.borderCell)
-				{
-					if (this.currentCell.y < ETA.config.stageHeight/2)
-					{
-						if (this.walkingDirection == "n")
-						{
-							isThereaSignHere = false;
-						}
-					}else
-					{
-						if (this.walkingDirection == "s")
-						{
-							isThereaSignHere= false;
-						}
+				// No sign
+				else {
+					// Upper border
+					if (this.currentCell.upperCell && this.walkingDirection == "n") {
+						this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? "w" : "e";
 					}
-					if (!isThereaSignHere)
-					{
-						var direction = Crafty.math.randomInt(1, 2);
-						if (direction == 1)
-						{
-							this.walkingDirection = "w";
-						}else{
-							this.walkingDirection = "e";
-						}
+					// Lower border
+					else if (this.currentCell.lowerCell && this.walkingDirection == "s") {
+						this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? "w" : "e";
 					}
 				}
 			}

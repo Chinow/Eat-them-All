@@ -21,9 +21,13 @@ Crafty.c('BGGrid', {
 				this.cells[i][j] = Crafty.e("Cell")
 				.attr({x:i*ETA.config.tile.tileWidth, y:j*ETA.config.tile.tileHeight+30, w:ETA.config.tile.tileWidth ,h:ETA.config.tile.tileHeight})
 				.cell(id);
-				if (j == 0 || j == h-1)
-				{
-					this.cells[i][j].borderCell = true;
+				
+				if (j == h-1) {
+					this.cells[i][j].lowerCell = true;
+				}
+				
+				if (j == 0) {
+					this.cells[i][j].upperCell = true;
 				}
 				id ++;
 			}
