@@ -25,7 +25,6 @@ Crafty.c('BGGrid', {
 				{
 					this.cells[i][j].borderCell = true;
 				}
-				
 				id ++;
 			}
 		}

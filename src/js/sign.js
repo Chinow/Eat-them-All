@@ -16,6 +16,7 @@ Crafty.c('Sign', {
 		if (!this.isPlaying("up") && this.mvt =="none")  {
 			this.stop().animate("up", rateBegin, 0);
 			this.mvt  = "turn_right";
+			Crafty.audio.play("signCreate", 0);
 		};
 		this.bind('KeyDown', function(el) {
 			this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
@@ -28,6 +29,7 @@ Crafty.c('Sign', {
 				};
 				if (!this.isPlaying("turn_right") && this.mvt =="turn_right")  {
 					Crafty.audio.play("signMove", 0);
+
 					this.stop().animate("turn_right", rate, 0);
 					this.mvt = "turn_bottom";
 					return this;
@@ -46,14 +48,9 @@ Crafty.c('Sign', {
 				};
 				if (!this.isPlaying("turn_up") && this.mvt =="turn_up")  {
 					this.stop().animate("turn_up", rate, 0);
-					this.mvt = "down";
-					return this;
-				};
-				if (!this.isPlaying("down") && this.mvt =="down")  {
-					this.stop().animate("down", rate, 0);
 					this.mvt = "none";
 					return this;
-				}
+				};
 			}
 		})
 

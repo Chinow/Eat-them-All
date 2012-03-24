@@ -1,7 +1,7 @@
 Crafty.c('SignPop', {
 	_pop: 0,
-    maxSigns: 3,
-   _key: Crafty.keys.ENTER,
+	maxSigns: 3,
+	_key: Crafty.keys.ENTER,
 	SignPop : function(){
 		var pop = this;
 		this.requires("SpriteAnimation, Collision")
@@ -11,7 +11,7 @@ Crafty.c('SignPop', {
 			}
 			if(this._pop < this.maxSigns) {
 				console.log("keydown");
-				 Crafty.e('Sign')
+				Crafty.e('Sign')
 					.attr({ x: 16, y: 304, z: 100 })				
 				this._pop++;
 			}
