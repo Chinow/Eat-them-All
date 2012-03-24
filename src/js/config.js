@@ -13,7 +13,6 @@ ETA.config = {
 	stageHeight: 580,
 	nbTileWidth: 20,
 	nbTileHeight: 11,
-	cellVoodooDool:null,
 	keyDownSign: Crafty.keys.ENTER,
 	tile:{
 		tileWidth: 50,
@@ -26,10 +25,12 @@ ETA.config = {
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
-		actionKey: Crafty.keys.SPACE
+		actionKey: Crafty.keys.SPACE,
+		cellVoodooDool:null,
 	},
 	p2: {
 		startPosition: { x: 800, y: 250, z: 1000 },
-		actionKey: Crafty.keys.ENTER
+		actionKey: Crafty.keys.ENTER,
+		cellVoodooDool:null,
 	}
 };
