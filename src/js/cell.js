@@ -2,6 +2,7 @@ Crafty.c("Cell", {
     center : {x:0, y:0},
     id	: 0,
     elem   : null,
+    elemType :"none",
     borderCell : false,
     init: function() {
         this.requires('2D, DOM');

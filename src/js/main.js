@@ -1,10 +1,10 @@
 window.onload = function() {
-	var pop = 0;
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		//load takes an array of assets and a callback when complete
-		Crafty.load(["img/bgSprite.png",
+		Crafty.load([
+		"img/bgSprite.png",
 		"img/walkingZombi_rouge.png",
 		"img/walkingZombi_bleu.png",
 		"img/walkingDoll_rouge.png",
@@ -14,7 +14,8 @@ window.onload = function() {
 		"img/cimetierre_bleu.png", 
 		"img/cimetierre_rouge.png",
 		"img/forteresse_bleu.png",
-		"img/forteresse_rouge.png"], function () {
+		"img/forteresse_rouge.png"
+		], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
 
