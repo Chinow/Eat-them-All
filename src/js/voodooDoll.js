@@ -162,7 +162,6 @@ Crafty.c('VoodooDoll', {
 					w: 65,
 					h: 65
 				}).sign(this);
-				this.popSign ++;
 			}
 			this.z = this.y;
 		}		

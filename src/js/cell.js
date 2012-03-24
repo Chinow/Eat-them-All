@@ -3,7 +3,8 @@ Crafty.c("Cell", {
     id	: 0,
     elem   : null,
     elemType :"none",
-    borderCell : false,
+    lowerCell : false,
+    upperCell : false,
     init: function() {
         this.requires('2D, DOM');
         return this;
