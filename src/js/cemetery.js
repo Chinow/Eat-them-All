@@ -11,13 +11,24 @@ Crafty.c('Cemetery', {
 		return this;
 	},
 
-	Cemetery: function(cellX, cellY) {
+	Cemetery: function(cellX, cellY, size) {
 		var rateBegin = ETA.config.frameRate/ETA.config.signBeginAnimationRate;
 		var rate = ETA.config.frameRate / ETA.config.signAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
-		this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
-		this.animate("torch_burn", [[0,0],[1,0]])
-			.animate("torch_burn", rate / 2, -1);
+		if (size == "left")
+		{
+			this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
+			this.animate("torch_burn", [[0,0],[1,0]])
+				.animate("torch_burn", rate / 2, -1);
+			spawnDirection = "e"
+		}
+		else if (size == "right")
+		{
+			this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
+			this.animate("torch_burn", [[0,0],[1,0]])
+				.animate("torch_burn", rate / 2, -1);
+			spawnDirection = "w"
+		}
 		this.spawn();
 		return this;
 	},
