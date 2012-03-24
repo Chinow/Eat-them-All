@@ -7,10 +7,13 @@ ETA.config = {
 	frameRate: 60,
 	zombiAnimationRate:5,
 	dollAnimationRate:10,
+	signBeginAnimationRate:5,
+	signAnimationRate:8,
 	stageWidth: 1000,
 	stageHeight: 580,
 	nbTileWidth: 20,
 	nbTileHeight: 11,
+	cellVoodooDool:null,
 	keyDownSign: Crafty.keys.ENTER,
 	tile:{
 		tileWidth: 50,

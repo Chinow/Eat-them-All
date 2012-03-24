@@ -59,6 +59,7 @@ Crafty.c('VoodooDoll', {
 				//Move unit out of solid tile
 			})
 			.bind('Moved', function(from) {
+				ETA.config.cellVoodooDool = ETA.grid.getCell(this._x+29, this._y+48).id;
 				if (this.isPlaying("summon_sign"))
 				{
 					this.attr({x: from.x, y:from.y});
@@ -129,10 +130,9 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
-		console.log("Enter DrawSign");
 		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 100, w:50, h:50 });
+				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 50000, w:50, h:50 }).sign();
 				this._pop++;
 			}
 		}			
