@@ -97,19 +97,38 @@ Crafty.c('VoodooDoll', {
 							this.attr({x: from.x, y:from.y});
 						}
 					}
-				}			
+				}
+		
 			})
 			.bind('KeyDown', function(el) {
 				if (el.key !== this._key) {
 					return;
 				}
-				if(this._pop < this.maxSigns) {
-					var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
-					this.stop().animate("summon_sign", rate, 0);
-					Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })			
-					this._pop++;
-				}
+				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
+				this.stop().animate("summon_sign", rate, 0);
+				var cell = ETA.grid.getCell(this._x+29, this._y+48);
+				if (!cell.elem)
+					this.drawSign(cell);	
 			})
 		return this;
+	},
+	
+	inInterval: function(x, y, z) {
+		if(parseInt(y) > parseInt(x-z) && parseInt(y)  < parseInt(x+z) ) {
+			return true;
+		}else{
+			return false;
+		}
+	},
+	
+	drawSign : function(cell) {
+		console.log("Enter DrawSign");
+		if(this._pop < ETA.config.game.nbSign) {
+			if(cell.attribute('sign')) {
+				Crafty.e("Sign, signSprite").attr({x:cell.center.x-25 ,y:cell.center.y-25 , z: 100, w:50, h:50 });
+				this._pop++;
+			}
+		}			
 	}
+	
 });

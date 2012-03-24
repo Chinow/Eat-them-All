@@ -5,13 +5,12 @@ ETA.config = {
 	keyset:"zqsd",
 	//keyset:"wasd",
 	frameRate: 60,
-	zombieAnimationRate:5,
+	zombiAnimationRate:5,
 	dollAnimationRate:10,
 	stageWidth: 1000,
 	stageHeight: 580,
 	nbTileWidth: 20,
 	nbTileHeight: 11,
-	maxSigns: 3,
 	keyDownSign: Crafty.keys.ENTER,
 	tile:{
 		tileWidth: 50,
@@ -20,7 +19,7 @@ ETA.config = {
 	game:{
 		dollSpeed:4,
 		zombiSpeed:1,
-		nbSign:3,
+		nbSign:300,
 		hitPointsFortress:100,
 		timeSpawnFortress:2
 	}
