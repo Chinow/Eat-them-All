@@ -108,14 +108,7 @@ Crafty.c('VoodooDoll', {
 				this.stop().animate("summon_sign", rate, 0);
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
 				if (!cell.elem)
-					this.drawSign(cell);
-					//Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })	
-					
-				/*var cell = ETA.grid.getCell(this._x, this._y);
-				console.log(cell);
-				if(this.inInterval(parseInt(this._x), parseInt(cell.center.x), 15) && this.inInterval(parseInt(this._y), parseInt(cell.center.y), 15)) {
-					this.drawSign(cell);
-				}	*/		
+					this.drawSign(cell);	
 			})
 		return this;
 	},
