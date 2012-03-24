@@ -28,13 +28,13 @@ Crafty.c('BGGrid', {
 			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight });
 		Crafty.e("Line, 2D, DOM, solid, Color")
 			.color('rgb(30,150,30)')
-			.attr({ x:ETA.config.stageWidth, y:30 , w:2, h:ETA.config.stageHeight });
+			.attr({ x:ETA.config.stageWidth-2, y:30 , w:2, h:ETA.config.stageHeight });
 		Crafty.e("Line, 2D, DOM, solid, Color")
 			.color('rgb(30,150,30)')
-			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight });
+			.attr({ x:0, y:29 , w:ETA.config.stageWidth, h:2 });
 		Crafty.e("Line, 2D, DOM, solid, Color")
 			.color('rgb(30,150,30)')
-			.attr({ x:0, y:30 , w:2, h:ETA.config.stageHeight });
+			.attr({ x:0, y:ETA.config.stageHeight-2 , w:ETA.config.stageWidth , h:2 });
 			
 		return this;
 	}
