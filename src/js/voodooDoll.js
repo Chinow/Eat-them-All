@@ -13,7 +13,7 @@ Crafty.c('VoodooDoll', {
 			this.id = playerId;
 			
 			// Setup keyboard
-			if (playerId == 1) {
+			if (this.id == 1) {
 				this.keyboard1Controls(ETA.config.game.dollSpeed)
 				.attr(ETA.config.p1.startPosition);
 				
@@ -85,11 +85,7 @@ Crafty.c('VoodooDoll', {
 					}
 				}
 				
-				if (this.id == 1) {
-					ETA.config.p1.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
-				}else{
-					ETA.config.p2.cellVoodooDoll = ETA.grid.getCell(this._x+29, this._y+48).id;
-				}
+				this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
 				this.z = this.y;
 				
 				if (this.isPlaying("summon_sign"))
@@ -148,16 +144,19 @@ Crafty.c('VoodooDoll', {
 	drawSign : function(cell) {
 		if(this._pop < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
-				if (this.id == 1)
-				{
-					Crafty.e("Sign, signRougeSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
-				}
-				if (this.id == 2)
-				{
-					Crafty.e("Sign, signBleuSprite").attr({x:cell.center.x-10 ,y:cell.center.y-35 , z: cell.center.y-35, w:65, h:65 }).sign(this.id);
-				}
+				var signSprite = (this.id == 1) ? "signRougeSprite" : "signBleuSprite";
+				
+				Crafty.e("Sign, " + signSprite).attr({
+					x: cell.center.x - 10,
+					y: cell.center.y - 35,
+					z: cell.center.y - 35,
+					w: 65,
+					h: 65
+				}).sign(this);
+				
 				this._pop++;
 			}
+			
 			this.z = this.y;
 		}			
 	}
