@@ -6,7 +6,11 @@ Crafty.c('Zombie', {
 	targetPixel:{x:500, y:250},
 	currentCell:null,
 	walkingDirection:"s",
-	Zombie : function(){
+	playerId: 0,
+	Zombie : function(playerId){
+			this.playerId = playerId;
+			this.walkingDirection = (playerId == 1) ? "e" : "w";
+			
 			//.keyboard1Controls(3)
 			//Setup animation
 			this.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])

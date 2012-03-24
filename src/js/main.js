@@ -36,27 +36,14 @@ window.onload = function() {
 
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 3, "left"));
+				.Cemetery(1, 1, 3));
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 7, "left"));
+				.Cemetery(1, 1, 7));
 				
 		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
-				.Cemetery(18, 3, "right"));
+				.Cemetery(2, 18, 3));
 		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
-				.Cemetery(18, 7, "right"));
-
-		var player3 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 40, y: 80, z: 1000 });
-		var player4 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 70, y: 160, z: 1000 });
-		var player5 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 160, y: 200, z: 1000 });
-		var player6 = Crafty.e("Zombie, zombieRougeSprite")
-		.Zombie()
-		.attr({ x: 500, y: 304, z: 1000 });
+				.Cemetery(2, 18, 7));
 		
 		Crafty.e("Fortress, fortresseRougeSprite")
 			.Fortress(1,0,"left");

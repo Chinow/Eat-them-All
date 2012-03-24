@@ -10,10 +10,11 @@ ETA.config = {
 	
 	// Animation
 	frameRate: 60,
-	zombiAnimationRate:5,
-	dollAnimationRate:10,
-	signBeginAnimationRate:5,
-	signAnimationRate:8,
+	zombiAnimationRate: 5,
+	dollAnimationRate: 10,
+	signBeginAnimationRate: 5,
+	signAnimationRate: 8,
+	cemeteryAnimationRate: 2,
 
 	tile:{
 		tileWidth: 50,
@@ -24,7 +25,7 @@ ETA.config = {
 		zombiSpeed: 1,
 		nbSign: 5,
 		hitPointsFortress: 100,
-		timeSpawnFortress: 2
+		timeSpawnFortress: 3
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },

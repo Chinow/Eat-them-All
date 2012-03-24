@@ -4,39 +4,37 @@ Crafty.c('Cemetery', {
 	gridX: 0,
 	gridY: 0,
 	cell: null,
-	spawnDirection:"e",
-
+	playerId: 0,
+	spawnPoint: {},
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
 		return this;
 	},
 
-	Cemetery: function(cellX, cellY, size) {
-		var rateBegin = ETA.config.frameRate/ETA.config.signBeginAnimationRate;
-		var rate = ETA.config.frameRate / ETA.config.signAnimationRate;
+	Cemetery: function(playerId, cellX, cellY) {
+		this.playerId = playerId;
+		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
-		if (size == "left")
-		{
-			this.attr({ x: this.cell.x - 50, y: this.cell.y - 50, z: 1100 });
-			this.animate("torch_burn", [[0,0],[1,0]])
-				.animate("torch_burn", rate / 2, -1);
-			spawnDirection = "e"
+		this.spawnPoint = { x: this.cell.x, y: this.cell.y - 15 };
+		this.animate("torch_burn", [[0,0],[1,0]])
+			.animate("torch_burn", rate, -1);
+		
+		if (playerId == 1) {
+			this.attr({ x: this.cell.x - 60, y: this.cell.y - 50, z: 1100 });
+		} else {
+			this.attr({ x: this.cell.x, y: this.cell.y - 50, z: 1100 });
 		}
-		else if (size == "right")
-		{
-			this.attr({ x: this.cell.x , y: this.cell.y - 50, z: 1100 });
-			this.animate("torch_burn", [[0,0],[1,0]])
-				.animate("torch_burn", rate / 2, -1);
-			spawnDirection = "w"
-		}
+		
 		this.spawn();
 		return this;
 	},
 	spawn: function() {
 		if(this.spawnRun && ETA.debug.play) {
-			Crafty.e("Zombie, zombieRougeSprite")
-				.Zombie()
-				.attr({ x: this.cell.center.x, y: this.cell.center.y, z: 900 });
+			var spriteName = (this.playerId == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
+			
+			Crafty.e("Zombie, " + spriteName)
+				.Zombie(this.playerId)
+				.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
 		}
 		this.timeout(this.spawn, this.frequencySpawn);
 	},
