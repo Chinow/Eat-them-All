@@ -34,9 +34,9 @@ window.onload = function() {
 		generateWorld();
 
 		var cemetery = [];
-		cemetery.push(Crafty.e("Cemetery, signRougeSprite")
+		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
 				.Cemetery(1, 3));
-		cemetery.push(Crafty.e("Cemetery, signRougeSprite")
+		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
 				.Cemetery(1, 7));
 
 		var player3 = Crafty.e("Zombie, zombieRougeSprite")
@@ -82,6 +82,9 @@ window.onload = function() {
 		});
 		Crafty.sprite(65, "img/panneau_bleu.png", {
 			signBleuSprite: [0, 0]
+		});
+		Crafty.sprite(110, "img/cimetierre_rouge.png", {
+			cemeteryRougeSprite: [0, 0]
 		});
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 
