@@ -1,13 +1,15 @@
 Crafty.c("Cell", {
     center : {x:0, y:0},
+    id	: 0,
     elem   : null,
     borderCell : false,
     init: function() {
         this.requires('2D, DOM');
         return this;
     },
-    cell : function() {
+    cell : function(ref) {
 		this.center = {x:this._x+ this._w/2, y:this._y + this._h/2};
+		this.id		= ref;
 		return this;
 	},
 	attribute : function(p) {
@@ -16,6 +18,6 @@ Crafty.c("Cell", {
 			return true;
 		}
 		return false;
-	}
+	},
 });
 
