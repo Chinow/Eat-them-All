@@ -69,8 +69,8 @@ Crafty.c('Zombie', {
 					
 				//}
 				//if no sign
-				//else
-				 if (this.currentCell.borderCell)
+				//else 
+				if (this.currentCell.borderCell)
 				{
 					var direction = Crafty.math.randomInt(1, 2);
 					if (direction == 1)
