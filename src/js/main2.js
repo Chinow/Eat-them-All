@@ -26,7 +26,7 @@ window.onload = function() {
 		
 		 var player1 = Crafty.e("Zombie, zombieSprite, Controls")
             .attr({ x: 16, y: 304, z: 1 })
-            .keyboard1Controls(3)
+            .keyboard1Controls(1)
             .Zombie();
 	});
 	
@@ -61,4 +61,5 @@ window.onload = function() {
 
 	//Crafty.scene('game');
 };
+
 

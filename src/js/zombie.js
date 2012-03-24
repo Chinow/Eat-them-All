@@ -1,6 +1,11 @@
 Crafty.c('Zombie', {
+	_pop: 0,
+    maxSigns: 3,
+   _key: Crafty.keys.ENTER,
+	init:function(e) {
+		this.requires("2D, DOM, SpriteAnimation, Collision")
+	},
 	Zombie : function(){
-			this.requires("SpriteAnimation, Collision");
 			this.collision(new Crafty.polygon([0,0], [10,10], [30,30]));
 			//Setup animation
 			this.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
@@ -36,9 +41,17 @@ Crafty.c('Zombie', {
 			.bind('Moved', function(from) {
 				if(this.hit('solid')){
 					this.attr({x: from.x, y:from.y});
-			}
-			
-		})
+				}
+			})
+			.bind('KeyDown', function(el) {
+				if (el.key !== this._key) {
+					return;
+				}
+				if(this._pop < this.maxSigns) {
+					console.log("keydown");
+					Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:50, h:50 })			
+				}
+			})
 		return this;
 	}
 	
