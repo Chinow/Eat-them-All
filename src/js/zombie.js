@@ -1,8 +1,9 @@
 Crafty.c('Zombie', {
 	Zombie : function(){
-			this.requires("SpriteAnimation, Collision")
+			this.requires("SpriteAnimation, Collision");
+			this.collision(new Crafty.polygon([0,0], [10,10], [30,30]));
 			//Setup animation
-			.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
+			this.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
 			.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 			.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 			.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
@@ -36,6 +37,7 @@ Crafty.c('Zombie', {
 				if(this.hit('solid')){
 					this.attr({x: from.x, y:from.y});
 			}
+			
 		})
 		return this;
 	}
