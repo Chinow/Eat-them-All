@@ -1,5 +1,5 @@
 Crafty.c('Cemetery', {
-	frequencySpawn: 1000 * ETA.config.game.timeSpawnFortress,
+	spawnCounter: 0,
 	spawnRun: true,
 	gridX: 0,
 	gridY: 0,
@@ -28,18 +28,21 @@ Crafty.c('Cemetery', {
 			this.attr({ x: this.cell.x, y: this.cell.y - 50, z: 1100 });
 		}
 		
-		this.spawn();
+		this.bind("EnterFrame", this.spawn);
+		
 		return this;
 	},
 	spawn: function() {
-		if(this.spawnRun && ETA.debug.play) {
-			var spriteName = (this.playerId == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
-			
-			Crafty.e("Zombie, " + spriteName)
-				.Zombie(this.playerId)
-				.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
+		if (this.spawnRun) {
+			if (++this.spawnCounter == ETA.config.game.timeSpawnFortress * ETA.config.frameRate) {
+				this.spawnCounter = 0;
+				var spriteName = (this.playerId == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
+				
+				Crafty.e("Zombie, " + spriteName)
+					.Zombie(this.playerId)
+					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
+			}
 		}
-		this.timeout(this.spawn, this.frequencySpawn);
 	},
 	startSpawn: function() {
 		this.spawnRun = true;
