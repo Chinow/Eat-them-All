@@ -94,6 +94,27 @@ Crafty.c('Zombie', {
 				//signPresent = true;
 				//signDirection =  this.currentCell.elem.direction;
 			}
+			
+			if (this.currentCell.elemType == "city") {
+				if (this.currentCell.elem.playerId != this.playerId)
+				{
+					if (this.currentCell.elem.nbGards <= 0)
+					{
+						this.currentCell.elem.changePlayed(this.playerId)
+						this.destroy();
+					}
+					else
+					{
+						this.currentCell.elem.loseGuard(1);
+						this.destroy();
+					}
+				}
+				else if (this.playerId == this.currentCell.elem.playerId)
+				{
+					this.currentCell.elem.gainGuards(1);
+					this.destroy();
+				}
+			}
 				
 			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 			if (dx < 5 && dx > -5)
@@ -127,6 +148,26 @@ Crafty.c('Zombie', {
 				this.move("w",1);
 			else if (direction.x < -1)
 				this.move("e",1);
+					
+			if (this.currentCell.elemType == "city") {
+				if (this.currentCell.elem.playerId == 0)
+				{
+					if (this.currentCell.elem.nbGards <= 0)
+					{
+						this.currentCell.elem.changePlayed(this.playerId)
+						this.destroy();
+					}
+					else
+					{
+						this.currentCell.elem.loseGuard(1);
+						this.destroy();
+					}
+				}
+				else if (this.playerId == this.currentCell.elem.playerId)
+				{
+					//	
+				}
+			}
 				
 			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
 			
