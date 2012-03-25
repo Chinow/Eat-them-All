@@ -104,10 +104,11 @@ Crafty.c('City', {
 	},
 	drawLife: function()
 	{
+		
 		var ratio = this.nbHumans/this.maxHumans;
 		var color;
 		if (ratio > 0.66)
-			color = 'rgb(0,255,0)';
+			color = 'rgb(20,200,20)';
 		else if (ratio < 0.33)
 			color = 'rgb(255,0,0)';
 		else

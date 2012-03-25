@@ -24,7 +24,8 @@ window.onload = function() {
 		"img/village",
 		"img/ville",
 		"img/sorcier_rouge.png",
-		"img/sorcier_bleu.png"
+		"img/sorcier_bleu.png",
+		"img/totem_gauge.png"
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -77,8 +78,16 @@ window.onload = function() {
 		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
 				.VoodooDoll(2);
 				
-		//Crafty.e("VoodooMaster, sorcierRouge")
-			//.VoodooMaster()
+		Crafty.e("VoodooMaster, sorcierRouge")
+			.VoodooMaster(player1, 0, 5);
+		Crafty.e("VoodooMaster, sorcierBleu")
+			.VoodooMaster(player2, 18, 5);
+		
+		Crafty.e("Pillar, pillar")
+			.Pillar(player1, 0, 6);
+		
+		Crafty.e("Pillar, pillar")
+			.Pillar(player2, 18, 6);
 				
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
@@ -218,16 +227,19 @@ window.onload = function() {
 			hameauNeutralSprite:[0, 0]
 		});
 		Crafty.sprite(70, "img/village.png", {
-			villageNeutralSprite:[0, 0],
+			villageNeutralSprite:[0, 0]
 		});
 		Crafty.sprite(70, "img/ville.png", {
-			villeNeutralSprite:[0, 0],
+			villeNeutralSprite:[0, 0]
 		});
 		Crafty.sprite(110, "img/sorcier_rouge.png", {
-			sorcierRouge:[0, 0],
+			sorcierRouge:[0, 0]
 		});
 		Crafty.sprite(110, "img/sorcier_bleu.png", {
-			sorcierBleu:[0, 0],
+			sorcierBleu:[0, 0]
+		});
+		Crafty.sprite(80, "img/totem_gauge.png", {
+			pillar:[0,0]
 		});
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
