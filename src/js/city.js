@@ -17,11 +17,11 @@ Crafty.c('City', {
 		this.animate("red_dead", [[5,0],[5,0]]);
 
 		if (size == "hameau")
-			nbGards = ETA.config.game.nbGuardsHameau;
+			this.nbGards = ETA.config.game.nbGuardsHameau;
 		else if (size == "village")
-			nbGards = ETA.config.game.nbGuardsVillage;
+			this.nbGards = ETA.config.game.nbGuardsVillage;
 		else if (size == "ville")
-			nbGards = ETA.config.game.nbGuardsVille;
+			this.nbGards = ETA.config.game.nbGuardsVille;
 
 		this.cell.elem = this;
 		this.cell.elemType = "city";
