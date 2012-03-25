@@ -1,6 +1,6 @@
 Crafty.c('Zombie', {
 	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision")
+		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
 	},
 	targetPixel:{x:500, y:250},
@@ -188,6 +188,21 @@ Crafty.c('Zombie', {
 				{
 					collided = true;
 					break;
+				}
+			}
+		}
+		var collide2 = this.hit('zombi');
+		var collided2 = false;
+		if(collide2){
+			var collideLength = collide2.length;
+			for (var i = 0; i < collideLength; i++) {
+				if (collide2[i].type == "SAT")
+				{
+					if (collide2[i].obj.playerId != this.playerId)
+					{
+						collide2[i].obj.destroy();
+						this.destroy();
+					}
 				}
 			}
 		}
