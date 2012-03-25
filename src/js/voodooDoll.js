@@ -151,8 +151,7 @@ Crafty.c('VoodooDoll', {
 		}else{
 			var signSprite 	= "signBleuSprite";
 		}
-		console.log('Pop' + this.popSign);
-		console.log('ETAT ' + ETA.config.game.nbSign);
+		
 		if(this.popSign < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, " + signSprite).attr({
