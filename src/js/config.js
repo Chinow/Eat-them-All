@@ -29,6 +29,9 @@ ETA.config = {
 		nbGuardsHameau: 5,
 		nbGuardsVillage: 10,
 		nbGuardsVille: 25,
+		nbHumansHameau: 15,
+		nbHumansVillage: 25,
+		nbHumansVille: 50,
 		timeSpawnFortress: 3
 	},
 	p1: {
