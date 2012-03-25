@@ -129,8 +129,8 @@ Crafty.c('VoodooDoll', {
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
 				this.stop().animate("summon_sign", rate, 0);
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
-				if (!cell.elem) {
-					this.drawSign(cell);	
+				if (!cell.elem || cell.elemType == "sign" && cell.elem.player == null) {
+					this.drawSign(cell);
 				}
 			})
 		
@@ -153,6 +153,7 @@ Crafty.c('VoodooDoll', {
 		}else{
 			var signSprite 	= "signBleuSprite";
 		}
+		
 		if(this.popSign < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, " + signSprite).attr({
