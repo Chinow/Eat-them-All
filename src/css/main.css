@@ -18,29 +18,32 @@ body {
 	position: absolute;
 	width: 1000px;
 	height: 580px;
-	background-image:url('../img/bg.png');
+	background-image:url('../img/StartMenu.png');
 }
 
-#title-game {
-	text-align: center;
-}
-
-#team-dev {
-	float: left;
-	margin: 150px 0px 0px 35px;
+#rules {
+	float: right;
+	font-family : arial;
+	color:#a17c4a;
+	width :310px;
+	font-size: 12px;
+	margin-top: 360px;
+	margin-right:30px;
 }
 
 #menu-button {
-	float: right;
-	margin: 100px 100px 0px 0px;
+	float: left;
+	width: 275px;
+	height: 40px;
+	margin-left: 325px;
+	margin-top: 460px;
+	font-size: 0px;
 }
 
 #start-button {
-	display: block;
 	width: 275px;
 	height: 40px;
 	background: url('../img/Menu_Items_StartGame.png') 0 0 no-repeat;
-	margin: 10px:
 }
 
 #start-button:hover {
@@ -49,10 +52,6 @@ body {
 
 #option-button {
 	margin: 10px:
-}
-
-#game-dev-icon {
-	margin: 190px 0px 0px 400px;
 }
 
 .hideMenu {
