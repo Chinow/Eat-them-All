@@ -24,8 +24,8 @@ Crafty.c('Zombie', {
 		.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 		.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 		.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
-		.animate("hit_fortress_right", [[0,0],[6,0],[3,0],[9,0]])
-		.animate("hit_fortress_left", [[0,0],[6,0],[3,0],[9,0]])
+		.animate("hit_fortress_right", [[17,0], [16,0]])
+		.animate("hit_fortress_left", [[20,0], [19,0]])
 		.onHit("gridBounds", function () {
 			//Move unit out of solid tile
 		})
