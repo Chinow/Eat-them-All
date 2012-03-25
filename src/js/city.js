@@ -1,6 +1,7 @@
 Crafty.c('City', {
 	nbGards:0,
 	frames:0,
+	outFrames: 0,
 	nbHumans: 0,
 	maxHumans:0,
 	playerId:0,
@@ -10,6 +11,7 @@ Crafty.c('City', {
 	hudXOffset:0,
 	hudYOffset:0,
 	textOffsetX:null,
+	doorsOpen: false,
 	init: function() {
 		this.requires("2D, DOM, city, SpriteAnimation");
 		return this;
@@ -63,7 +65,7 @@ Crafty.c('City', {
 		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
 		this.drawLife();
 		this.drawText();
-		this.bind("EnterFrame",this.procreate);
+		this.bind("EnterFrame", this.procreate);
 		return this;
 	},
 	loseGuard : function (value){
@@ -80,23 +82,22 @@ Crafty.c('City', {
 		this.drawText();
 	},
 	changePlayed : function(playerId){
+		this.doorsOpen = false;
+		this.playerId = playerId;
+		
 		if (playerId == 0)
 		{
-			this.playerId = 0;
-			this.gainGuards(1);
 			if (!this.isPlaying("neutral"))
 				this.stop().animate("neutral", 10, 1);
 		}
 		else if (playerId == 2)
 		{
-			this.playerId = 2;
 			this.gainGuards(1);
 			if (!this.isPlaying("blue"))
 				this.stop().animate("blue", 10, 1);
 		}
 		else
 		{
-			this.playerId = 1;
 			this.gainGuards(1);
 			if (!this.isPlaying("red"))
 				this.stop().animate("red", 10, 1);
@@ -120,61 +121,90 @@ Crafty.c('City', {
 	},
 	drawText: function()
 	{
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.y-25 })
+		this.text = Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.y-25 })
 				.text(this.nbGards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
 	},
+	switchDoorState: function() {
+		this.doorsOpen = !this.doorsOpen;
+	},
 	procreate: function()
 	{
-			if (this.playerId == 0)
+		if (this.playerId == 0)
+		{
+			if (this.nbHumans > 0 && this.nbHumans < this.maxHumans)
 			{
-				if (this.nbHumans < this.maxHumans)
+				rand = Crafty.math.randomNumber(0, 1);
+				proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
+				if (proclimit > rand)
 				{
-					rand = Crafty.math.randomNumber(0, 1);
-					proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
-					if (proclimit > rand)
-					{
-						this.nbHumans ++;
-						this.drawLife();
-					}	
+					this.nbHumans ++;
+					this.drawLife();
+				}
+			}
+		}
+		
+		if (this.playerId != 0 && this.nbGards > 0)
+		{
+			this.frames++;
+			if(this.maxHumans == ETA.config.game.nbHumansHameau)
+			
+			{
+				if (this.frames ==180)
+				{
+					this.nbHumans --;
+					this.gainGuards(1);
+					this.drawLife();
+					this.frames = 0;
+				}
+			}
+			else if(this.maxHumans == ETA.config.game.nbHumansVillage)
+			{
+				if (this.frames ==120)
+				{
+					this.nbHumans --;
+					this.gainGuards(1);
+					this.drawLife();
+					this.frames = 0;
+				}
+			}
+			else if(this.maxHumans == ETA.config.game.nbHumansVille)
+			{
+				if (this.frames ==60)
+				{
+					this.nbHumans --;
+					this.gainGuards(1);
+					this.drawLife();
+					this.frames = 0;
 				}
 			}
 			
-			if (this.playerId != 0)
-			{
-				this.frames++;
-				if(this.maxHumans == ETA.config.game.nbHumansHameau)
-				{
-					if (this.frames ==180)
-					{
-						this.nbHumans --;
-						this.gainGuards(1);
-						this.drawLife();
-						this.frames = 0;
+			if (this.doorsOpen && this.nbGards > 0) {
+				if (++this.outFrames >= ETA.config.game.timeGetOutFortress * ETA.config.frameRate) {
+					this.loseGuard(1);
+					this.outFrames = 0;
+					
+					var spriteName;
+					var xoffset;
+					
+					if (this.playerId == 1) {
+						spriteName = "zombieRougeSprite";
+						xoffset = 40;
+					} else {
+						spriteName = "zombieBleuSprite";
+						xoffset = -40;
 					}
-				}
-				else if(this.maxHumans == ETA.config.game.nbHumansVillage)
-				{
-					if (this.frames ==120)
-					{
-						this.nbHumans --;
-						this.gainGuards(1);
-						this.drawLife();
-						this.frames = 0;
-					}
-				}
-				else if(this.maxHumans == ETA.config.game.nbHumansVille)
-				{
-					if (this.frames ==60)
-					{
-						this.nbHumans --;
-						this.gainGuards(1);
-						this.drawLife();
-						this.frames = 0;
+					
+					Crafty.e("Zombie, " + spriteName)
+						.Zombie(this.playerId)
+						.attr({ x: this.x + xoffset, y: this.y, z:900 });
+					
+					if (this.nbGards == 0) {
+						this.changePlayed(0);
 					}
 				}
 			}
-	
+		}
 	}
 });
 

@@ -23,6 +23,8 @@ window.onload = function() {
 		"img/hameau.png",
 		"img/village",
 		"img/ville",
+		"img/sorcier_rouge.png",
+		"img/sorcier_bleu.png"
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -74,6 +76,9 @@ window.onload = function() {
 				.VoodooDoll(1);
 		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
 				.VoodooDoll(2);
+				
+		//Crafty.e("VoodooMaster, sorcierRouge")
+			//.VoodooMaster()
 				
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
@@ -136,6 +141,7 @@ window.onload = function() {
 				.City(5, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
 				.City(16, 7, "hameau");
+				
 
 	});
 	
@@ -216,6 +222,12 @@ window.onload = function() {
 		});
 		Crafty.sprite(70, "img/ville.png", {
 			villeNeutralSprite:[0, 0],
+		});
+		Crafty.sprite(110, "img/sorcier_rouge.png", {
+			sorcierRouge:[0, 0],
+		});
+		Crafty.sprite(110, "img/sorcier_bleu.png", {
+			sorcierBleu:[0, 0],
 		});
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
