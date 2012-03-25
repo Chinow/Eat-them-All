@@ -50,3 +50,16 @@ body {
 .hideMenu {
 	display: none;
 }
+
+/* Pause */
+#pause {
+	position: absolute;
+	width: 1000px;
+	height: 580px;
+	text-align: center;
+}
+
+#pause > img {
+	margin: auto;
+	margin-top: 150px;
+}

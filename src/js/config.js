@@ -36,8 +36,7 @@ ETA.config = {
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
-		keyset: "zqsd",
-		//keyset:"wasd",
+		keyset:"wasd",
 		actionKey: Crafty.keys.SPACE,
 	},
 	p2: {

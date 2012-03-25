@@ -22,7 +22,7 @@ window.onload = function() {
 		"img/forteresse_rouge.png",
 		"img/hameau.png",
 		"img/village",
-		"img/ville"
+		"img/ville",
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -197,6 +197,7 @@ window.onload = function() {
 		Crafty.sprite(70, "img/ville.png", {
 			villeNeutralSprite:[0, 0],
 		});
+		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
