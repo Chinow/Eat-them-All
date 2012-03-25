@@ -19,5 +19,16 @@ Crafty.c('Fortress', {
 		else if (size == "right")
 			this.attr({ x: this.cell.x, y: this.cell.y-25, z: 1100 });
 		return this;
-	},	
+	},
+	/*isUp:function() {
+		return (this.hitPoints > 0) ? true : false;
+	},
+	hitDomage:function() {
+		if(this.hitPoints > 0) {
+			this.hitPoints --;
+		}else{
+			this.hitPoints = 0;
+		}
+		return this.hitPoints;
+	}*/
 });

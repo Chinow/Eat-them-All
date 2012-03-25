@@ -128,8 +128,10 @@ Crafty.c('VoodooDoll', {
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
 				this.stop().animate("summon_sign", rate, 0);
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
-				if (!cell.elem)
+				if (!cell.elem) {
+					console.log("toto");
 					this.drawSign(cell);	
+				}
 			})
 		
 		this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
@@ -146,13 +148,12 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
+		console.log("Draw Sign");
 		if(this.id ==1) {
 			var signSprite 	= "signRougeSprite";
 		}else{
 			var signSprite 	= "signBleuSprite";
 		}
-		console.log('Pop' + this.popSign);
-		console.log('ETAT ' + ETA.config.game.nbSign);
 		if(this.popSign < ETA.config.game.nbSign) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, " + signSprite).attr({
