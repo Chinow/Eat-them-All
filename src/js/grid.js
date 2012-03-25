@@ -56,6 +56,7 @@ Crafty.c('BGGrid', {
 	},
 	
 	gridGameOver: function(looser){
+		Crafty.audio.play("gameOver");
 		Crafty.sprite(290, "img/GameOverScreen_VicoryText.png", {
 			endTextSpriteVictory: [0, 0],
 			endTextSpriteDefeat: [1, 0]
