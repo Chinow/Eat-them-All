@@ -61,6 +61,10 @@ Crafty.audio.add("gameOver", [
         "media/GameOver.mp3", 
         "media/GameOver.ogg"]);
         
+Crafty.audio.add("pauseStart", [
+        "media/PauseBaron.mp3", 
+        "media/PauseBaron.ogg"]);
+        
 Crafty.audio.add("pause", [
         "media/LaPause.mp3", 
         "media/LaPause.ogg"]);
@@ -80,6 +84,7 @@ Crafty.audio.settings("fortressAttack",{volume:1.0});
 Crafty.audio.settings("soldierDie",{volume:1.0});
 Crafty.audio.settings("cityDie",{volume:1.0});
 Crafty.audio.settings("gameOver",{volume:1.0});
-Crafty.audio.settings("pause",{volume:1.0});
+Crafty.audio.settings("pauseStart",{volume:0.5});
+Crafty.audio.settings("pause",{volume:0.4});
 
 // Use Crafty.audio.play(String id, number repeat); to play sounds repeat time (-1 => loop)

@@ -1,5 +1,6 @@
 window.onload = function() {
 	gameState = "init";
+	pauseTimeout = undefined;
 	
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
@@ -18,7 +19,10 @@ window.onload = function() {
 		"img/cimetierre_bleu.png", 
 		"img/cimetierre_rouge.png",
 		"img/forteresse_bleu.png",
-		"img/forteresse_rouge.png"
+		"img/forteresse_rouge.png",
+		"img/hameau.png",
+		"img/village",
+		"img/ville"
 		], function () {
 			Crafty.scene("main"); //when everything is loaded, run the main scene
 		});
@@ -93,14 +97,42 @@ window.onload = function() {
 			.Fortress(18,9,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
 			.Fortress(18,10,player2);
+
+		Crafty.e("City, hameauNeutralSprite")
+				.City(11, 2, "hameau");
+		Crafty.e("City, hameauNeutralSprite")
+				.City(4, 10, "hameau");
+		Crafty.e("City, villageNeutralSprite")
+				.City(16, 4, "village");		
+		Crafty.e("City, villeNeutralSprite")
+				.City(10, 5, "ville");
+		Crafty.e("City, villageNeutralSprite")
+				.City(5, 6, "village");
+		Crafty.e("City, hameauNeutralSprite")
+				.City(16, 7, "hameau");	
+
 	});
 	
 	Crafty.bind('KeyDown', function(el) {
-		if (el.key == Crafty.keys.ESCAPE) {
+		if (el.key == Crafty.keys.ESC) {
 			if (gameState == "running") {
 				gameState = "paused";
 				Crafty.pause(true);
+				
+				Crafty.audio.settings("pauseStart", { muted: false });
+				Crafty.audio.settings("pauseStart", { muted: false });
+				Crafty.audio.play("pauseStart");
+				
+				pauseTimeout = window.setTimeout(function() {
+					Crafty.audio.settings("pause", { muted: false });
+					Crafty.audio.play("pause", -1);
+				}, 6000 );
 			} else if (gameState == "paused") {
+				Crafty.audio.settings("pauseStart", { muted: true });
+				Crafty.audio.settings("pause", { muted: true });
+				
+				window.clearTimeout(pauseTimeout);
+				
 				gameState = "running";
 				Crafty.pause(false);
 			}
@@ -143,6 +175,15 @@ window.onload = function() {
 		});
 		Crafty.sprite(70, "img/forteresse_bleu.png", {
 			fortresseBleuSprite:[0, 0]
+		});
+		Crafty.sprite(70, "img/hameau.png", {
+			hameauNeutralSprite:[0, 0]
+		});
+		Crafty.sprite(70, "img/village.png", {
+			villageNeutralSprite:[0, 0],
+		});
+		Crafty.sprite(70, "img/ville.png", {
+			villeNeutralSprite:[0, 0],
 		});
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;

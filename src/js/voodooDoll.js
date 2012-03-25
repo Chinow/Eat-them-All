@@ -11,6 +11,7 @@ Crafty.c('VoodooDoll', {
     maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
 	HPLeft: ETA.config.game.hitPointsFortress,
+	statistiques: {"zombiesSpawned" : 0, "guardsKilled" : 0, "CityControled" : 0, "cityDestroyed" : 0},
     
     VoodooDoll : function(playerId) {
 			this.id = playerId;
@@ -168,8 +169,12 @@ Crafty.c('VoodooDoll', {
 		}		
 	},
 	youLose : function(){
-		this.destroy();
+		Crafty.stop(true);
+		Crafty("2D DOM").destroy();
+		Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+		Crafty.sprite(16, "img/GameOverScreen.png", {
+			bg: [0, 0,1000 ,550]
+		});
+		ETA.grid = Crafty.e("BGGrid").gridGameOver();
 	}
-	
-	
 });
