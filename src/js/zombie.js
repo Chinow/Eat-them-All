@@ -257,9 +257,11 @@ Crafty.c('Zombie', {
 						if (collide2[i].obj.playerId != this.playerId)
 						{
 							if (!this.dying && !collide2[i].obj.dying)
-							collide2[i].obj.die();
-							this.die();
-							return;
+							{
+								collide2[i].obj.die();
+								this.die();
+								return;
+							}
 						}
 					}
 				}
