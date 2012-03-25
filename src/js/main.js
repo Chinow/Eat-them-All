@@ -96,7 +96,7 @@ window.onload = function() {
 	});
 	
 	Crafty.bind('KeyDown', function(el) {
-		if (el.key !== Crafty.keys.ESCAPE) {
+		if (el.key == Crafty.keys.ESCAPE) {
 			if (gameState == "running") {
 				gameState = "paused";
 				Crafty.pause(true);
