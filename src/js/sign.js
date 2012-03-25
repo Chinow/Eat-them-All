@@ -23,7 +23,7 @@ Crafty.c('Sign', {
 			this.animate("turn_left", [[10,0],[9,0]]);
 			this.animate("turn_bottom", [[8,0],[7,0]]);
 			this.animate("turn_right", [[6,0],[5,0]]);
-			this.animate("turn_up", [[8,0],[3,0], [2,0], [1,0], [0,0], [11,0]]);
+			this.animate("turn_up", [[4,0],[3,0], [2,0], [1,0], [0,0], [11,0]]);
 			this.animate("down", [[11,0]]);
 		}
 		
