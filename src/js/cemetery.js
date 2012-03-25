@@ -8,6 +8,7 @@ Crafty.c('Cemetery', {
 	spawnPoint: {},
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
+        this._globalZ=4;
 		return this;
 	},
 
@@ -23,9 +24,9 @@ Crafty.c('Cemetery', {
 			.animate("torch_burn", rate, -1);
 		
 		if (playerId == 1) {
-			this.attr({ x: this.cell.x - 60, y: this.cell.y - 50, z: 1100 });
+			this.attr({ x: this.cell.x - 60, y: this.cell.y - 50, z: 0 });
 		} else {
-			this.attr({ x: this.cell.x, y: this.cell.y - 50, z: 1100 });
+			this.attr({ x: this.cell.x, y: this.cell.y - 50, z: 0 });
 		}
 		
 		this.bind("EnterFrame", this.spawn);
@@ -40,7 +41,7 @@ Crafty.c('Cemetery', {
 				
 				Crafty.e("Zombie, " + spriteName)
 					.Zombie(this.playerId)
-					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
+					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z:900 });
 			}
 		}
 	},
