@@ -34,7 +34,8 @@ ETA.config = {
 		nbHumansHameau: 15,
 		nbHumansVillage: 25,
 		nbHumansVille: 50,
-		timeSpawnFortress: 3
+		timeSpawnFortress: 3,
+		timeGetOutFortress: 0.5,
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
