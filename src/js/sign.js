@@ -25,6 +25,7 @@ Crafty.c('Sign', {
 			this.mvt  = "turn_right";
 			this.direction ="n"
 			Crafty.audio.play("signCreate");
+			this.player.popSign ++;
 		};
 		this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
 		this.cellObj = ETA.grid.getCell(this._x+29, this._y+48);
