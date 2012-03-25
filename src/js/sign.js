@@ -6,7 +6,8 @@ Crafty.c('Sign', {
 	player:null,
 	playerIdProprio:null,
 	init:function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
+		this.requires("2D, DOM, SpriteAnimation, Collision, Controls");
+        this._globalZ=9;
 	},
 	sign : function(player){
 		this.player = player;
