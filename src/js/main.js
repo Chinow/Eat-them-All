@@ -23,6 +23,8 @@ window.onload = function() {
 		"img/hameau.png",
 		"img/village",
 		"img/ville",
+		"img/sorcier_rouge.png",
+		"img/sorcier_bleu.png"
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -39,8 +41,22 @@ window.onload = function() {
 					'<div id="title-game"><img src="img/Title_EatEmAll.png"/></div>'+
 					'<div id="menu-button">'+
 						'<div id="loading-text">LOADING ...</div>'+
-						'<div id="start-button" class="hideMenu"><img src="img/start.png" alt="START"/></div>'+
+						'<div id="start-button" class="hideMenu"></div>'+
 						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
+						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
+						'<div id="rules">'+
+						'<h4>Rules :</h4>'+
+							'<ul>'+
+								'<li>Destroy the ennemy fortress by Zombies attacks !</li>'+
+								'<li>Capture human city for more Zombies !</li>'+
+								'<li>Place signs to drive your Zombies</li>'+
+							'</ul>'+
+						'<h4>Commands :</h4>'+
+							'<ul>'+
+								'<li>Player 1 : wasd or zqsd + space</li>'+
+								'<li>Player 2 : arrows + enter</li>'+
+							'</ul>'+
+						'</div>'+
 					'</div>'+
 					'<div id="team-dev"><img src="img/Title_ZTeam.png"/></div>'+
 					'<div id="game-dev-icon"><img src="img/Logo_Game_Dev_Party150x150.png" alt="GAMEDEV"/></div>'+
@@ -60,6 +76,9 @@ window.onload = function() {
 				.VoodooDoll(1);
 		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
 				.VoodooDoll(2);
+				
+		//Crafty.e("VoodooMaster, sorcierRouge")
+			//.VoodooMaster()
 				
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
@@ -122,6 +141,7 @@ window.onload = function() {
 				.City(5, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
 				.City(16, 7, "hameau");
+				
 
 	});
 	
@@ -202,6 +222,12 @@ window.onload = function() {
 		});
 		Crafty.sprite(70, "img/ville.png", {
 			villeNeutralSprite:[0, 0],
+		});
+		Crafty.sprite(110, "img/sorcier_rouge.png", {
+			sorcierRouge:[0, 0],
+		});
+		Crafty.sprite(110, "img/sorcier_bleu.png", {
+			sorcierBleu:[0, 0],
 		});
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;

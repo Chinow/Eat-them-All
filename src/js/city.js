@@ -132,7 +132,7 @@ Crafty.c('City', {
 	{
 		if (this.playerId == 0)
 		{
-			if (this.nbHumans < this.maxHumans)
+			if (this.nbHumans > 0 && this.nbHumans < this.maxHumans)
 			{
 				rand = Crafty.math.randomNumber(0, 1);
 				proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
@@ -148,6 +148,7 @@ Crafty.c('City', {
 		{
 			this.frames++;
 			if(this.maxHumans == ETA.config.game.nbHumansHameau)
+			
 			{
 				if (this.frames ==180)
 				{

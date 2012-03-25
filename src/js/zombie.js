@@ -110,18 +110,21 @@ Crafty.c('Zombie', {
 						if (this.currentCell.elem.nbGards <= 0)
 						{
 							this.currentCell.elem.changePlayed(this.playerId)
-							this.die();
+							this.destroy();
+							return;
 						}
 						else
 						{
 							this.currentCell.elem.loseGuard(1);
 							this.die();
+							return;
 						}
 					}
 					else if (this.playerId == this.currentCell.elem.playerId)
 					{
 						this.currentCell.elem.gainGuards(1);
-							this.die();
+							this.destroy();
+							return;
 					}
 				}
 					
@@ -165,17 +168,20 @@ Crafty.c('Zombie', {
 						{
 							this.currentCell.elem.changePlayed(this.playerId)
 							this.die();
+							return;
 						}
 						else
 						{
 							this.currentCell.elem.loseGuard(1);
 							this.die();
+							return;
 						}
 					}
 					else if (this.playerId == this.currentCell.elem.playerId)
 					{
 						this.currentCell.elem.gainGuards(1);
 							this.die();
+							return;
 					}
 				}
 					
@@ -250,8 +256,10 @@ Crafty.c('Zombie', {
 					{
 						if (collide2[i].obj.playerId != this.playerId)
 						{
+							if (!this.dying && !collide2[i].obj.dying)
 							collide2[i].obj.die();
 							this.die();
+							return;
 						}
 					}
 				}
@@ -306,14 +314,15 @@ Crafty.c('Zombie', {
 		}
 	},
 	die: function() {
-		if (!this.dying) {
+		//if (!this.dying) {
 			this.dying = true;
-			this.stop().animate("die", this.rate, -1);
+//			if (!this.isPlaying("die"))
+				this.stop().animate("die", this.rate, 0);
 			
-			this.timeout(function() {
+			/*this.timeout(function() {
 				this.destroy();
-			}, (this.rate * 45) );
+			}, (this.rate * 45) );*/
 			//this.destroy();
-		}
+		//}
 	}
 });
