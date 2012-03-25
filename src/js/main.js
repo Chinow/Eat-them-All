@@ -1,9 +1,7 @@
 window.onload = function() {
 	gameState    = "init";
 	pauseTimeout = undefined;
-	player1	 	 = null;
-	player2	 	 = null;
-	
+
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
