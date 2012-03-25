@@ -77,8 +77,6 @@ Crafty.c('VoodooDoll', {
 				//Move unit out of solid tile
 			})
 			.bind('Moved', function(from) {
-				this.youLose();
-				return;
 				var collide = this.hit('dollGridBounds');
 				if(collide){
 					var collideLength = collide.length;
