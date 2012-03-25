@@ -55,6 +55,42 @@ Crafty.c('BGGrid', {
 		return this;
 	},
 	
+	gridGameOver: function(){
+		/* Winner */
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 290, y: 350})
+				.text("40")
+				.css({ "color" : "#C03000", "font-size" : "30px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 392})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 418})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 441})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 464})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				
+		/* Looser */
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 820, y: 350})
+				.text("40")
+				.css({ "color" : "#C03000", "font-size" : "30px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 392})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 418})
+				.text("10")
+				.css({ "color" : "#8F5A15",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 441})
+				.text("10")
+				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 464})
+				.text("10")
+				.css({ "color" : "#8F5A15",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+	},
+	
 	getCell: function(x, y) {
 		var vX = x / ETA.config.tile.tileWidth ;
 		var vY = (y-30) / ETA.config.tile.tileHeight  ;
