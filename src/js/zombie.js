@@ -17,6 +17,8 @@ Crafty.c('Zombie', {
 			.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 			.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 			.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
+			.animate("hit_fortress_right", [[0,0],[6,0],[3,0],[9,0]])
+			.animate("hit_fortress_left", [[0,0],[6,0],[3,0],[9,0]])
 			.onHit("gridBounds", function () {
 				//Move unit out of solid tile
 			})
@@ -50,13 +52,30 @@ Crafty.c('Zombie', {
 		if (!this.currentCell)
 			this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
 		var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
-		
+		var hittingFortress=false;
 		if (this.walkingDirection == "w" || this.walkingDirection == "e")
 		{
 			if (direction.y > 1)
 				this.move("n",1);
 			else if (direction.y < -1)
 				this.move("s",1);
+				
+			if (this.currentCell.elemType == "fortress" ) {
+				if (this.playerId == this.currentCell.elem.player.id)
+				{
+					if (this.walkingDirection == "e" )
+						this.walkingDirection = "w" 
+					else if (this.walkingDirection == "w" )
+						this.walkingDirection = "e" 
+						
+				}else{
+					this.currentCell.elem.loseHP(ETA.config.game.zombiDPS);
+					hittingFortress = true;
+				}
+				
+				//signPresent = true;
+				//signDirection =  this.currentCell.elem.direction;
+			}
 				
 			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 			if (dx < 5 && dx > -5)
@@ -96,12 +115,7 @@ Crafty.c('Zombie', {
 					signPresent = true;
 					signDirection =  this.currentCell.elem.direction;
 				}
-				if (this.currentCell.elemType == "fortress" ) {
-					this.currentCell.elem.hitPoints--;
-					this.destroy();
-					//signPresent = true;
-					//signDirection =  this.currentCell.elem.direction;
-				}
+				
 				
 				// Have sign
 				if (signPresent) {
@@ -153,7 +167,7 @@ Crafty.c('Zombie', {
 				}
 			}
 		}
-		if (!collided)
+		if (!collided && !hittingFortress)
 		{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 			if (this.walkingDirection == "w") {
@@ -174,7 +188,21 @@ Crafty.c('Zombie', {
 			}
 		}else
 		{
-			this.stop();
+			if (hittingFortress)
+			{
+				if (this.playerId == 2) {
+					if (!this.isPlaying("hit_fortress_left"))
+						this.stop().animate("hit_fortress_left", rate, -1);
+				}
+
+				if (this.playerId == 1) {
+					if (!this.isPlaying("hit_fortress_right"))
+						this.stop().animate("hit_fortress_right", rate, -1);
+				}
+			}else
+			{
+				this.stop();
+			}
 		}
 		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
 		if (newCell != this.currentCell)

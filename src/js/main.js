@@ -33,7 +33,12 @@ window.onload = function() {
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
-
+		
+		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
+				.VoodooDoll(1);
+		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
+				.VoodooDoll(2);
+				
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
 				.Cemetery(1, 1, 3));
@@ -46,47 +51,44 @@ window.onload = function() {
 				.Cemetery(2, 18, 7));
 		
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,0,"left");
+			.Fortress(1,0,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,1,"left");
+			.Fortress(1,1,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,2,"left");
+			.Fortress(1,2,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,4,"left");
+			.Fortress(1,4,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,5,"left");
+			.Fortress(1,5,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,6,"left");
+			.Fortress(1,6,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,8,"left");
+			.Fortress(1,8,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,9,"left");
+			.Fortress(1,9,player1);
 		Crafty.e("Fortress, fortresseRougeSprite")
-			.Fortress(1,10,"left");
+			.Fortress(1,10,player1);
 			
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,0,"right");
+			.Fortress(18,0,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,1,"right");
+			.Fortress(18,1,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,2,"right");
+			.Fortress(18,2,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,4,"right");
+			.Fortress(18,4,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,5,"right");
+			.Fortress(18,5,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,6,"right");
+			.Fortress(18,6,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,8,"right");
+			.Fortress(18,8,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,9,"right");
+			.Fortress(18,9,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,10,"right");
+			.Fortress(18,10,player2);
 		
-		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
-				.VoodooDoll(1);
-		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
-				.VoodooDoll(2);
+
 	});
 
 	function generateWorld() {
@@ -126,6 +128,8 @@ window.onload = function() {
 		Crafty.sprite(70, "img/forteresse_bleu.png", {
 			fortresseBleuSprite:[0, 0]
 		});
+		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
+		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
 
 		//Crafty.e('2D, DOM, bg')

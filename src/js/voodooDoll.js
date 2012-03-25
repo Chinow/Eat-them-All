@@ -9,6 +9,7 @@ Crafty.c('VoodooDoll', {
     currentCellId:0,
     maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
+	HPLeft: ETA.config.game.hitPointsFortress,
  
     VoodooDoll : function(playerId) {
 			this.id = playerId;
@@ -165,6 +166,10 @@ Crafty.c('VoodooDoll', {
 			}
 			this.z = this.y;
 		}		
+	},
+	youLose : function(){
+		this.destroy();
 	}
+	
 	
 });

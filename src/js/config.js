@@ -23,6 +23,7 @@ ETA.config = {
 	game:{
 		dollSpeed: 4,
 		zombiSpeed: 1,
+		zombiDPS: 0.01,
 		nbSign: 5,
 		hitPointsFortress: 100,
 		timeSpawnFortress: 3
