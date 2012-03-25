@@ -99,14 +99,16 @@ window.onload = function() {
 
 		Crafty.e("City, hameauNeutralSprite")
 				.City(11, 2, "hameau");
-		Crafty.e("City, villageNeutralSprite")
-				.City(11, 4, "village");		
-		Crafty.e("City, villeNeutralSprite")
-				.City(11, 5, "ville");
-		Crafty.e("City, villageNeutralSprite")
-				.City(11, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
-				.City(11, 7, "hameau");	
+				.City(4, 10, "hameau");
+		Crafty.e("City, villageNeutralSprite")
+				.City(16, 4, "village");		
+		Crafty.e("City, villeNeutralSprite")
+				.City(10, 5, "ville");
+		Crafty.e("City, villageNeutralSprite")
+				.City(5, 6, "village");
+		Crafty.e("City, hameauNeutralSprite")
+				.City(16, 7, "hameau");	
 
 	});
 	

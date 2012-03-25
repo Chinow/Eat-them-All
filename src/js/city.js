@@ -2,6 +2,7 @@ Crafty.c('City', {
 	nbGards: ETA.config.game.nbGuardsHameau,
 	playerId:0,
 	text:null,
+	textOffsetX:null,
 	init: function() {
 		this.requires("2D, DOM, city, SpriteAnimation");
 		return this;
@@ -17,17 +18,26 @@ Crafty.c('City', {
 		this.animate("red_dead", [[5,0],[5,0]]);
 
 		if (size == "hameau")
+		{
+			this.textOffsetX = -11;
 			this.nbGards = ETA.config.game.nbGuardsHameau;
+		}
 		else if (size == "village")
+		{
+			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVillage;
+		}
 		else if (size == "ville")
+		{
+			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVille;
+		}
 
 		this.cell.elem = this;
 		this.cell.elemType = "city";
 		this.animate("neutral",10, 1);
 		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x-11, y: this.cell.center.y-29, z:this.cell.center.y+1 })
+		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x +this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
 				.text(this.nbGards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
 
@@ -36,14 +46,17 @@ Crafty.c('City', {
 	loseGuard : function (value){
 		this.nbGards = this.nbGards - value;
 		this.text.destroy();
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x-11, y: this.cell.center.y-29, z:this.cell.center.y+1 })
+		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
 				.text(this.nbGards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
 	},
 	gainGuards : function (value){
 		this.nbGards = this.nbGards + value;
+		if(this.nbGards > 99)
+			this.nbGards == 99;
+			
 		this.text.destroy();
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x-11, y: this.cell.center.y-29, z:this.cell.center.y+1 })
+		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
 				.text(this.nbGards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
 	},

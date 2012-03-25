@@ -166,7 +166,8 @@ Crafty.c('Zombie', {
 				}
 				else if (this.playerId == this.currentCell.elem.playerId)
 				{
-					//	
+					this.currentCell.elem.gainGuards(1);
+					this.destroy();
 				}
 			}
 				
