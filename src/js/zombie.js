@@ -162,12 +162,12 @@ Crafty.c('Zombie', {
 					this.move("e",1);
 						
 				if (this.currentCell.elemType == "city") {
-					if (this.currentCell.elem.playerId == 0)
+					if (this.currentCell.elem.playerId != this.playerId)
 					{
 						if (this.currentCell.elem.nbGards <= 0)
 						{
 							this.currentCell.elem.changePlayed(this.playerId)
-							this.die();
+							this.destroy();
 							return;
 						}
 						else
@@ -180,7 +180,7 @@ Crafty.c('Zombie', {
 					else if (this.playerId == this.currentCell.elem.playerId)
 					{
 						this.currentCell.elem.gainGuards(1);
-							this.die();
+							this.destroy();
 							return;
 					}
 				}

@@ -26,6 +26,7 @@ Crafty.c('Fortress', {
 	},
 	loseHP : function (value){
 		this.player.HPLeft = this.player.HPLeft - value;
+		this.player.pillar.drawLife();
 		if (this.player.HPLeft <= 0)
 		{
 			this.player.youLose();

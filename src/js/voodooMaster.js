@@ -12,16 +12,29 @@ Crafty.c('VoodooMaster', {
 		this.cell = ETA.grid.cells[cellX][cellY];
 		this.cell.elemType = "master";
 		this.cell.elem = this;
-		this.animate("torch_burn", [[0,0],[1,0]])
-			.animate("torch_burn", rate, -1);
+		this.player.master = this;
+		this.animate("steady", [[0,0],[1,0]])
+			.animate("summon", [[3,0],[4,0],[3,0]])
+			.animate("steady", rate, -1)
+			.bind("EnterFrame", this.setSteady);
 		
-		if (playerId == 1) {
-			//this.attr({ x: this.cell.x - 60, y: this.cell.y - 50, z: 0 });
+		if (player.id == 1) {
+			this.attr({ x: this.cell.x , y: this.cell.y - 110 , z:this.cell.y});
 		} else {
-			//this.attr({ x: this.cell.x, y: this.cell.y - 50, z: 0 });
+			this.attr({ x: this.cell.x-10, y: this.cell.y - 110, z:this.cell.y });
 		}
 		
 		return this;
+	},
+	summon :function(){
+			this.stop().animate("summon", 5, 0);
+	},
+	setSteady :function(){
+		if (!this.isPlaying("summon"))
+		{
+			var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
+			this.animate("steady", rate, -1)
+		}
 	}
 });
 
