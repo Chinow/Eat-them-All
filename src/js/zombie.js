@@ -48,15 +48,16 @@ Crafty.c('Zombie', {
 			else if (direction.y < -1)
 				this.move("s",1);
 				
-			var dx = this.x + this.w/2 -5 - this.currentCell.center.x
-			if (dx < 5 && dx > -5)
-			{
-				var signPresent = false;
-				var signDirection = "none";
-				
-				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+			var dx = this.x + this.w/2 -5 - this.currentCell.center.x;
+			
+			if (dx < 5 && dx > -5) {
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none"
+				&& this.currentCell.elem.player.id == this.playerId) {
 					signPresent = true;
 					signDirection =  this.currentCell.elem.direction;
+				} else {
+					var signPresent = false;
+					var signDirection = "none";
 				}
 				
 				// Have sign
@@ -77,14 +78,15 @@ Crafty.c('Zombie', {
 				this.move("e",1);
 				
 			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
-			if (dy < 5 && dy > -5)
-			{
-				var signPresent = false;
-				var signDirection = "none";
-				
-				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+			
+			if (dy < 5 && dy > -5) {
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none"
+				&& this.currentCell.elem.player.id == this.playerId) {
 					signPresent = true;
 					signDirection =  this.currentCell.elem.direction;
+				} else {
+					var signPresent = false;
+					var signDirection = "none";
 				}
 				
 				// Have sign
