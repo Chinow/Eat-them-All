@@ -24,8 +24,8 @@ Crafty.c('Zombie', {
 		.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 		.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 		.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
-		.animate("hit_fortress_right", [[0,0],[6,0],[3,0],[9,0]])
-		.animate("hit_fortress_left", [[0,0],[6,0],[3,0],[9,0]])
+		.animate("hit_fortress_right", [[15,0], [16,0], [15,0], [17,0]])
+		.animate("hit_fortress_left", [[18,0], [19,0], [18,0], [20,0]])
 		.onHit("gridBounds", function () {
 			//Move unit out of solid tile
 		})
@@ -292,12 +292,12 @@ Crafty.c('Zombie', {
 				{
 					if (this.playerId == 2) {
 						if (!this.isPlaying("hit_fortress_left"))
-							this.stop().animate("hit_fortress_left", this.rate, -1);
+							this.stop().animate("hit_fortress_left", this.rate * 2, -1);
 					}
 	
 					if (this.playerId == 1) {
 						if (!this.isPlaying("hit_fortress_right"))
-							this.stop().animate("hit_fortress_right", this.rate, -1);
+							this.stop().animate("hit_fortress_right", this.rate * 2, -1);
 					}
 				}else
 				{

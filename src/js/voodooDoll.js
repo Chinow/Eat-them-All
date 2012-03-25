@@ -126,16 +126,19 @@ Crafty.c('VoodooDoll', {
 		
 			})
 			.bind('KeyDown', function(el) {
-				
 				if (el.key !== this.actionKey) {
 					return;
 				}
+				
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
 				this.stop().animate("summon_sign", rate, 0);
 				this.master.summon();
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
+				
 				if (!cell.elem || cell.elemType == "sign" && cell.elem.player == null) {
 					this.drawSign(cell);
+				} else if (cell.elemType == "city" && cell.elem.playerId) {
+					cell.elem.switchDoorState();
 				}
 			})
 		

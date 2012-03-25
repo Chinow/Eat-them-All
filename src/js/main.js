@@ -39,28 +39,25 @@ window.onload = function() {
 			.attr({ w: ETA.config.stageWidth, h: ETA.config.stageHeight, x: 0, y: 0 })
 			.replace(
 				'<div id="menu">'+
-					'<div id="title-game"><img src="img/Title_EatEmAll.png"/></div>'+
 					'<div id="menu-button">'+
 						'<div id="loading-text">LOADING ...</div>'+
-						'<div id="start-button" class="hideMenu"></div>'+
+						'<div id="start-button" class="hideMenu">start</div>'+
 						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
 						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
-						'<div id="rules">'+
-						'<h4>Rules :</h4>'+
-							'<ul>'+
-								'<li>Destroy the ennemy fortress by Zombies attacks !</li>'+
-								'<li>Capture human city for more Zombies !</li>'+
-								'<li>Place signs to drive your Zombies</li>'+
-							'</ul>'+
-						'<h4>Commands :</h4>'+
-							'<ul>'+
-								'<li>Player 1 : wasd or zqsd + space</li>'+
-								'<li>Player 2 : arrows + enter</li>'+
-							'</ul>'+
-						'</div>'+
 					'</div>'+
-					'<div id="team-dev"><img src="img/Title_ZTeam.png"/></div>'+
-					'<div id="game-dev-icon"><img src="img/Logo_Game_Dev_Party150x150.png" alt="GAMEDEV"/></div>'+
+					'<div id="rules">'+
+					'<h4>Rules :</h4>'+
+						'<ul>'+
+							'<li>Destroy the ennemy fortress by Zombies attacks !</li>'+
+							'<li>Capture human city for more Zombies !</li>'+
+							'<li>Place signs to drive your Zombies</li>'+
+						'</ul>'+
+					'<h4>Commands :</h4>'+
+						'<ul>'+
+							'<li>Player 1 : wasd or zqsd + space</li>'+
+							'<li>Player 2 : arrows + enter</li>'+
+						'</ul>'+
+					'</div>'+
 				'</div>'
 		);
 	});
@@ -139,19 +136,22 @@ window.onload = function() {
 			.Fortress(18,10,player2);
 
 		Crafty.e("City, hameauNeutralSprite")
-				.City(11, 2, "hameau");
+				.City(3, 9, "hameau");
 		Crafty.e("City, hameauNeutralSprite")
-				.City(4, 10, "hameau");
+				.City(4, 2, "hameau");
+
+		Crafty.e("City, hameauNeutralSprite")
+				.City(14, 10, "hameau");
+		Crafty.e("City, hameauNeutralSprite")
+				.City(15, 1, "hameau");
+				
 		Crafty.e("City, villageNeutralSprite")
-				.City(16, 4, "village");
+				.City(6, 4, "village");
+		Crafty.e("City, villageNeutralSprite")
+				.City(13, 6, "village");
+		
 		Crafty.e("City, villeNeutralSprite")
 				.City(10, 5, "ville");
-		Crafty.e("City, villageNeutralSprite")
-				.City(5, 6, "village");
-		Crafty.e("City, hameauNeutralSprite")
-				.City(16, 7, "hameau");
-				
-
 	});
 	
 	Crafty.bind('KeyDown', function(el) {
