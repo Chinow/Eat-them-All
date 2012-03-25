@@ -1,6 +1,8 @@
 window.onload = function() {
-	gameState = "init";
+	gameState    = "init";
 	pauseTimeout = undefined;
+	player1	 	 = null;
+	player2	 	 = null;
 	
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
@@ -136,6 +138,12 @@ window.onload = function() {
 				gameState = "running";
 				Crafty.pause(false);
 			}
+		}else if((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == "gameover") {
+			gameState = "running";
+			Crafty.stop(true);
+			Crafty("2D DOM").destroy();
+			Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+			Crafty.scene("loading");
 		}
 	})
 	
