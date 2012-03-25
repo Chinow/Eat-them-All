@@ -15,6 +15,9 @@ Crafty.c('Cemetery', {
 		this.playerId = playerId;
 		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
+		this.cell.elemType = "cemetry";
+		this.cell.elem = this;
+		
 		this.spawnPoint = { x: this.cell.x, y: this.cell.y - 15 };
 		this.animate("torch_burn", [[0,0],[1,0]])
 			.animate("torch_burn", rate, -1);
