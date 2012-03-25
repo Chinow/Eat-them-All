@@ -131,6 +131,12 @@ Crafty.c('City', {
 	},
 	switchDoorState: function() {
 		this.doorsOpen = !this.doorsOpen;
+		
+		if (this.doorsOpen) {
+			Crafty.audio.play("doorOpen");
+		} else {
+			Crafty.audio.play("doorClose");
+		}
 	},
 	procreate: function()
 	{
