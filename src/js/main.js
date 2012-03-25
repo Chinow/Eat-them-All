@@ -24,23 +24,35 @@ window.onload = function() {
 		"img/village",
 		"img/ville"
 		], function () {
-			Crafty.scene("main"); //when everything is loaded, run the main scene
+			$('#loading-text').addClass('hideMenu');
+			$('#start-button').removeClass('hideMenu');
+			$('#start-button').click(function() {
+				Crafty.scene("main"); //when everything is loaded, run the main scene
+			});
 		});
 
 		//black background with some loading text
-		Crafty.background("#000");
-		Crafty.e("2D, DOM, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
-				.text("Loading")
-				.css({ "text-align": "center" });
-		});
-
+		Crafty.e('HTML')
+			.attr({ w: ETA.config.stageWidth, h: ETA.config.stageHeight, x: 0, y: 0 })
+			.replace(
+				'<div id="menu">'+
+					'<div id="title-game"><img src="img/Title_EatEmAll.png"/></div>'+
+					'<div id="menu-button">'+
+						'<div id="loading-text">LOADING ...</div>'+
+						'<div id="start-button" class="hideMenu"><img src="img/start.png" alt="START"/></div>'+
+						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
+					'</div>'+
+					'<div id="team-dev"><img src="img/Title_ZTeam.png"/></div>'+
+					'<div id="game-dev-icon"><img src="img/Logo_Game_Dev_Party150x150.png" alt="GAMEDEV"/></div>'+
+				'</div>'
+		);
+	});
 	//automatically play the loading scene
 	Crafty.scene("loading");
 
 	Crafty.scene("main", function (e) {
 		gameState = "running";
-		
-		//var Env = Crafty.e("Env").display();
+
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
 		
@@ -103,13 +115,13 @@ window.onload = function() {
 		Crafty.e("City, hameauNeutralSprite")
 				.City(4, 10, "hameau");
 		Crafty.e("City, villageNeutralSprite")
-				.City(16, 4, "village");		
+				.City(16, 4, "village");
 		Crafty.e("City, villeNeutralSprite")
 				.City(10, 5, "ville");
 		Crafty.e("City, villageNeutralSprite")
 				.City(5, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
-				.City(16, 7, "hameau");	
+				.City(16, 7, "hameau");
 
 	});
 	
@@ -188,23 +200,6 @@ window.onload = function() {
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
-
-		//Crafty.e('2D, DOM, bg')
-		//	.attr({ x:0, y:0 , z:1 });
 	}
-
-	//Crafty.canvas();
-	//Crafty.scene('game', function() {
-	//Crafty.sprite(1, 'img/bgSprite.png', {'bg': [0, 0]}),
-
-	//Crafty.e("2D, Canvas, bg")
-	//					 .attr({ x: 0, y: 0, z:1, w:1000, h:550}).draw();
-
-
-
-	//	ETA.grid = Crafty.e('Grid, bg').attr({x: 0, y: 0, z: 1, w: ETA.config.stageWidth, h: ETA.config.stageHeight});
-	//});
-
-	//Crafty.scene('game');
 };
 
