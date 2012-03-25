@@ -22,9 +22,9 @@ Crafty.c('City', {
 		this.animate("neutral", [[0,0],[0,0]]);
 		this.animate("blue", [[1,0],[1,0]]);
 		this.animate("red", [[2,0],[2,0]]);
-		this.animate("neutral_dead", [[3,0],[3,0]]);
-		this.animate("blue_dead", [[4,0],[4,0]]);
-		this.animate("red_dead", [[5,0],[5,0]]);
+		this.animate("neutralDead", [[3,0],[3,0]]);
+		this.animate("blueDead", [[4,0],[4,0]]);
+		this.animate("redDead", [[5,0],[5,0]]);
 
 		if (size == "hameau")
 		{
@@ -89,23 +89,28 @@ Crafty.c('City', {
 		this.doorsOpen = false;
 		this.playerId = playerId;
 		
-		if (playerId == 0)
-		{
-			if (!this.isPlaying("neutral"))
-				this.stop().animate("neutral", 10, 1);
-		}
-		else if (playerId == 2)
-		{
+		if (playerId > 0) {
 			this.gainGuards(1);
-			if (!this.isPlaying("blue"))
-				this.stop().animate("blue", 10, 1);
 		}
-		else
-		{
-			this.gainGuards(1);
-			if (!this.isPlaying("red"))
-				this.stop().animate("red", 10, 1);
+		
+		this.updateSprite();
+	},
+	updateSprite: function() {
+		var spriteAnimation;
+		
+		if (this.playerId == 0) {
+			spriteAnimation = "neutral";
+		} else if (this.playerId == 1) {
+			spriteAnimation = "red";
+		} else if (this.playerId == 2) {
+			spriteAnimation = "blue";
 		}
+		
+		if (this.nbHumans == 0) {
+			spriteAnimation += "Dead";
+		}
+		
+		this.stop().animate(spriteAnimation, 10, 1);
 	},
 	drawLife: function()
 	{
@@ -155,9 +160,7 @@ Crafty.c('City', {
 			if (this.playerId != 0 && this.nbGards > 0)
 			{
 				this.frames++;
-				if(this.maxHumans == ETA.config.game.nbHumansHameau)
-				
-				{
+				if(this.maxHumans == ETA.config.game.nbHumansHameau) {
 					if (this.frames ==180)
 					{
 						this.nbHumans --;
@@ -185,6 +188,10 @@ Crafty.c('City', {
 						this.drawLife();
 						this.frames = 0;
 					}
+				}
+				
+				if (this.nbHumans == 0) {
+					this.updateSprite();
 				}
 			}
 		}
