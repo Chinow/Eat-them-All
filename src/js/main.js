@@ -130,19 +130,22 @@ window.onload = function() {
 			.Fortress(18,10,player2);
 
 		Crafty.e("City, hameauNeutralSprite")
-				.City(11, 2, "hameau");
+				.City(3, 9, "hameau");
 		Crafty.e("City, hameauNeutralSprite")
-				.City(4, 10, "hameau");
+				.City(4, 2, "hameau");
+
+		Crafty.e("City, hameauNeutralSprite")
+				.City(14, 10, "hameau");
+		Crafty.e("City, hameauNeutralSprite")
+				.City(15, 1, "hameau");
+				
 		Crafty.e("City, villageNeutralSprite")
-				.City(16, 4, "village");
+				.City(6, 4, "village");
+		Crafty.e("City, villageNeutralSprite")
+				.City(13, 6, "village");
+		
 		Crafty.e("City, villeNeutralSprite")
 				.City(10, 5, "ville");
-		Crafty.e("City, villageNeutralSprite")
-				.City(5, 6, "village");
-		Crafty.e("City, hameauNeutralSprite")
-				.City(16, 7, "hameau");
-				
-
 	});
 	
 	Crafty.bind('KeyDown', function(el) {
