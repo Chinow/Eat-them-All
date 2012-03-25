@@ -9,6 +9,7 @@ Crafty.c('VoodooDoll', {
     currentCellId:0,
     maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
+	HPLeft: ETA.config.game.hitPointsFortress,
  
     VoodooDoll : function(playerId) {
 			this.id = playerId;
@@ -128,8 +129,9 @@ Crafty.c('VoodooDoll', {
 				var rate = ETA.config.frameRate/ETA.config.dollAnimationRate;
 				this.stop().animate("summon_sign", rate, 0);
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
-				if (!cell.elem)
-					this.drawSign(cell);	
+				if (!cell.elem || cell.elemType == "sign" && cell.elem.player == null) {
+					this.drawSign(cell);
+				}
 			})
 		
 		this.currentCellId = ETA.grid.getCell(this._x+29, this._y+48).id;
@@ -164,6 +166,10 @@ Crafty.c('VoodooDoll', {
 			}
 			this.z = this.y;
 		}		
+	},
+	youLose : function(){
+		this.destroy();
 	}
+	
 	
 });

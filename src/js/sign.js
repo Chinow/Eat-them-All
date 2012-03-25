@@ -4,6 +4,7 @@ Crafty.c('Sign', {
 	cellObj:null,
 	direction:"none",
 	player:null,
+	playerIdProprio:null,
 	init:function() {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 	},
@@ -30,6 +31,7 @@ Crafty.c('Sign', {
 		var rate 		= ETA.config.frameRate/ETA.config.signAnimationRate;
 		
 		if (!this.isPlaying("up") && this.mvt == "none")  {
+			this.playerIdProprio = this.player.currentCellId;
 			this.stop().animate("up", rateBegin, 0);
 			this.mvt = (this.player.id == 1) ? "turn_right" : "turn_left";
 			this.direction ="n"
@@ -47,16 +49,7 @@ Crafty.c('Sign', {
 			this.cellObj.elem = this;
 			this.cellObj.elemType = "sign";
 			
-			if(el.key == this.player.actionKey && this.cell == this.player.currentCellId) {
-				if (!this.isPlaying("up") && this.mvt =="none")  {
-					Crafty.audio.play("signCreate");
-					this.stop().animate("up", rateBegin, 0);
-					this.direction = "n";
-					this.mvt = (this.player.id == 1) ? "turn_right" : "turn_left";
-					this.player.popSign ++;
-					return this;
-				};
-				
+			if(this.player != null && el.key == this.player.actionKey && this.cell == this.player.currentCellId) {
 				if (!this.isPlaying("turn_right") && this.mvt =="turn_right")  {
 					Crafty.audio.play("signMove");
 					this.stop().animate("turn_right", rate, 0);
@@ -83,19 +76,22 @@ Crafty.c('Sign', {
 				
 				if (!this.isPlaying("turn_up") && this.mvt =="turn_up")  {
 					Crafty.audio.play("signDelete");
-					this.stop().animate("turn_up", rate, 0);
 					this.direction = "none";
-					this.player.popSign --;
 					this.mvt = "none";
+					this.player.popSign --;
 					this.cellObj.elem = null;
 					this.cellObj.elemType = null;
 					this.cellObj = null;
 					
+					this.stop().animate("turn_up", rate, 0);
+					this.timeout(function() {
+						this.player = null;
+						this.destroy();
+					}, (rate * 45) );
 					return this;
-				};
+				};					
 			}
 		})
-
 		return this;
 	}
 });
