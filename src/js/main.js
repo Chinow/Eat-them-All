@@ -1,5 +1,6 @@
 window.onload = function() {
 	gameState = "init";
+	pauseTimeout = undefined;
 	
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
@@ -96,11 +97,25 @@ window.onload = function() {
 	});
 	
 	Crafty.bind('KeyDown', function(el) {
-		if (el.key == Crafty.keys.ESCAPE) {
+		if (el.key == Crafty.keys.ESC) {
 			if (gameState == "running") {
 				gameState = "paused";
 				Crafty.pause(true);
+				
+				Crafty.audio.settings("pauseStart", { muted: false });
+				Crafty.audio.settings("pauseStart", { muted: false });
+				Crafty.audio.play("pauseStart");
+				
+				pauseTimeout = window.setTimeout(function() {
+					Crafty.audio.settings("pause", { muted: false });
+					Crafty.audio.play("pause", -1);
+				}, 6000 );
 			} else if (gameState == "paused") {
+				Crafty.audio.settings("pauseStart", { muted: true });
+				Crafty.audio.settings("pause", { muted: true });
+				
+				window.clearTimeout(pauseTimeout);
+				
 				gameState = "running";
 				Crafty.pause(false);
 			}

@@ -61,6 +61,10 @@ Crafty.audio.add("gameOver", [
         "media/GameOver.mp3", 
         "media/GameOver.ogg"]);
         
+Crafty.audio.add("pauseStart", [
+        "media/PauseBaron.mp3", 
+        "media/PauseBaron.ogg"]);
+        
 Crafty.audio.add("pause", [
         "media/LaPause.mp3", 
         "media/LaPause.ogg"]);
