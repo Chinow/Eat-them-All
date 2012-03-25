@@ -83,9 +83,14 @@ Crafty.c('Zombie', {
 				var signPresent = false;
 				var signDirection = "none";
 				
-				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none"
+				&& this.currentCell.elem.player.id == this.playerId) {
+
 					signPresent = true;
 					signDirection =  this.currentCell.elem.direction;
+				} else {
+					var signPresent = false;
+					var signDirection = "none";
 				}
 				
 				// Have sign
@@ -106,14 +111,15 @@ Crafty.c('Zombie', {
 				this.move("e",1);
 				
 			var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
-			if (dy < 5 && dy > -5)
-			{
-				var signPresent = false;
-				var signDirection = "none";
-				
-				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none") {
+			
+			if (dy < 5 && dy > -5) {
+				if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none"
+				&& this.currentCell.elem.player.id == this.playerId) {
 					signPresent = true;
 					signDirection =  this.currentCell.elem.direction;
+				} else {
+					var signPresent = false;
+					var signDirection = "none";
 				}
 				
 				
