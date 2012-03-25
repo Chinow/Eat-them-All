@@ -140,6 +140,11 @@ Crafty.c('City', {
 				}
 			}
 			
+			if (this.nbHumans == 0)
+			{
+				
+				return;
+			}
 			if (this.playerId != 0)
 			{
 				this.frames++;
