@@ -1,7 +1,7 @@
 window.onload = function() {
-	gameState = "init";
+	gameState    = "init";
 	pauseTimeout = undefined;
-	
+
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
@@ -22,25 +22,51 @@ window.onload = function() {
 		"img/forteresse_rouge.png",
 		"img/hameau.png",
 		"img/village",
-		"img/ville"
+		"img/ville",
 		], function () {
-			Crafty.scene("main"); //when everything is loaded, run the main scene
+			$('#loading-text').addClass('hideMenu');
+			$('#start-button').removeClass('hideMenu');
+			$('#start-button').click(function() {
+				Crafty.scene("main"); //when everything is loaded, run the main scene
+			});
 		});
 
 		//black background with some loading text
-		Crafty.background("#000");
-		Crafty.e("2D, DOM, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
-				.text("Loading")
-				.css({ "text-align": "center" });
-		});
-
+		Crafty.e('HTML')
+			.attr({ w: ETA.config.stageWidth, h: ETA.config.stageHeight, x: 0, y: 0 })
+			.replace(
+				'<div id="menu">'+
+					'<div id="title-game"><img src="img/Title_EatEmAll.png"/></div>'+
+					'<div id="menu-button">'+
+						'<div id="loading-text">LOADING ...</div>'+
+						'<div id="start-button" class="hideMenu"></div>'+
+						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
+						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
+						'<div id="rules">'+
+						'<h4>Rules :</h4>'+
+							'<ul>'+
+								'<li>Destroy the ennemy fortress by Zombies attacks !</li>'+
+								'<li>Capture human city for more Zombies !</li>'+
+								'<li>Place signs to drive your Zombies</li>'+
+							'</ul>'+
+						'<h4>Commands :</h4>'+
+							'<ul>'+
+								'<li>Player 1 : wasd or zqsd + space</li>'+
+								'<li>Player 2 : arrows + enter</li>'+
+							'</ul>'+
+						'</div>'+
+					'</div>'+
+					'<div id="team-dev"><img src="img/Title_ZTeam.png"/></div>'+
+					'<div id="game-dev-icon"><img src="img/Logo_Game_Dev_Party150x150.png" alt="GAMEDEV"/></div>'+
+				'</div>'
+		);
+	});
 	//automatically play the loading scene
 	Crafty.scene("loading");
 
 	Crafty.scene("main", function (e) {
 		gameState = "running";
-		
-		//var Env = Crafty.e("Env").display();
+
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
 		
@@ -103,13 +129,13 @@ window.onload = function() {
 		Crafty.e("City, hameauNeutralSprite")
 				.City(4, 10, "hameau");
 		Crafty.e("City, villageNeutralSprite")
-				.City(16, 4, "village");		
+				.City(16, 4, "village");
 		Crafty.e("City, villeNeutralSprite")
 				.City(10, 5, "ville");
 		Crafty.e("City, villageNeutralSprite")
 				.City(5, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
-				.City(16, 7, "hameau");	
+				.City(16, 7, "hameau");
 
 	});
 	
@@ -136,6 +162,12 @@ window.onload = function() {
 				gameState = "running";
 				Crafty.pause(false);
 			}
+		}else if((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == "gameover") {
+			gameState = "running";
+			Crafty.stop(true);
+			Crafty("2D DOM").destroy();
+			Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+			Crafty.scene("loading");
 		}
 	})
 	
@@ -185,26 +217,10 @@ window.onload = function() {
 		Crafty.sprite(70, "img/ville.png", {
 			villeNeutralSprite:[0, 0],
 		});
+		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
-
-		//Crafty.e('2D, DOM, bg')
-		//	.attr({ x:0, y:0 , z:1 });
 	}
-
-	//Crafty.canvas();
-	//Crafty.scene('game', function() {
-	//Crafty.sprite(1, 'img/bgSprite.png', {'bg': [0, 0]}),
-
-	//Crafty.e("2D, Canvas, bg")
-	//					 .attr({ x: 0, y: 0, z:1, w:1000, h:550}).draw();
-
-
-
-	//	ETA.grid = Crafty.e('Grid, bg').attr({x: 0, y: 0, z: 1, w: ETA.config.stageWidth, h: ETA.config.stageHeight});
-	//});
-
-	//Crafty.scene('game');
 };
 

@@ -12,3 +12,62 @@ body {
 	margin-left: -500px;
 	/* margin-top: -290px; */
 }
+
+/* Start menu */
+#menu {
+	position: absolute;
+	width: 1000px;
+	height: 580px;
+	background-image:url('../img/bg.png');
+}
+
+#title-game {
+	text-align: center;
+}
+
+#team-dev {
+	float: left;
+	margin: 150px 0px 0px 35px;
+}
+
+#menu-button {
+	float: right;
+	margin: 100px 100px 0px 0px;
+}
+
+#start-button {
+	display: block;
+	width: 275px;
+	height: 40px;
+	background: url('../img/Menu_Items_StartGame.png') 0 0 no-repeat;
+	margin: 10px:
+}
+
+#start-button:hover {
+	background-position:-275px 0px;
+}
+
+#option-button {
+	margin: 10px:
+}
+
+#game-dev-icon {
+	margin: 190px 0px 0px 400px;
+}
+
+.hideMenu {
+	display: none;
+}
+
+/* Pause */
+#pause {
+	position: absolute;
+	width: 1000px;
+	height: 580px;
+	text-align: center;
+}
+
+#pause > img {
+	margin: auto;
+	margin-top: 150px;
+}

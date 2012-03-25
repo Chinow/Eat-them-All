@@ -1,6 +1,8 @@
 Crafty.c('City', {
 	nbGards:0,
-	nbHumnas: 0,
+	frames:0,
+	nbHumans: 0,
+	maxHumans:0,
 	playerId:0,
 	life:null,
 	text:null,
@@ -25,59 +27,57 @@ Crafty.c('City', {
 		if (size == "hameau")
 		{
 			this.hudHeight = 14;
-			this.hudXOffset = 0;
-			this.hudYOffset = 0;
+			this.hudXOffset = 39;
+			this.hudYOffset = 27;
 			this.textOffsetX = -11;
 			this.nbGards = ETA.config.game.nbGuardsHameau;
-			this.nbHumnas = ETA.config.game.nbHumansHameau;
+			this.nbHumans = ETA.config.game.nbHumansHameau;
+			this.maxHumans = ETA.config.game.nbHumansHameau;
 		}
 		else if (size == "village")
 		{
 			this.hudHeight = 24;
+			this.hudXOffset = 32
+			this.hudYOffset = 17;
 			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVillage;
-			this.nbHumnas = ETA.config.game.nbHumansVillage;
+			this.nbHumans = ETA.config.game.nbHumansVillage;
+			this.maxHumans = ETA.config.game.nbHumansVillage;
 		}
 		else if (size == "ville")
 		{
 			this.hudHeight = 37;
+			this.hudXOffset = 32;
+			this.hudYOffset = 4;
 			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVille;
-			this.nbHumnas = ETA.config.game.nbHumansVille;
+			this.nbHumans = ETA.config.game.nbHumansVille;
+			this.maxHumans = ETA.config.game.nbHumansVille;
 		}
 		
 		
 
 		this.cell.elem = this;
 		this.cell.elemType = "city";
-	
 		this.animate("neutral",10, 1);
 		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
-		this.life = Crafty.e("2D, DOM, Color")
-					.color('rgb(0,255,0)')
-					.attr({ x: this.cell.x+32, y: this.cell.y+4, z:this.cell.center.y-25, w: 3, h:this.hudHeight});
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x +this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
-				.text(this.nbGards+"")
-				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
-
+		this.drawLife();
+		this.drawText();
+		this.bind("EnterFrame",this.procreate);
 		return this;
 	},
 	loseGuard : function (value){
 		this.nbGards = this.nbGards - value;
 		this.text.destroy();
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
-				.text(this.nbGards+"")
-				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
-	},
+		this.drawText();
+		},
 	gainGuards : function (value){
 		this.nbGards = this.nbGards + value;
 		if(this.nbGards > 99)
 			this.nbGards = 99;
 			
 		this.text.destroy();
-		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
-				.text(this.nbGards+"")
-				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
+		this.drawText();
 	},
 	changePlayed : function(playerId){
 		if (playerId == 0)
@@ -101,6 +101,80 @@ Crafty.c('City', {
 			if (!this.isPlaying("red"))
 				this.stop().animate("red", 10, 1);
 		}
+	},
+	drawLife: function()
+	{
+		var ratio = this.nbHumans/this.maxHumans;
+		var color;
+		if (ratio > 0.66)
+			color = 'rgb(0,255,0)';
+		else if (ratio < 0.33)
+			color = 'rgb(255,0,0)';
+		else
+			color = 'rgb(240,195,0)';
+		if (this.life)
+			this.life.destroy();
+		this.life = Crafty.e("2D, DOM, Color")
+					.color(color)
+					.attr({ x: this.cell.x +this.hudXOffset, y: this.cell.y+this.hudYOffset + (this.hudHeight -this.hudHeight*ratio+1), z:this.cell.y-25, w: 3, h:this.hudHeight*ratio});
+	},
+	drawText: function()
+	{
+		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.y-25 })
+				.text(this.nbGards+"")
+				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
+	},
+	procreate: function()
+	{
+			if (this.playerId == 0)
+			{
+				if (this.nbHumans < this.maxHumans)
+				{
+					rand = Crafty.math.randomNumber(0, 1);
+					proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
+					if (proclimit > rand)
+					{
+						this.nbHumans ++;
+						this.drawLife();
+					}	
+				}
+			}
+			
+			if (this.playerId != 0)
+			{
+				this.frames++;
+				if(this.maxHumans == ETA.config.game.nbHumansHameau)
+				{
+					if (this.frames ==180)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+				else if(this.maxHumans == ETA.config.game.nbHumansVillage)
+				{
+					if (this.frames ==120)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+				else if(this.maxHumans == ETA.config.game.nbHumansVille)
+				{
+					if (this.frames ==60)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+			}
+	
 	}
 });
 

@@ -69,7 +69,6 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
-		console.log("Enter DrawSign");
 		if(this._pop < this.maxSigns) {
 			if(cell.attribute('sign')) {
 				Crafty.e("Sign, signSprite").attr({x: this.x,y: this.y, z: 100, w:50, h:50 });
