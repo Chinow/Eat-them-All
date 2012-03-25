@@ -36,7 +36,15 @@ body {
 }
 
 #start-button {
+	display: block;
+	width: 275px;
+	height: 40px;
+	background: url('../img/Menu_Items_StartGame.png') 0 0 no-repeat;
 	margin: 10px:
+}
+
+#start-button:hover {
+	background-position:-275px 0px;
 }
 
 #option-button {
