@@ -21,6 +21,8 @@ ETA.config = {
 		tileHeight: 50
 	},
 	game:{
+		procreationSpeed: 0.2,
+		cityZombiCreationSpeed: 0.2,
 		dollSpeed: 4,
 		zombiSpeed: 1,
 		zombiDPS: 0.01,
