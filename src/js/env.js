@@ -7,8 +7,8 @@ Crafty.c('Env', {
 			if (el.key !== ETA.config.keyDownSign) {
 				return;
 			}
+			
 			if(pop < ETA.config.maxSigns) {
-				console.log(el.x + '->' + this.x);
 				Crafty.e("Sign, signSprite").attr({ x: this.x,y: this.y, z: 100, w:64, h:64 })			
 				pop++;
 			}
