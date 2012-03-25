@@ -2,6 +2,7 @@ Crafty.c('Zombie', {
 	init : function() {
 		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
+        this._globalZ=7;
 	},
 	targetPixel:{x:500, y:250},
 	currentCell:null,

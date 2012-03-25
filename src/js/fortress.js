@@ -4,6 +4,7 @@ Crafty.c('Fortress', {
 	init: function() {
 		this.requires("2D, DOM, fortress, Collision");
 		this.collision();
+        this._globalZ=3;
 		return this;
 	},
 	Fortress : function(cellX, cellY, player) {
@@ -15,11 +16,11 @@ Crafty.c('Fortress', {
 		this.cell.elemType = "fortress";
 		if (player.id == "1")
 		{
-			this.attr({ x: this.cell.x-18, y: this.cell.y-25, z: 1100 });
+			this.attr({ x: this.cell.x-18, y: this.cell.y-25, z: this.cell.y-25 });
 		}
 		else if (player.id == "2")
 		{
-			this.attr({ x: this.cell.x, y: this.cell.y-25, z: 1100 });
+			this.attr({ x: this.cell.x, y: this.cell.y-25, z:this.cell.y-25 });
 		}
 		return this;
 	},
