@@ -31,6 +31,16 @@ Crafty.c('Zombie', {
 						}
 					}
 				}	
+				/*collide = this.hit('fortress')
+				if (collide){
+					var collideLength = collide.length;
+					for (var i = 0; i < collideLength; i++) {
+						if (collide[i].type == "SAT")
+						{
+							this.attr({x: from.x, y:from.y});
+						}
+					}
+				}*/
 			})
 			.bind("EnterFrame",this.moveZombi)
 		return this;
@@ -88,6 +98,12 @@ Crafty.c('Zombie', {
 					var signPresent = false;
 					var signDirection = "none";
 				}
+				if (this.currentCell.elemType == "fortress" ) {
+					this.currentCell.elem.hitPoints--;
+					this.destroy();
+					//signPresent = true;
+					//signDirection =  this.currentCell.elem.direction;
+				}
 				
 				// Have sign
 				if (signPresent) {
@@ -138,7 +154,7 @@ Crafty.c('Zombie', {
 					break;
 				}
 			}
-		}	
+		}
 		if (!collided)
 		{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
@@ -158,6 +174,9 @@ Crafty.c('Zombie', {
 				if (!this.isPlaying("walk_down"))
 					this.stop().animate("walk_down", rate, -1);
 			}
+		}else
+		{
+			this.stop();
 		}
 		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
 		if (newCell != this.currentCell)
