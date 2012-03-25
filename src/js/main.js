@@ -1,7 +1,7 @@
 window.onload = function() {
-	gameState = "init";
+	gameState    = "init";
 	pauseTimeout = undefined;
-	
+
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
@@ -22,7 +22,7 @@ window.onload = function() {
 		"img/forteresse_rouge.png",
 		"img/hameau.png",
 		"img/village",
-		"img/ville"
+		"img/ville",
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -162,6 +162,12 @@ window.onload = function() {
 				gameState = "running";
 				Crafty.pause(false);
 			}
+		}else if((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == "gameover") {
+			gameState = "running";
+			Crafty.stop(true);
+			Crafty("2D DOM").destroy();
+			Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+			Crafty.scene("loading");
 		}
 	})
 	
@@ -211,6 +217,7 @@ window.onload = function() {
 		Crafty.sprite(70, "img/ville.png", {
 			villeNeutralSprite:[0, 0],
 		});
+		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);

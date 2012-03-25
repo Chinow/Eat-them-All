@@ -21,6 +21,8 @@ ETA.config = {
 		tileHeight: 50
 	},
 	game:{
+		procreationSpeed: 0.2,
+		cityZombiCreationSpeed: 0.2,
 		dollSpeed: 4,
 		zombiSpeed: 1,
 		zombiDPS: 0.01,
@@ -36,8 +38,7 @@ ETA.config = {
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
-		keyset: "zqsd",
-		//keyset:"wasd",
+		keyset:"wasd",
 		actionKey: Crafty.keys.SPACE,
 	},
 	p2: {
