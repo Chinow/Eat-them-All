@@ -86,7 +86,7 @@ Crafty.c('Sign', {
 					this.cellObj = null;
 					this.timeout(function() {
 						this.destroy();
-					}, (rate * 33) );
+					}, (rate * 45) );
 					return this;
 				};					
 			}
