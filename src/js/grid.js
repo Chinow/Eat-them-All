@@ -99,38 +99,38 @@ Crafty.c('BGGrid', {
 		
 		
 		/* Winner */
-		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 300, y: 350})
-				.text("WINNER")
-				.css({ "color" : "#C03000", "font-size" : "30px", "text-align": "center", "font-weight" : "bold" });		
-		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 392})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 290, y: 352})
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "30px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 395})
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });		
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 418})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 441})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 290, y: 464})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 				
 		/* Looser */
-		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 830, y: 350})
-				.text("LOOSER")
-				.css({ "color" : "#C03000", "font-size" : "30px", "text-align": "center", "font-weight" : "bold" });		
-		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 392})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 20, x: 820, y: 352})
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "30px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });		
+		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 395})
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });		
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 418})
-				.text("N/C")
-				.css({ "color" : "#8F5A15",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 441})
-				.text("N/C")
-				.css({ "color" : "#8F5A15", "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF", "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 		Crafty.e("2D, DOM, Text").attr({ w: 50, h: 10, x: 820, y: 464})
-				.text("N/C")
-				.css({ "color" : "#8F5A15",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold" });
+				.text("-")
+				.css({ "color" : "#FFF",  "font-size" : "19px", "text-align": "center", "font-weight" : "bold", "font-family" : "Arial, Helvetica, sans-serif" });
 	},
 	
 	getCell: function(x, y) {
