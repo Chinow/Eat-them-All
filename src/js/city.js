@@ -72,7 +72,11 @@ Crafty.c('City', {
 		this.nbGards = this.nbGards - value;
 		this.text.destroy();
 		this.drawText();
-		},
+		
+		/*if (this.nbGards == 0) {
+			this.changePlayed(0);
+		}*/
+	},
 	gainGuards : function (value){
 		this.nbGards = this.nbGards + value;
 		if(this.nbGards > 99)
@@ -130,9 +134,8 @@ Crafty.c('City', {
 	},
 	procreate: function()
 	{
-		if (this.playerId == 0)
-		{
-			if (this.nbHumans > 0 && this.nbHumans < this.maxHumans)
+		if (this.nbHumans > 0) {
+			if (this.playerId == 0 && this.nbHumans < this.maxHumans)
 			{
 				rand = Crafty.math.randomNumber(0, 1);
 				proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
@@ -142,67 +145,63 @@ Crafty.c('City', {
 					this.drawLife();
 				}
 			}
+			
+			if (this.playerId != 0 && this.nbGards > 0)
+			{
+				this.frames++;
+				if(this.maxHumans == ETA.config.game.nbHumansHameau)
+				
+				{
+					if (this.frames ==180)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+				else if(this.maxHumans == ETA.config.game.nbHumansVillage)
+				{
+					if (this.frames ==120)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+				else if(this.maxHumans == ETA.config.game.nbHumansVille)
+				{
+					if (this.frames ==60)
+					{
+						this.nbHumans --;
+						this.gainGuards(1);
+						this.drawLife();
+						this.frames = 0;
+					}
+				}
+			}
 		}
 		
-		if (this.playerId != 0 && this.nbGards > 0)
-		{
-			this.frames++;
-			if(this.maxHumans == ETA.config.game.nbHumansHameau)
-			
-			{
-				if (this.frames ==180)
-				{
-					this.nbHumans --;
-					this.gainGuards(1);
-					this.drawLife();
-					this.frames = 0;
+		if (this.doorsOpen && this.nbGards > 0) {
+			if (++this.outFrames >= ETA.config.game.timeGetOutFortress * ETA.config.frameRate) {
+				this.loseGuard(1);
+				this.outFrames = 0;
+				
+				var spriteName;
+				var xoffset;
+				
+				if (this.playerId == 1) {
+					spriteName = "zombieRougeSprite";
+					xoffset = 50;
+				} else {
+					spriteName = "zombieBleuSprite";
+					xoffset = -50;
 				}
-			}
-			else if(this.maxHumans == ETA.config.game.nbHumansVillage)
-			{
-				if (this.frames ==120)
-				{
-					this.nbHumans --;
-					this.gainGuards(1);
-					this.drawLife();
-					this.frames = 0;
-				}
-			}
-			else if(this.maxHumans == ETA.config.game.nbHumansVille)
-			{
-				if (this.frames ==60)
-				{
-					this.nbHumans --;
-					this.gainGuards(1);
-					this.drawLife();
-					this.frames = 0;
-				}
-			}
-			
-			if (this.doorsOpen && this.nbGards > 0) {
-				if (++this.outFrames >= ETA.config.game.timeGetOutFortress * ETA.config.frameRate) {
-					this.loseGuard(1);
-					this.outFrames = 0;
-					
-					var spriteName;
-					var xoffset;
-					
-					if (this.playerId == 1) {
-						spriteName = "zombieRougeSprite";
-						xoffset = 40;
-					} else {
-						spriteName = "zombieBleuSprite";
-						xoffset = -40;
-					}
-					
-					Crafty.e("Zombie, " + spriteName)
-						.Zombie(this.playerId)
-						.attr({ x: this.x + xoffset, y: this.y, z:900 });
-					
-					if (this.nbGards == 0) {
-						this.changePlayed(0);
-					}
-				}
+				
+				Crafty.e("Zombie, " + spriteName)
+					.Zombie(this.playerId)
+					.attr({ x: this.x + xoffset, y: this.y, z:900 });
 			}
 		}
 	}
