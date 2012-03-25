@@ -1,7 +1,12 @@
 Crafty.c('City', {
-	nbGards: ETA.config.game.nbGuardsHameau,
+	nbGards:0,
+	nbHumnas: 0,
 	playerId:0,
+	life:null,
 	text:null,
+	hudHeight:0,
+	hudXOffset:0,
+	hudYOffset:0,
 	textOffsetX:null,
 	init: function() {
 		this.requires("2D, DOM, city, SpriteAnimation");
@@ -19,24 +24,38 @@ Crafty.c('City', {
 
 		if (size == "hameau")
 		{
+			this.hudHeight = 14;
+			this.hudXOffset = 0;
+			this.hudYOffset = 0;
 			this.textOffsetX = -11;
 			this.nbGards = ETA.config.game.nbGuardsHameau;
+			this.nbHumnas = ETA.config.game.nbHumansHameau;
 		}
 		else if (size == "village")
 		{
+			this.hudHeight = 24;
 			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVillage;
+			this.nbHumnas = ETA.config.game.nbHumansVillage;
 		}
 		else if (size == "ville")
 		{
+			this.hudHeight = 37;
 			this.textOffsetX = -17;
 			this.nbGards = ETA.config.game.nbGuardsVille;
+			this.nbHumnas = ETA.config.game.nbHumansVille;
 		}
+		
+		
 
 		this.cell.elem = this;
 		this.cell.elemType = "city";
+	
 		this.animate("neutral",10, 1);
 		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
+		this.life = Crafty.e("2D, DOM, Color")
+					.color('rgb(0,255,0)')
+					.attr({ x: this.cell.x+32, y: this.cell.y+4, z:this.cell.center.y-25, w: 3, h:this.hudHeight});
 		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x +this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
 				.text(this.nbGards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
@@ -53,7 +72,7 @@ Crafty.c('City', {
 	gainGuards : function (value){
 		this.nbGards = this.nbGards + value;
 		if(this.nbGards > 99)
-			this.nbGards == 99;
+			this.nbGards = 99;
 			
 		this.text.destroy();
 		this.text =Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.center.y+1 })
