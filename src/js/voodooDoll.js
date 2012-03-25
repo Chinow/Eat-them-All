@@ -130,7 +130,6 @@ Crafty.c('VoodooDoll', {
 				this.stop().animate("summon_sign", rate, 0);
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
 				if (!cell.elem) {
-					console.log("toto");
 					this.drawSign(cell);	
 				}
 			})
@@ -149,7 +148,6 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
-		console.log("Draw Sign");
 		if(this.id ==1) {
 			var signSprite 	= "signRougeSprite";
 		}else{
