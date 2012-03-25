@@ -24,21 +24,19 @@ Crafty.c('Sign', {
 			this.animate("turn_left", [[10,0],[9,0]]);
 			this.animate("turn_bottom", [[8,0],[7,0]]);
 			this.animate("turn_right", [[6,0],[5,0]]);
-			this.animate("turn_up", [[8,0],[3,0], [2,0], [1,0], [0,0], [11,0]]);
+			this.animate("turn_up", [[4,0],[3,0], [2,0], [1,0], [0,0], [11,0]]);
 			this.animate("down", [[11,0]]);
 		}
 		
 		var rateBegin 	= ETA.config.frameRate/ETA.config.signBeginAnimationRate;
 		var rate 		= ETA.config.frameRate/ETA.config.signAnimationRate;
 		
-		if (!this.isPlaying("up") && this.mvt == "none")  {
-			this.playerIdProprio = this.player.currentCellId;
-			this.stop().animate("up", rateBegin, 0);
-			this.mvt = (this.player.id == 1) ? "turn_right" : "turn_left";
-			this.direction ="n"
-			Crafty.audio.play("signCreate");
-			this.player.popSign ++;
-		};
+		Crafty.audio.play("signCreate");
+		this.stop().animate("up", rateBegin, 0);
+		this.direction ="n"
+		this.mvt = (this.player.id == 1) ? "turn_right" : "turn_left";
+		this.playerIdProprio = this.player.currentCellId;
+		this.player.popSign ++;
 		
 		this.cell = ETA.grid.getCell(this._x+29, this._y+48).id;
 		this.cellObj = ETA.grid.getCell(this._x+29, this._y+48);
@@ -80,13 +78,13 @@ Crafty.c('Sign', {
 					this.direction = "none";
 					this.mvt = "none";
 					this.player.popSign --;
-					this.cellObj.elem = null;
-					this.cellObj.elemType = null;
-					this.cellObj = null;
 					
 					this.stop().animate("turn_up", rate, 0);
 					this.timeout(function() {
 						this.player = null;
+						this.cellObj.elem = null;
+						this.cellObj.elemType = null;
+						this.cellObj = null;
 						this.destroy();
 					}, (rate * 45) );
 					return this;

@@ -1,12 +1,13 @@
 Crafty.c('Zombie', {
 	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision")
+		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
         this._globalZ=7;
 	},
 	targetPixel:{x:500, y:250},
 	currentCell:null,
 	walkingDirection:"s",
+	spawningImunity:true,
 	playerId: 0,
 	Zombie : function(playerId){
 			this.playerId = playerId;
@@ -54,6 +55,7 @@ Crafty.c('Zombie', {
 			this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
 		var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
 		var hittingFortress=false;
+		var hittingCemetery=false;
 		if (this.walkingDirection == "w" || this.walkingDirection == "e")
 		{
 			if (direction.y > 1)
@@ -72,6 +74,22 @@ Crafty.c('Zombie', {
 				}else{
 					this.currentCell.elem.loseHP(ETA.config.game.zombiDPS);
 					hittingFortress = true;
+				}
+				
+				//signPresent = true;
+				//signDirection =  this.currentCell.elem.direction;
+			}
+			
+			if (this.currentCell.elemType == "cemetry" && !this.spawningImunity) {
+				if (this.playerId == this.currentCell.elem.playerId)
+				{
+					if (this.walkingDirection == "e" )
+						this.walkingDirection = "w" 
+					else if (this.walkingDirection == "w" )
+						this.walkingDirection = "e" 
+						
+				}else{
+					hittingCemetery = true;
 				}
 				
 				//signPresent = true;
@@ -174,7 +192,22 @@ Crafty.c('Zombie', {
 				}
 			}
 		}
-		if (!collided && !hittingFortress)
+		var collide2 = this.hit('zombi');
+		var collided2 = false;
+		if(collide2){
+			var collideLength = collide2.length;
+			for (var i = 0; i < collideLength; i++) {
+				if (collide2[i].type == "SAT")
+				{
+					if (collide2[i].obj.playerId != this.playerId)
+					{
+						collide2[i].obj.destroy();
+						this.destroy();
+					}
+				}
+			}
+		}
+		if (!collided && !hittingFortress && !hittingCemetery)
 		{
 			this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 			if (this.walkingDirection == "w") {
@@ -214,6 +247,7 @@ Crafty.c('Zombie', {
 		var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
 		if (newCell != this.currentCell)
 		{
+			this.spawningImunity = false;
 			// check new cell content
 			this.currentCell = newCell;
 		}
