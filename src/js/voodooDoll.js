@@ -2,6 +2,7 @@ Crafty.c('VoodooDoll', {
 	init : function() {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
+        this._globalZ=8;
 	},
 	walking:"none",
 	popSign: 0,
@@ -10,10 +11,9 @@ Crafty.c('VoodooDoll', {
     maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
 	HPLeft: ETA.config.game.hitPointsFortress,
- 
+    
     VoodooDoll : function(playerId) {
 			this.id = playerId;
-			
 			// Setup keyboard
 			if (this.id == 1) {
 				this.keyboard1Controls(ETA.config.game.dollSpeed)

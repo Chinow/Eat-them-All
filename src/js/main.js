@@ -1,7 +1,11 @@
 window.onload = function() {
+	gameState = "init";
+	
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
+		gameState = "running";
+		
 		//load takes an array of assets and a callback when complete
 		Crafty.load([
 		"img/bgSprite.png",
@@ -33,6 +37,8 @@ window.onload = function() {
 	Crafty.scene("loading");
 
 	Crafty.scene("main", function (e) {
+		gameState = "running";
+		
 		//var Env = Crafty.e("Env").display();
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
@@ -90,7 +96,7 @@ window.onload = function() {
 			.Fortress(18,9,player2);
 		Crafty.e("Fortress, fortresseBleuSprite")
 			.Fortress(18,10,player2);
-			
+
 		Crafty.e("City, hameauNeutralSprite")
 				.City(11, 2, "hameau");
 		Crafty.e("City, villageNeutralSprite")
@@ -101,10 +107,21 @@ window.onload = function() {
 				.City(11, 6, "village");
 		Crafty.e("City, hameauNeutralSprite")
 				.City(11, 7, "hameau");	
-		
 
 	});
-
+	
+	Crafty.bind('KeyDown', function(el) {
+		if (el.key == Crafty.keys.ESCAPE) {
+			if (gameState == "running") {
+				gameState = "paused";
+				Crafty.pause(true);
+			} else if (gameState == "paused") {
+				gameState = "running";
+				Crafty.pause(false);
+			}
+		}
+	})
+	
 	function generateWorld() {
 
 		Crafty.sprite(16, "img/bgSprite.png", {
