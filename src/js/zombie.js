@@ -55,6 +55,7 @@ Crafty.c('Zombie', {
 		}
 		
 		if (this.dying && !this.isPlaying("die")) {
+			console.log("do die");
 			this.destroy();
 		}
 		
@@ -216,8 +217,7 @@ Crafty.c('Zombie', {
 			if(collide){
 				var collideLength = collide.length;
 				for (var i = 0; i < collideLength; i++) {
-					if (collide[i].type == "SAT")
-					{
+					if (collide[i].type == "SAT") {
 						collided = true;
 						break;
 					}
@@ -228,10 +228,8 @@ Crafty.c('Zombie', {
 			if(collide2){
 				var collideLength = collide2.length;
 				for (var i = 0; i < collideLength; i++) {
-					if (collide2[i].type == "SAT")
-					{
-						if (collide2[i].obj.playerId != this.playerId)
-						{
+					if (collide2[i].type == "SAT") {
+						if (collide2[i].obj.playerId != this.playerId) {
 							if (!this.dying && !collide2[i].obj.dying)
 							collide2[i].obj.die();
 							this.die();
