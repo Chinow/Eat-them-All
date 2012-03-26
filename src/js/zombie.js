@@ -10,6 +10,7 @@ Crafty.c('Zombie', {
 	spawningImunity:true,
 	spawning: true,
 	dying: false,
+	hittingFortress: false,
 	playerId: 0,
 	rate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
 	Zombie : function(playerId){
@@ -57,13 +58,17 @@ Crafty.c('Zombie', {
 			this.destroy();
 		}
 		
+		if (this.hittingFortress && !this.isPlaying("hit_fortress_right") && !this.isPlaying("hit_fortress_left")) {
+			this.die();
+			return;
+		}
+		
 		if (!this.dying) {
 			this.z = this.y;
 			if (!this.currentCell)
 				this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
 			var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
-			var hittingFortress=false;
-			var hittingCemetery=false;
+			
 			if (this.walkingDirection == "w" || this.walkingDirection == "e")
 			{
 				if (direction.y > 1)
@@ -71,60 +76,31 @@ Crafty.c('Zombie', {
 				else if (direction.y < -1)
 					this.move("s",1);
 					
-				if (this.currentCell.elemType == "fortress" ) {
-					if (this.playerId == this.currentCell.elem.player.id)
-					{
-						if (this.walkingDirection == "e" )
-							this.walkingDirection = "w" 
-						else if (this.walkingDirection == "w" )
-							this.walkingDirection = "e" 
-							
-					}else{
-						this.currentCell.elem.loseHP(ETA.config.game.zombiDPS);
-						hittingFortress = true;
+				if ((this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetry")
+				&& !this.hittingFortress && !this.spawningImunity) {
+					if (this.playerId == this.currentCell.elem.player.id) {
+						this.walkingDirection = (this.walkingDirection == "e") ? "w" : "e";
+					} else{
+						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
+						this.hittingFortress = true;
 					}
-					
-					//signPresent = true;
-					//signDirection =  this.currentCell.elem.direction;
-				}
-				
-				if (this.currentCell.elemType == "cemetry" && !this.spawningImunity) {
-					if (this.playerId == this.currentCell.elem.playerId)
-					{
-						if (this.walkingDirection == "e" )
-							this.walkingDirection = "w" 
-						else if (this.walkingDirection == "w" )
-							this.walkingDirection = "e" 
-							
-					}else{
-						hittingCemetery = true;
-					}
-					
-					//signPresent = true;
-					//signDirection =  this.currentCell.elem.direction;
 				}
 				
 				if (this.currentCell.elemType == "city") {
-					if (this.currentCell.elem.playerId != this.playerId)
-					{
-						if (this.currentCell.elem.nbGards <= 0)
-						{
+					if (this.currentCell.elem.playerId != this.playerId) {
+						if (this.currentCell.elem.nbGards <= 0) {
 							this.currentCell.elem.changePlayed(this.playerId)
 							this.destroy();
 							return;
-						}
-						else
-						{
+						} else {
 							this.currentCell.elem.loseGuard(1);
 							this.die();
 							return;
 						}
-					}
-					else if (this.playerId == this.currentCell.elem.playerId)
-					{
+					} else if (this.playerId == this.currentCell.elem.playerId) {
 						this.currentCell.elem.gainGuards(1);
-							this.destroy();
-							return;
+						this.destroy();
+						return;
 					}
 				}
 					
@@ -264,8 +240,7 @@ Crafty.c('Zombie', {
 					}
 				}
 			}
-			if (!collided && !hittingFortress && !hittingCemetery)
-			{
+			if (!collided && !this.hittingFortress) {
 				if (!this.spawning) {
 					this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 					
@@ -286,27 +261,18 @@ Crafty.c('Zombie', {
 							this.stop().animate("walk_down", this.rate, -1);
 					}
 				}
-			}else
-			{
-				if (hittingFortress)
-				{
-					if (this.playerId == 2) {
-						if (!this.isPlaying("hit_fortress_left"))
-							this.stop().animate("hit_fortress_left", this.rate * 2, -1);
-					}
-	
-					if (this.playerId == 1) {
-						if (!this.isPlaying("hit_fortress_right"))
-							this.stop().animate("hit_fortress_right", this.rate * 2, -1);
-					}
-				}else
-				{
-					this.stop();
-				}
+			} else if (this.hittingFortress) {
+				if (this.playerId == 2 && !this.isPlaying("hit_fortress_left")) {
+					this.stop().animate("hit_fortress_left", this.rate * 2);
+				} else if (this.playerId == 1 && !this.isPlaying("hit_fortress_right")) {
+					this.stop().animate("hit_fortress_right", this.rate * 2);
+				} 
+			} else {
+				this.stop();
 			}
+			
 			var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
-			if (newCell != this.currentCell)
-			{
+			if (newCell != this.currentCell) {
 				this.spawningImunity = false;
 				// check new cell content
 				this.currentCell = newCell;
@@ -314,15 +280,11 @@ Crafty.c('Zombie', {
 		}
 	},
 	die: function() {
-		//if (!this.dying) {
+		if (!this.dying) {
 			this.dying = true;
-//			if (!this.isPlaying("die"))
-				this.stop().animate("die", this.rate, 0);
 			
-			/*this.timeout(function() {
-				this.destroy();
-			}, (this.rate * 45) );*/
-			//this.destroy();
-		//}
+			if (!this.isPlaying("die"))
+				this.stop().animate("die", this.rate);
+		}
 	}
 });

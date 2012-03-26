@@ -25,7 +25,7 @@ ETA.config = {
 		cityZombiCreationSpeed: 0.1,
 		dollSpeed: 4,
 		zombiSpeed: 1,
-		zombiDPS: 0.01,
+		zombiDamage: 1,
 		nbSign: 6,
 		hitPointsFortress: 100,
 		nbGuardsHameau: 5,
