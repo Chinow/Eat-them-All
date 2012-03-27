@@ -10,7 +10,7 @@ Crafty.c('Zombie', {
 	spawningImunity:true,
 	spawning: true,
 	dying: false,
-	hittingFortress: false,
+	attacking: false,
 	playerId: 0,
 	rate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
 	Zombie : function(playerId){
@@ -25,15 +25,17 @@ Crafty.c('Zombie', {
 		.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
 		.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
 		.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
-		.animate("hit_fortress_right", [[15,0], [16,0], [15,0], [17,0]])
-		.animate("hit_fortress_left", [[18,0], [19,0], [18,0], [20,0]])
+		.animate("attack_right", [[15,0], [16,0], [15,0], [17,0]])
+		.animate("attack_left", [[18,0], [19,0], [18,0], [20,0]])
+		.animate("attack_up", [[24,0], [25,0], [24,0], [26,0]])
+		.animate("attack_down", [[21,0], [22,0], [21,0], [23,0]])
 		.onHit("gridBounds", function () {
 			//Move unit out of solid tile
 		})
 		.bind('Moved', function(from) {
 			if (!this.spawning && !this.dying) {
 				var collide = this.hit('gridBounds');
-				if(collide){
+				if (collide){
 					var collideLength = collide.length;
 					for (var i = 0; i < collideLength; i++) {
 						if (collide[i].type == "SAT")
@@ -55,47 +57,56 @@ Crafty.c('Zombie', {
 		}
 		
 		if (this.dying && !this.isPlaying("die")) {
-			console.log("do die");
 			this.destroy();
 		}
 		
-		if (this.hittingFortress && !this.isPlaying("hit_fortress_right") && !this.isPlaying("hit_fortress_left")) {
+		if (this.attacking && !this.isPlaying("attack_right") && !this.isPlaying("attack_left")
+		&& !this.isPlaying("attack_up") && !this.isPlaying("attack_down")) {
 			this.die();
 			return;
 		}
 		
-		if (!this.dying) {
+		if (!this.dying && !this.attacking) {
 			this.z = this.y;
-			if (!this.currentCell)
+			if (!this.currentCell) {
 				this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
+			}
+			
 			var direction = {x:this.x + this.w/2 -5 - this.currentCell.center.x , y:this.y + this.h/2+10 - this.currentCell.center.y};
 			
-			if (this.walkingDirection == "w" || this.walkingDirection == "e")
-			{
+			if (this.walkingDirection == "w" || this.walkingDirection == "e") {
 				if (direction.y > 1)
 					this.move("n",1);
 				else if (direction.y < -1)
 					this.move("s",1);
 					
 				if ((this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetry")
-				&& !this.hittingFortress && !this.spawningImunity) {
+				&& !this.attacking && !this.spawningImunity) {
 					if (this.playerId == this.currentCell.elem.player.id) {
 						this.walkingDirection = (this.walkingDirection == "e") ? "w" : "e";
 					} else{
 						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
-						this.hittingFortress = true;
+						this.attacking = true;
 					}
 				}
 				
 				if (this.currentCell.elemType == "city") {
 					if (this.currentCell.elem.playerId != this.playerId) {
 						if (this.currentCell.elem.nbGards <= 0) {
-							this.currentCell.elem.changePlayed(this.playerId)
+							this.currentCell.elem.changePlayer(this.playerId);
+							this.currentCell.elem.gainGuards(1);
 							this.destroy();
 							return;
 						} else {
 							this.currentCell.elem.loseGuard(1);
-							this.die();
+							this.attacking = true;
+							
+							if (this.walkingDirection == "w") {
+								this.stop().animate("attack_left", this.rate * 2);
+							} else {
+								this.stop().animate("attack_right", this.rate * 2);
+							}
+							
 							return;
 						}
 					} else if (this.playerId == this.currentCell.elem.playerId) {
@@ -106,14 +117,12 @@ Crafty.c('Zombie', {
 				}
 					
 				var dx = this.x + this.w/2 -5 - this.currentCell.center.x
-				if (dx < 5 && dx > -5)
-				{
+				if (dx < 5 && dx > -5) {
 					var signPresent = false;
 					var signDirection = "none";
 					
 					if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != "none"
 					&& this.currentCell.elem.player.id == this.playerId) {
-	
 						signPresent = true;
 						signDirection =  this.currentCell.elem.direction;
 					} else {
@@ -130,27 +139,29 @@ Crafty.c('Zombie', {
 						}
 					}
 				}
-			}
-			else if (this.walkingDirection == "s" || this.walkingDirection == "n")
-			{
+			} else if (this.walkingDirection == "s" || this.walkingDirection == "n") {
 				if (direction.x > 1)
 					this.move("w",1);
 				else if (direction.x < -1)
 					this.move("e",1);
 						
 				if (this.currentCell.elemType == "city") {
-					if (this.currentCell.elem.playerId != this.playerId)
-					{
-						if (this.currentCell.elem.nbGards <= 0)
-						{
-							this.currentCell.elem.changePlayed(this.playerId)
+					if (this.currentCell.elem.playerId != this.playerId) {
+						if (this.currentCell.elem.nbGards <= 0) {
+							this.currentCell.elem.changePlayer(this.playerId);
+							this.currentCell.elem.gainGuards(1);
 							this.destroy();
 							return;
-						}
-						else
-						{
+						} else {
 							this.currentCell.elem.loseGuard(1);
-							this.die();
+							this.attacking = true;
+							
+							if (this.walkingDirection == "n") {
+								this.stop().animate("attack_up", this.rate * 2);
+							} else {
+								this.stop().animate("attack_down", this.rate * 2);
+							}
+							
 							return;
 						}
 					}
@@ -240,7 +251,7 @@ Crafty.c('Zombie', {
 					}
 				}
 			}
-			if (!collided && !this.hittingFortress) {
+			if (!collided && !this.attacking) {
 				if (!this.spawning) {
 					this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
 					
@@ -261,12 +272,12 @@ Crafty.c('Zombie', {
 							this.stop().animate("walk_down", this.rate, -1);
 					}
 				}
-			} else if (this.hittingFortress) {
-				if (this.playerId == 2 && !this.isPlaying("hit_fortress_left")) {
-					this.stop().animate("hit_fortress_left", this.rate * 2);
-				} else if (this.playerId == 1 && !this.isPlaying("hit_fortress_right")) {
-					this.stop().animate("hit_fortress_right", this.rate * 2);
-				} 
+			} else if (this.attacking) {
+				if (this.playerId == 2 && !this.isPlaying("attack_left")) {
+					this.stop().animate("attack_left", this.rate * 2);
+				} else if (this.playerId == 1 && !this.isPlaying("attack_right")) {
+					this.stop().animate("attack_right", this.rate * 2);
+				}
 			} else {
 				this.stop();
 			}

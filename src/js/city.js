@@ -70,14 +70,9 @@ Crafty.c('City', {
 		this.nbGards = Math.min(this.nbGards + value, 99);
 		this.drawText();
 	},
-	changePlayed: function(playerId){
+	changePlayer: function(playerId){
 		this.doorsOpen = false;
 		this.playerId = playerId;
-		
-		if (playerId > 0) {
-			this.gainGuards(1);
-		}
-		
 		this.updateSprite();
 	},
 	updateSprite: function() {
