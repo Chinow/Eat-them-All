@@ -93,48 +93,6 @@ Crafty.c('Zombie', {
 					this.move("s", 1);
 				}
 				
-				// Attach fortress
-				if (this.state == MOVING &&
-				(this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetry")) {
-					if (this.playerId == this.currentCell.elem.player.id) {
-						this.walkingDirection = (this.walkingDirection == "e") ? "w" : "e";
-					} else{
-						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
-						this.state = ATTACKING;
-					}
-				}
-				
-				if (this.currentCell.elemType == "city") {
-					if (this.currentCell.elem.playerId != this.playerId) {
-						// Attack city
-						if (this.currentCell.elem.nbGards > 0) {
-							this.currentCell.elem.loseGuard(1);
-							this.state = ATTACKING;
-							
-							if (this.walkingDirection == "w") {
-								this.stop().animate("attack_left", this.rate * 2);
-							} else {
-								this.stop().animate("attack_right", this.rate * 2);
-							}
-							
-							return;
-						}
-						// Invade city
-						else {
-							this.currentCell.elem.changePlayer(this.playerId);
-							this.currentCell.elem.gainGuards(1);
-							this.destroy();
-							return;
-						}
-					}
-					// Enforce city
-					else if (this.playerId == this.currentCell.elem.playerId) {
-						this.currentCell.elem.gainGuards(1);
-						this.destroy();
-						return;
-					}
-				}
-					
 				var dx = this.x + this.w/2 -5 - this.currentCell.center.x
 				if (dx < 5 && dx > -5) {
 					var signPresent = false;
@@ -158,42 +116,11 @@ Crafty.c('Zombie', {
 						}
 					}
 				}
-			} else if (this.walkingDirection == "s" || this.walkingDirection == "n") {
+			} else {
 				if (direction.x > 1) {
 					this.move("w",1);
 				} else if (direction.x < -1) {
 					this.move("e",1);
-				}
-				
-				if (this.currentCell.elemType == "city") {
-					if (this.currentCell.elem.playerId != this.playerId) {
-						// Attack city
-						if (this.currentCell.elem.nbGards > 0) {
-							this.currentCell.elem.loseGuard(1);
-							this.state = ATTACKING;
-							
-							if (this.walkingDirection == "n") {
-								this.stop().animate("attack_up", this.rate * 2);
-							} else {
-								this.stop().animate("attack_down", this.rate * 2);
-							}
-							
-							return;
-						}
-						// Invade city
-						else {
-							this.currentCell.elem.changePlayer(this.playerId);
-							this.currentCell.elem.gainGuards(1);
-							this.destroy();
-							return;
-						}
-					}
-					// Enforce city
-					else if (this.playerId == this.currentCell.elem.playerId) {
-						this.currentCell.elem.gainGuards(1);
-							this.destroy();
-							return;
-					}
 				}
 					
 				var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
@@ -239,6 +166,54 @@ Crafty.c('Zombie', {
 						}
 					}
 				}
+			}
+		
+			// Attack fortress
+			if (this.state == MOVING &&
+			(this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetery")) {
+				if (this.playerId == this.currentCell.elem.player.id) {
+					this.walkingDirection = (this.walkingDirection == "e") ? "w" : "e";
+				} else{
+					this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
+					this.state = ATTACKING;
+				}
+			}
+			
+			if (this.currentCell.elemType == "city") {
+				if (this.currentCell.elem.playerId != this.playerId) {
+					// Attack city
+					if (this.currentCell.elem.nbGards > 0) {
+						this.currentCell.elem.loseGuard(1);
+						this.state = ATTACKING;
+					}
+					// Invade city
+					else {
+						this.currentCell.elem.changePlayer(this.playerId);
+						this.currentCell.elem.gainGuards(1);
+						this.destroy();
+						return;
+					}
+				}
+				// Enforce city
+				else if (this.playerId == this.currentCell.elem.playerId) {
+					this.currentCell.elem.gainGuards(1);
+					this.destroy();
+					return;
+				}
+			}
+			
+			if (this.state == ATTACKING) {				
+				if (this.walkingDirection == "w") {
+					this.stop().animate("attack_left", this.rate * 2);
+				} else if (this.walkingDirection == "e"){
+					this.stop().animate("attack_right", this.rate * 2);
+				} else if (this.walkingDirection == "n"){
+					this.stop().animate("attack_up", this.rate * 2);
+				} else if (this.walkingDirection == "s"){
+					this.stop().animate("attack_down", this.rate * 2);
+				}
+				
+				return;
 			}
 			
 			var collide = this.hit('gridBounds');

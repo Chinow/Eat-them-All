@@ -31,5 +31,5 @@ Crafty.c('Fortress', {
 		{
 			this.player.youLose();
 		}
-	}	
+	}
 });

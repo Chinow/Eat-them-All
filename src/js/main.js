@@ -88,14 +88,14 @@ window.onload = function() {
 				
 		var cemetery = [];
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 1, 3));
+				.Cemetery(player1, 1, 3));
 		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
-				.Cemetery(1, 1, 7));
+				.Cemetery(player1, 1, 7));
 				
 		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
-				.Cemetery(2, 18, 3));
+				.Cemetery(player2, 18, 3));
 		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
-				.Cemetery(2, 18, 7));
+				.Cemetery(player2, 18, 7));
 		
 		Crafty.e("Fortress, fortresseRougeSprite")
 			.Fortress(1,0,player1);
