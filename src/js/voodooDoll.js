@@ -172,7 +172,6 @@ Crafty.c('VoodooDoll', {
 					h: 65
 				}).sign(this);
 			}
-			this.z = this.y;
 		}		
 	},
 	youLose : function(){

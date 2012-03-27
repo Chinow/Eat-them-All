@@ -1,27 +1,50 @@
+//-----------------------------------------------------------------------------
+//	Constants
+//-----------------------------------------------------------------------------
+
+// Zombie states
 var SPAWNING = 0;
 var MOVING_OUT_OF_SPAWN = 1;
 var MOVING = 2;
 var ATTACKING = 3;
 var DYING = 4;
 
+//-----------------------------------------------------------------------------
+//	Zombie object
+//-----------------------------------------------------------------------------
+
 Crafty.c('Zombie', {
+	//-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
 	init : function() {
 		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
         this._globalZ = 7;
 	},
-	targetPixel: { x:500, y:250 },
+	
+	//-----------------------------------------------------------------------------
+	//	Attributes
+	//-----------------------------------------------------------------------------
+	
+	targetPixel: { x: 500, y: 250 },
 	currentCell: null,
-	walkingDirection: "s",
+	walkingDirection: "none",
 	state: SPAWNING,
 	playerId: 0,
-	rate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
+	animationRate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
+	attackRate: ETA.config.frameRate / ETA.config.zombiAttackAnimationRate,
+	
+	//-----------------------------------------------------------------------------
+	//	Constructor
+	//-----------------------------------------------------------------------------
+	
 	Zombie: function(playerId){
 		this.playerId = playerId;
 		this.walkingDirection = (playerId == 1) ? "e" : "w";
 		
-		//.keyboard1Controls(3)
-		//Setup animation
+		// Setup animation
 		this.animate("spawn", [[12,0],[13,0],[14,0]])
 		.animate("die", [[14,0],[13,0],[12,0]])
 		.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
@@ -50,9 +73,14 @@ Crafty.c('Zombie', {
 		})
 		.bind("EnterFrame", this.moveZombi);
 		
-		this.animate("spawn", this.rate);
+		this.animate("spawn", this.animationRate);
 		return this;
 	},
+	
+	//-----------------------------------------------------------------------------
+	//	Method - Move zombie
+	//-----------------------------------------------------------------------------
+	
 	moveZombi: function() {
 		// Finish the spawn and start moving
 		if (this.state == SPAWNING && !this.isPlaying("spawn")) {
@@ -74,9 +102,9 @@ Crafty.c('Zombie', {
 			this.destroy();
 		}
 		
-		if (this.state == MOVING || this.state == MOVING_OUT_OF_SPAWN) {
-			//this.z = this.y;
-			
+		this.z = this.y;
+		
+		if (this.state == MOVING || this.state == MOVING_OUT_OF_SPAWN) {	
 			if (!this.currentCell) {
 				this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
 			}
@@ -175,7 +203,8 @@ Crafty.c('Zombie', {
 					this.walkingDirection = (this.walkingDirection == "e") ? "w" : "e";
 				} else{
 					this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
-					this.state = ATTACKING;
+					this.attack();
+					return;
 				}
 			}
 			
@@ -184,7 +213,8 @@ Crafty.c('Zombie', {
 					// Attack city
 					if (this.currentCell.elem.nbGards > 0) {
 						this.currentCell.elem.loseGuard(1);
-						this.state = ATTACKING;
+						this.attack();
+						return;
 					}
 					// Invade city
 					else {
@@ -200,20 +230,6 @@ Crafty.c('Zombie', {
 					this.destroy();
 					return;
 				}
-			}
-			
-			if (this.state == ATTACKING) {				
-				if (this.walkingDirection == "w") {
-					this.stop().animate("attack_left", this.rate * 2);
-				} else if (this.walkingDirection == "e"){
-					this.stop().animate("attack_right", this.rate * 2);
-				} else if (this.walkingDirection == "n"){
-					this.stop().animate("attack_up", this.rate * 2);
-				} else if (this.walkingDirection == "s"){
-					this.stop().animate("attack_down", this.rate * 2);
-				}
-				
-				return;
 			}
 			
 			var collide = this.hit('gridBounds');
@@ -237,8 +253,8 @@ Crafty.c('Zombie', {
 					if (collide2[i].type == "SAT") {
 						if (collide2[i].obj.playerId != this.playerId) {
 							if (this.state == MOVING && collide2[i].obj.state == MOVING) {
-								collide2[i].obj.die();
-								this.die();
+								collide2[i].obj.attack();
+								this.attack();
 								return;
 							}
 						}
@@ -247,23 +263,16 @@ Crafty.c('Zombie', {
 			}
 			
 			if (!collided) {
-				this.move(this.walkingDirection,ETA.config.game.zombiSpeed);
+				this.move(this.walkingDirection, ETA.config.game.zombiSpeed);
 				
-				if (this.walkingDirection == "w") {
-					if (!this.isPlaying("walk_left"))
-						this.stop().animate("walk_left", this.rate, -1);
-				}
-				if (this.walkingDirection == "e") {
-					if (!this.isPlaying("walk_right"))
-						this.stop().animate("walk_right", this.rate, -1);
-				}
-				if (this.walkingDirection == "n") {
-					if (!this.isPlaying("walk_up"))
-						this.stop().animate("walk_up", this.rate, -1);
-				}
-				if (this.walkingDirection == "s") {
-					if (!this.isPlaying("walk_down"))
-						this.stop().animate("walk_down", this.rate, -1);
+				if (this.walkingDirection == "w" && !this.isPlaying("walk_left")) {
+					this.stop().animate("walk_left", this.animationRate, -1);
+				} else if (this.walkingDirection == "e" && !this.isPlaying("walk_right")) {
+					this.stop().animate("walk_right", this.animationRate, -1);
+				} else if (this.walkingDirection == "n" && !this.isPlaying("walk_up")) {
+					this.stop().animate("walk_up", this.animationRate, -1);
+				} else if (this.walkingDirection == "s" && !this.isPlaying("walk_down")) {
+					this.stop().animate("walk_down", this.animationRate, -1);
 				}
 			}
 			
@@ -277,8 +286,31 @@ Crafty.c('Zombie', {
 			}
 		}
 	},
+	
+	//-----------------------------------------------------------------------------
+	//	Method - Attack
+	//-----------------------------------------------------------------------------
+	
+	attack: function() {
+		this.state = ATTACKING;
+		
+		if (this.walkingDirection == "w") {
+			this.stop().animate("attack_left", this.attackRate);
+		} else if (this.walkingDirection == "e"){
+			this.stop().animate("attack_right", this.attackRate);
+		} else if (this.walkingDirection == "n"){
+			this.stop().animate("attack_up", this.attackRate);
+		} else if (this.walkingDirection == "s"){
+			this.stop().animate("attack_down", this.attackRate);
+		}
+	},
+	
+	//-----------------------------------------------------------------------------
+	//	Method - Die
+	//-----------------------------------------------------------------------------
+	
 	die: function() {
 		this.state = DYING;
-		this.stop().animate("die", this.rate);
+		this.stop().animate("die", this.animationRate);
 	}
 });

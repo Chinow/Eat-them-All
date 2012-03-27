@@ -11,6 +11,7 @@ ETA.config = {
 	// Animation
 	frameRate: 60,
 	zombiAnimationRate: 5,
+	zombiAttackAnimationRate: 3,
 	dollAnimationRate: 10,
 	signBeginAnimationRate: 5,
 	signAnimationRate: 8,
