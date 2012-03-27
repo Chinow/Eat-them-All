@@ -1,3 +1,9 @@
+NONE = '-';
+NORTH = 'n';
+SOUTH = 's';
+EAST = 'e';
+WEST = 'w';
+
 window.onload = function() {
 	gameState    = "init";
 	pauseTimeout = undefined;

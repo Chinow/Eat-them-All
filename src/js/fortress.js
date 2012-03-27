@@ -14,11 +14,11 @@ Crafty.c('Fortress', {
 		
 		this.cell.elem = this;
 		this.cell.elemType = "fortress";
-		if (player.id == "1")
+		if (player.id == 1)
 		{
 			this.attr({ x: this.cell.x-18, y: this.cell.y-25, z: this.cell.y-25 });
 		}
-		else if (player.id == "2")
+		else if (player.id == 2)
 		{
 			this.attr({ x: this.cell.x, y: this.cell.y-25, z:this.cell.y-25 });
 		}
