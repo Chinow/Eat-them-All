@@ -165,15 +165,15 @@ Crafty.c('City', {
 				
 				if (this.playerId == 1) {
 					spriteName = "zombieRougeSprite";
-					xoffset = 50;
+					xoffset = 25;
 				} else {
 					spriteName = "zombieBleuSprite";
-					xoffset = -50;
+					xoffset = -25;
 				}
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.playerId)
-					.attr({ x: this.x + xoffset, y: this.y, z:900 });
+					.Zombie(this.playerId, false)
+					.attr({ x: this.x + xoffset, y: this.y + 10, z:900 });
 			}
 		}
 	}

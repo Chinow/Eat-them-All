@@ -40,7 +40,7 @@ Crafty.c('Zombie', {
 	//	Constructor
 	//-----------------------------------------------------------------------------
 	
-	Zombie: function(playerId){
+	Zombie: function(playerId, playSpawnAnimation) {
 		this.playerId = playerId;
 		this.walkingDirection = (playerId == 1) ? EAST : WEST;
 		
@@ -73,7 +73,18 @@ Crafty.c('Zombie', {
 		})
 		.bind("EnterFrame", this.moveZombi);
 		
-		this.animate("spawn", this.animationRate);
+		if (playSpawnAnimation) {
+			this.animate("spawn", this.animationRate);
+		} else {
+			this.state = MOVING_OUT_OF_SPAWN;
+			
+			if (this.walkingDirection == EAST) {
+				this.animate("walk_right", this.animationRate, -1);
+			} else {
+				this.animate("walk_left", this.animationRate, -1);
+			}
+		}
+		
 		return this;
 	},
 	
@@ -105,15 +116,17 @@ Crafty.c('Zombie', {
 		
 		this.z = this.y;
 		
-		if (this.state == MOVING || this.state == MOVING_OUT_OF_SPAWN) {	
+		if (this.state == MOVING || this.state == MOVING_OUT_OF_SPAWN) {
 			if (!this.currentCell) {
-				this.currentCell = ETA.grid.getCell(this.x + this.w/2 - 5, this.y + this.h/2+10);
+				this.currentCell = ETA.grid.getCell(this.x + this.w / 2 - 5, this.y + this.h / 2 + 10);
 			}
 			
 			var direction = {
-				x: this.x + this.w / 2 - 5 - this.currentCell.center.x,
+				x: this.x + this.w / 2 - 5  - this.currentCell.center.x,
 				y: this.y + this.h / 2 + 10 - this.currentCell.center.y
 			};
+			
+			var middleDelta;
 			
 			if (this.walkingDirection == WEST || this.walkingDirection == EAST) {
 				if (direction.y > 1) {
@@ -122,29 +135,7 @@ Crafty.c('Zombie', {
 					this.move(SOUTH, 1);
 				}
 				
-				var dx = this.x + this.w/2 -5 - this.currentCell.center.x
-				if (dx < 5 && dx > -5) {
-					var signPresent = false;
-					var signDirection = NONE;
-					
-					if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != NONE
-					&& this.currentCell.elem.player.id == this.playerId) {
-						signPresent = true;
-						signDirection =  this.currentCell.elem.direction;
-					} else {
-						var signPresent = false;
-						var signDirection = NONE;
-					}
-					
-					// Have sign
-					if (signPresent) {
-						// Sign and upper border
-						if (!(this.currentCell.upperCell && signDirection == NORTH
-						|| this.currentCell.lowerCell && signDirection == SOUTH)) {
-							this.walkingDirection = signDirection;
-						}
-					}
-				}
+				middleDelta = Math.abs(this.x + this.w / 2 -5 - this.currentCell.center.x);
 			} else {
 				if (direction.x > 1) {
 					this.move(WEST,1);
@@ -152,84 +143,76 @@ Crafty.c('Zombie', {
 					this.move(EAST,1);
 				}
 					
-				var dy = this.y + this.h/2 + 10 - this.currentCell.center.y;
+				middleDelta = Math.abs(this.y + this.h / 2 + 10 - this.currentCell.center.y);
+			}
+			
+			if (middleDelta < 5) {
+				var signDirection;
 				
-				if (dy < 5 && dy > -5) {
-					if (this.currentCell.elemType == "sign" && this.currentCell.elem.direction != NONE
-					&& this.currentCell.elem.player.id == this.playerId) {
-						signPresent = true;
-						signDirection =  this.currentCell.elem.direction;
-					} else {
-						var signPresent = false;
-						var signDirection = NONE;
-					}
+				if (this.currentCell.elemType == "sign"
+				&& this.currentCell.elem.player.id == this.playerId) {
+					var signDirection =  this.currentCell.elem.direction;
 					
-					// Have sign
-					if (signPresent) {
-						// Sign and upper border
-						if (this.currentCell.upperCell && signDirection == NORTH) {
-							if (this.walkingDirection == NORTH) {
-								this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
-							}
-						}
-						// Sign and lower border
-						else if (this.currentCell.lowerCell && signDirection == SOUTH) {
-							if (this.walkingDirection == SOUTH) {
-								this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
-							}
-						}
-						// Sign
-						else {
-							this.walkingDirection = signDirection;
+					// Sign and upper border
+					if (this.currentCell.upperCell && signDirection == NORTH) {
+						if (this.walkingDirection == NORTH) {
+							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
 						}
 					}
-					// No sign
+					// Sign and lower border
+					else if (this.currentCell.lowerCell && signDirection == SOUTH) {
+						if (this.walkingDirection == SOUTH) {
+							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
+						}
+					}
+					// Sign
 					else {
-						// Upper border
-						if (this.currentCell.upperCell && this.walkingDirection == NORTH) {
-							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
-						}
-						// Lower border
-						else if (this.currentCell.lowerCell && this.walkingDirection == SOUTH) {
-							this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
-						}
+						this.walkingDirection = signDirection;
+					}
+				} else {
+					// Upper border
+					if (this.currentCell.upperCell && this.walkingDirection == NORTH) {
+						this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
+					}
+					// Lower border
+					else if (this.currentCell.lowerCell && this.walkingDirection == SOUTH) {
+						this.walkingDirection = (Crafty.math.randomInt(1, 2) == 1) ? WEST : EAST;
 					}
 				}
 			}
 		
 			// Attack fortress
-			if (this.state == MOVING &&
-			(this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetery")) {
-				if (this.playerId == this.currentCell.elem.player.id) {
-					this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
-				} else{
-					this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
-					this.attack();
-					return;
-				}
-			}
-			
-			if (this.currentCell.elemType == "city") {
-				if (this.currentCell.elem.playerId != this.playerId) {
-					// Attack city
-					if (this.currentCell.elem.nbGards > 0) {
-						this.currentCell.elem.loseGuard(1);
+			if (this.state == MOVING) {
+				if (this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetery") {
+					if (this.playerId == this.currentCell.elem.player.id) {
+						this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
+					} else{
+						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
 						this.attack();
 						return;
 					}
-					// Invade city
-					else {
-						this.currentCell.elem.changePlayer(this.playerId);
+				} else if (this.currentCell.elemType == "city") {
+					if (this.currentCell.elem.playerId != this.playerId) {
+						// Attack city
+						if (this.currentCell.elem.nbGards > 0) {
+							this.currentCell.elem.loseGuard(1);
+							this.attack();
+							return;
+						}
+						// Invade city
+						else {
+							this.currentCell.elem.changePlayer(this.playerId);
+							this.currentCell.elem.gainGuards(1);
+							this.destroy();
+							return;
+						}
+					}
+					// Enforce city
+					else if (this.playerId == this.currentCell.elem.playerId) {
 						this.currentCell.elem.gainGuards(1);
 						this.destroy();
 						return;
 					}
-				}
-				// Enforce city
-				else if (this.playerId == this.currentCell.elem.playerId) {
-					this.currentCell.elem.gainGuards(1);
-					this.destroy();
-					return;
 				}
 			}
 			
@@ -277,7 +260,7 @@ Crafty.c('Zombie', {
 				}
 			}
 			
-			var newCell = ETA.grid.getCell(this.x + this.w/2, this.y + this.h/2);
+			var newCell = ETA.grid.getCell(this.x + this.w / 2 - 5, this.y + this.h / 2 + 10);
 			if (newCell != this.currentCell) {
 				if (this.state == MOVING_OUT_OF_SPAWN) {
 					this.state = MOVING;

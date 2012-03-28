@@ -40,7 +40,7 @@ Crafty.c('Cemetery', {
 				var spriteName = (this.player.id == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.player.id)
+					.Zombie(this.player.id, true)
 					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z:900 });
 			}
 		}
