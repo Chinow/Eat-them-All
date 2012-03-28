@@ -1,4 +1,5 @@
 Crafty.c('Cemetery', {
+	type: CEMETERY,
 	spawnCounter: 0,
 	spawnRun: true,
 	gridX: 0,
@@ -16,7 +17,6 @@ Crafty.c('Cemetery', {
 		this.player = player;
 		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
-		this.cell.elemType = "cemetery";
 		this.cell.elem = this;
 		
 		this.spawnPoint = { x: this.cell.x, y: this.cell.y - 15 };

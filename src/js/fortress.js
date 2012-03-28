@@ -1,4 +1,5 @@
 Crafty.c('Fortress', {
+	type: FORTRESS,
 	hitPoints: ETA.config.game.hitPointsFortress,
 	player:null,
 	init: function() {
@@ -13,7 +14,6 @@ Crafty.c('Fortress', {
 		this.player = player;
 		
 		this.cell.elem = this;
-		this.cell.elemType = "fortress";
 		if (player.id == 1)
 		{
 			this.attr({ x: this.cell.x-18, y: this.cell.y-25, z: this.cell.y-25 });

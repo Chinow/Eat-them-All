@@ -135,9 +135,9 @@ Crafty.c('VoodooDoll', {
 				this.master.summon();
 				var cell = ETA.grid.getCell(this._x+29, this._y+48);
 				
-				if (!cell.elem || cell.elemType == "sign" && cell.elem.player == null) {
+				if (cell.elem == null || cell.elem.type == SIGN && cell.elem.player == null) {
 					this.drawSign(cell);
-				} else if (cell.elemType == "city" && cell.elem.playerId) {
+				} else if (cell.elem.type == CITY && cell.elem.playerId) {
 					cell.elem.switchDoorState();
 				}
 			})

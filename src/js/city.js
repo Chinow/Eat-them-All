@@ -1,4 +1,5 @@
 Crafty.c('City', {
+	type: CITY,
 	nbGards:0,
 	frames:0,
 	outFrames: 0,
@@ -54,7 +55,6 @@ Crafty.c('City', {
 		}
 		
 		this.cell.elem = this;
-		this.cell.elemType = "city";
 		this.animate("neutral",10, 1);
 		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
 		this.drawLife();

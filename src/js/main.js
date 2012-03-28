@@ -1,8 +1,15 @@
+// Directions
 NONE = '-';
 NORTH = 'n';
 SOUTH = 's';
 EAST = 'e';
 WEST = 'w';
+
+// Cell element types
+CEMETERY = 1;
+FORTRESS = 2;
+CITY = 3;
+SIGN = 4;
 
 window.onload = function() {
 	gameState    = "init";

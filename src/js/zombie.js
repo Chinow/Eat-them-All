@@ -14,6 +14,7 @@ var DYING = 4;
 //-----------------------------------------------------------------------------
 
 Crafty.c('Zombie', {
+
 	//-----------------------------------------------------------------------------
 	//	Init
 	//-----------------------------------------------------------------------------
@@ -146,10 +147,11 @@ Crafty.c('Zombie', {
 				middleDelta = Math.abs(this.y + this.h / 2 + 10 - this.currentCell.center.y);
 			}
 			
-			if (middleDelta < 5) {
+			if (middleDelta < 10) {
 				var signDirection;
 				
-				if (this.currentCell.elemType == "sign"
+				if (this.currentCell.elem != null
+				&& this.currentCell.elem.type == SIGN
 				&& this.currentCell.elem.player.id == this.playerId) {
 					var signDirection =  this.currentCell.elem.direction;
 					
@@ -182,8 +184,8 @@ Crafty.c('Zombie', {
 			}
 		
 			// Attack fortress
-			if (this.state == MOVING) {
-				if (this.currentCell.elemType == "fortress" || this.currentCell.elemType == "cemetery") {
+			if (this.state == MOVING && this.currentCell.elem != null) {
+				if (this.currentCell.elem.type == FORTRESS || this.currentCell.elem.type == CEMETERY) {
 					if (this.playerId == this.currentCell.elem.player.id) {
 						this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
 					} else{
@@ -191,7 +193,7 @@ Crafty.c('Zombie', {
 						this.attack();
 						return;
 					}
-				} else if (this.currentCell.elemType == "city") {
+				} else if (this.currentCell.elem.type == CITY) {
 					if (this.currentCell.elem.playerId != this.playerId) {
 						// Attack city
 						if (this.currentCell.elem.nbGards > 0) {
