@@ -1,11 +1,25 @@
 Crafty.c('VoodooMaster', {
+
+	//-----------------------------------------------------------------------------
+	//	Attributes
+	//-----------------------------------------------------------------------------
+	
 	player: null,
+	
+	//-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
-		this._globalZ=9;
+		this._globalZ = 9;
 		return this;
 	},
 
+	//-----------------------------------------------------------------------------
+	//	Constructor
+	//-----------------------------------------------------------------------------
+	
 	VoodooMaster: function(player, cellX, cellY) {
 		this.player = player;
 		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
@@ -19,19 +33,23 @@ Crafty.c('VoodooMaster', {
 			.bind("EnterFrame", this.setSteady);
 		
 		if (player.id == 1) {
-			this.attr({ x: this.cell.x , y: this.cell.y - 110 , z:this.cell.y});
+			this.attr({ x: this.cell.x, y: this.cell.y - 110 , z:this.cell.y });
 		} else {
-			this.attr({ x: this.cell.x-10, y: this.cell.y - 110, z:this.cell.y });
+			this.attr({ x: this.cell.x - 10, y: this.cell.y - 110, z:this.cell.y });
 		}
 		
 		return this;
 	},
+	
+	//-----------------------------------------------------------------------------
+	//	Methods
+	//-----------------------------------------------------------------------------
+	
 	summon :function(){
 			this.stop().animate("summon", 5, 0);
 	},
 	setSteady :function(){
-		if (!this.isPlaying("summon"))
-		{
+		if (!this.isPlaying("summon")) {
 			var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 			this.animate("steady", rate, -1)
 		}
