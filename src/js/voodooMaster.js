@@ -2,7 +2,7 @@ Crafty.c('VoodooMaster', {
 	player: null,
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
-        this._globalZ=9;
+		this._globalZ=9;
 		return this;
 	},
 

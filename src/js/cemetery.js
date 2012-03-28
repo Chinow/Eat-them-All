@@ -19,7 +19,7 @@ Crafty.c('Cemetery', {
 	
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
-        this._globalZ = 4;
+		this._globalZ = 4;
 		return this;
 	},
 

@@ -6,10 +6,10 @@ Crafty.c('VoodooDoll', {
 	
 	walking: "none",
 	popSign: 0,
-    id: 0,
-    master: null,
-    pillar : null,
-    maxSigns: ETA.config.game.nbSign,
+	id: 0,
+	master: null,
+	pillar : null,
+	maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
 	HPLeft: ETA.config.game.hitPointsFortress,
 	statistics: {
@@ -18,22 +18,22 @@ Crafty.c('VoodooDoll', {
 		citiesControlled: 0,
 		citiesDestroyed: 0
 	},
-    
-    //-----------------------------------------------------------------------------
+	
+	//-----------------------------------------------------------------------------
 	//	Init
 	//-----------------------------------------------------------------------------
 	
 	init : function() {
 		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
 		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
-        this._globalZ = 8;
+		this._globalZ = 8;
 	},
 	
-    //-----------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------
 	//	Constructor
 	//-----------------------------------------------------------------------------
 	
-    VoodooDoll: function(playerId) {
+	VoodooDoll: function(playerId) {
 		this.id = playerId;
 		
 		// Setup keyboard
@@ -122,34 +122,25 @@ Crafty.c('VoodooDoll', {
 		return this;
 	},
 	
-	inInterval: function(x, y, z) {
-		if(parseInt(y) > parseInt(x-z) && parseInt(y)  < parseInt(x+z) ) {
-			return true;
-		}else{
-			return false;
-		} 
-	},
+	//-----------------------------------------------------------------------------
+	//	Methods
+	//-----------------------------------------------------------------------------
 	
 	drawSign : function(cell) {
-		if (this.id == 1) {
-			var signSprite 	= "signRougeSprite";
-		} else {
-			var signSprite 	= "signBleuSprite";
-		}
+		var signSprite = (this.id == 1) ? "signRougeSprite" : "signBleuSprite";
 		
 		if (this.popSign < ETA.config.game.nbSign) {
-			if (cell.elem == null || cell.elem.type != SIGN) {
-				Crafty.e("Sign, " + signSprite).attr({
-					x: cell.center.x - 10,
-					y: cell.center.y - 35,
-					z: cell.center.y - 35,
-					w: 65,
-					h: 65
-				}).sign(this);
-			}
-		}		
+			Crafty.e("Sign, " + signSprite).attr({
+				x: cell.center.x - 10,
+				y: cell.center.y - 35,
+				z: cell.center.y - 35,
+				w: 65,
+				h: 65
+			}).sign(this);
+		}
 	},
-	youLose : function(){
+	
+	youLose : function() {
 		Crafty.stop(true);
 		Crafty("2D DOM").destroy();
 		Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
