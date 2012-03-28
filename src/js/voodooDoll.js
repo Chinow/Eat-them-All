@@ -1,20 +1,30 @@
 Crafty.c('VoodooDoll', {
-	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
-		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
-        this._globalZ=8;
-	},
-	walking:"none",
+	
+	//-----------------------------------------------------------------------------
+	//	Attributes
+	//-----------------------------------------------------------------------------
+	
+	walking: "none",
 	popSign: 0,
     id: 0,
-    currentCellId:0,
+    currentCellId: 0,
     master: null,
     pillar : null,
     maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
 	HPLeft: ETA.config.game.hitPointsFortress,
-	statistiques: {"zombiesSpawned" : 0, "guardsKilled" : 0, "CityControled" : 0, "cityDestroyed" : 0},
+	statistics: { "zombiesSpawned" : 0, "guardsKilled" : 0, "CityControled" : 0, "cityDestroyed" : 0 },
     
+    //-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
+	init : function() {
+		this.requires("2D, DOM, SpriteAnimation, Collision, Controls")
+		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
+        this._globalZ=8;
+	},
+	
     VoodooDoll : function(playerId) {
 			this.id = playerId;
 			// Setup keyboard
@@ -156,14 +166,14 @@ Crafty.c('VoodooDoll', {
 	},
 	
 	drawSign : function(cell) {
-		if(this.id ==1) {
+		if (this.id == 1) {
 			var signSprite 	= "signRougeSprite";
-		}else{
+		} else {
 			var signSprite 	= "signBleuSprite";
 		}
 		
-		if(this.popSign < ETA.config.game.nbSign) {
-			if(cell.attribute('sign')) {
+		if (this.popSign < ETA.config.game.nbSign) {
+			if (cell.elem == null || cell.elem.type != SIGN) {
 				Crafty.e("Sign, " + signSprite).attr({
 					x: cell.center.x - 10,
 					y: cell.center.y - 35,
@@ -182,7 +192,6 @@ Crafty.c('VoodooDoll', {
 			bg: [0, 0,1000 ,550]
 		});
 		ETA.grid = Crafty.e("BGGrid").gridGameOver(this);
-		gameState = "gameover";
-		
+		gameState = STOPPED;
 	}
 });

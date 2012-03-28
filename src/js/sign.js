@@ -9,7 +9,6 @@ Crafty.c('Sign', {
 	cell: null,
 	direction: NONE,
 	player: null,
-	playerIdProprio: null,
 	
 	//-----------------------------------------------------------------------------
 	//	Init
@@ -50,7 +49,6 @@ Crafty.c('Sign', {
 		this.stop().animate("up", rateBegin, 0);
 		this.direction = NORTH;
 		this.mvt = (this.player.id == 1) ? "turn_right" : "turn_left";
-		this.playerIdProprio = this.player.currentCellId;
 		this.player.popSign++;
 		
 		this.cell = ETA.grid.getCell(this._x + 29, this._y + 48);

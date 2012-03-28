@@ -1,3 +1,7 @@
+//-----------------------------------------------------------------------------
+//	Constants
+//-----------------------------------------------------------------------------
+
 // Directions
 NONE = '-';
 NORTH = 'n';
@@ -11,11 +15,26 @@ FORTRESS = 2;
 CITY = 3;
 SIGN = 4;
 
+// Game states
+INIT = 1;
+RUNNING = 2;
+PAUSED = 3;
+STOPPED = 4;
+
+//-----------------------------------------------------------------------------
+//	Main
+//-----------------------------------------------------------------------------
+
 window.onload = function() {
-	gameState    = "init";
+	gameState = INIT;
 	pauseTimeout = undefined;
 
 	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+		
+	//-----------------------------------------------------------------------------
+	//	Loading scene
+	//-----------------------------------------------------------------------------
+
 	//the loading screen that will display while our assets load
 	Crafty.scene("loading", function (el) {
 		gameState = "running";
@@ -77,8 +96,12 @@ window.onload = function() {
 	//automatically play the loading scene
 	Crafty.scene("loading");
 
+	//-----------------------------------------------------------------------------
+	//	Main scene
+	//-----------------------------------------------------------------------------
+
 	Crafty.scene("main", function (e) {
-		gameState = "running";
+		gameState = RUNNING;
 
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
@@ -167,10 +190,14 @@ window.onload = function() {
 				.City(10, 5, "ville");
 	});
 	
+	//-----------------------------------------------------------------------------
+	//	Keyboard handler
+	//-----------------------------------------------------------------------------
+
 	Crafty.bind('KeyDown', function(el) {
 		if (el.key == Crafty.keys.ESC) {
-			if (gameState == "running") {
-				gameState = "paused";
+			if (gameState == RUNNING) {
+				gameState = PAUSED;
 				Crafty.pause(true);
 				
 				Crafty.audio.settings("pauseStart", { muted: false });
@@ -181,17 +208,17 @@ window.onload = function() {
 					Crafty.audio.settings("pause", { muted: false });
 					Crafty.audio.play("pause", -1);
 				}, 6000 );
-			} else if (gameState == "paused") {
+			} else if (gameState == PAUSED) {
 				Crafty.audio.settings("pauseStart", { muted: true });
 				Crafty.audio.settings("pause", { muted: true });
 				
 				window.clearTimeout(pauseTimeout);
 				
-				gameState = "running";
+				gameState = RUNNING;
 				Crafty.pause(false);
 			}
-		}else if((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == "gameover") {
-			gameState = "running";
+		} else if ((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == STOPPED) {
+			gameState = INIT;
 			Crafty.stop(true);
 			Crafty("2D DOM").destroy();
 			Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
@@ -199,8 +226,11 @@ window.onload = function() {
 		}
 	})
 	
-	function generateWorld() {
+	//-----------------------------------------------------------------------------
+	//	Method - World generation
+	//-----------------------------------------------------------------------------
 
+	function generateWorld() {
 		Crafty.sprite(16, "img/bgSprite.png", {
 			bg: [0, 0,1000 ,550]
 		});

@@ -82,7 +82,7 @@ Crafty.audio.settings("zombieSounds",{volume:0.50});
 Crafty.audio.settings("zombieRage",{volume:0.50});
 Crafty.audio.settings("fortressAttack",{volume:1.0});
 Crafty.audio.settings("soldierDie",{volume:1.0});
-Crafty.audio.settings("cityDie",{volume:0.5});
+Crafty.audio.settings("cityDie",{volume:0.75});
 Crafty.audio.settings("gameOver",{volume:1.0});
 Crafty.audio.settings("pauseStart",{volume:0.5});
 Crafty.audio.settings("pause",{volume:0.4});

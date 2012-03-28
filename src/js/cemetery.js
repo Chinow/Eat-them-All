@@ -1,4 +1,9 @@
 Crafty.c('Cemetery', {
+	
+	//-----------------------------------------------------------------------------
+	//	Attributes
+	//-----------------------------------------------------------------------------
+	
 	type: CEMETERY,
 	spawnCounter: 0,
 	spawnRun: true,
@@ -7,12 +12,21 @@ Crafty.c('Cemetery', {
 	cell: null,
 	player: null,
 	spawnPoint: {},
+	
+	//-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
 	init: function() {
 		this.requires("2D, DOM, SpriteAnimation");
-        this._globalZ=4;
+        this._globalZ = 4;
 		return this;
 	},
 
+	//-----------------------------------------------------------------------------
+	//	Constructor
+	//-----------------------------------------------------------------------------
+	
 	Cemetery: function(player, cellX, cellY) {
 		this.player = player;
 		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
@@ -33,6 +47,11 @@ Crafty.c('Cemetery', {
 		
 		return this;
 	},
+	
+	//-----------------------------------------------------------------------------
+	//	Methods
+	//-----------------------------------------------------------------------------
+	
 	spawn: function() {
 		if (this.spawnRun) {
 			if (++this.spawnCounter == ETA.config.game.timeSpawnFortress * ETA.config.frameRate) {
@@ -41,7 +60,7 @@ Crafty.c('Cemetery', {
 				
 				Crafty.e("Zombie, " + spriteName)
 					.Zombie(this.player.id, true)
-					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z:900 });
+					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
 			}
 		}
 	},
@@ -54,6 +73,7 @@ Crafty.c('Cemetery', {
 	loseHP : function (value){
 		this.player.HPLeft = this.player.HPLeft - value;
 		this.player.pillar.drawLife();
+		
 		if (this.player.HPLeft <= 0) {
 			this.player.youLose();
 		}

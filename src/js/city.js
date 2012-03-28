@@ -1,23 +1,38 @@
 Crafty.c('City', {
+	
+	//-----------------------------------------------------------------------------
+	//	Attributes
+	//-----------------------------------------------------------------------------
+	
 	type: CITY,
-	nbGards:0,
-	frames:0,
+	nbGuards: 0,
+	frames: 0,
 	outFrames: 0,
 	nbHumans: 0,
-	maxHumans:0,
-	playerId:0,
-	life:null,
-	text:null,
-	hudHeight:0,
-	hudXOffset:0,
-	hudYOffset:0,
-	textOffsetX:null,
+	maxHumans: 0,
+	playerId: 0,
+	life: null,
+	text: null,
+	hudHeight: 0,
+	hudXOffset: 0,
+	hudYOffset: 0,
+	textOffsetX: null,
 	doorsOpen: false,
+	
+	//-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
 	init: function() {
 		this.requires("2D, DOM, city, SpriteAnimation");
 		return this;
 	},
-	City : function(cellX, cellY, size) {
+	
+	//-----------------------------------------------------------------------------
+	//	Constructor
+	//-----------------------------------------------------------------------------
+	
+	City: function(cellX, cellY, size) {
 		this.cell = ETA.grid.cells[cellX][cellY];
 		this.z = this.y;
 		
@@ -33,7 +48,7 @@ Crafty.c('City', {
 			this.hudXOffset = 39;
 			this.hudYOffset = 27;
 			this.textOffsetX = -11;
-			this.nbGards = ETA.config.game.nbGuardsHameau;
+			this.nbGuards = ETA.config.game.nbGuardsHameau;
 			this.nbHumans = ETA.config.game.nbHumansHameau;
 			this.maxHumans = ETA.config.game.nbHumansHameau;
 		} else if (size == "village") {
@@ -41,7 +56,7 @@ Crafty.c('City', {
 			this.hudXOffset = 32
 			this.hudYOffset = 17;
 			this.textOffsetX = -17;
-			this.nbGards = ETA.config.game.nbGuardsVillage;
+			this.nbGuards = ETA.config.game.nbGuardsVillage;
 			this.nbHumans = ETA.config.game.nbHumansVillage;
 			this.maxHumans = ETA.config.game.nbHumansVillage;
 		} else if (size == "ville") {
@@ -49,25 +64,30 @@ Crafty.c('City', {
 			this.hudXOffset = 32;
 			this.hudYOffset = 4;
 			this.textOffsetX = -17;
-			this.nbGards = ETA.config.game.nbGuardsVille;
+			this.nbGuards = ETA.config.game.nbGuardsVille;
 			this.nbHumans = ETA.config.game.nbHumansVille;
 			this.maxHumans = ETA.config.game.nbHumansVille;
 		}
 		
 		this.cell.elem = this;
-		this.animate("neutral",10, 1);
-		this.attr({ x: this.cell.x, y: this.cell.y-25, z: this.cell.y-25 });
+		this.animate("neutral", 10, 1);
+		this.attr({ x: this.cell.x, y: this.cell.y - 25, z: this.cell.y - 25 });
 		this.drawLife();
 		this.drawText();
 		this.bind("EnterFrame", this.procreate);
 		return this;
 	},
-	loseGuard : function (value){
-		this.nbGards = this.nbGards - value;
+	
+	//-----------------------------------------------------------------------------
+	//	Methods
+	//-----------------------------------------------------------------------------
+	
+	loseGuards : function (value){
+		this.nbGuards = this.nbGuards - value;
 		this.drawText();
 	},
 	gainGuards: function (value){
-		this.nbGards = Math.min(this.nbGards + value, 99);
+		this.nbGuards = Math.min(this.nbGuards + value, 99);
 		this.drawText();
 	},
 	changePlayer: function(playerId){
@@ -112,7 +132,7 @@ Crafty.c('City', {
 		}
 		
 		this.text = Crafty.e("2D, DOM, Text").attr({ w: 15, h: 20, x: this.cell.center.x+this.textOffsetX, y: this.cell.center.y-29, z:this.cell.y-25 })
-				.text(this.nbGards+"")
+				.text(this.nbGuards+"")
 				.css({ "text-align": "center", "color" : "#fff", "font-family":"arial" , "font-weight":"bold", "font-size":"12px"});
 	},
 	switchDoorState: function() {
@@ -131,12 +151,12 @@ Crafty.c('City', {
 				
 				proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
 				if (proclimit > rand) {
-					this.nbHumans ++;
+					this.nbHumans++;
 					this.drawLife();
 				}
 			}
 			
-			if (this.playerId != 0 && this.nbGards > 0) {
+			if (this.playerId != 0 && this.nbGuards > 0) {
 				this.frames++;
 				
 				if (this.maxHumans == ETA.config.game.nbHumansHameau && this.frames == 180
@@ -155,9 +175,9 @@ Crafty.c('City', {
 			}
 		}
 		
-		if (this.doorsOpen && this.nbGards > 0) {
+		if (this.doorsOpen && this.nbGuards > 0) {
 			if (++this.outFrames >= ETA.config.game.timeGetOutFortress * ETA.config.frameRate) {
-				this.loseGuard(1);
+				this.loseGuards(1);
 				this.outFrames = 0;
 				
 				var spriteName;

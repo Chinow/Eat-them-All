@@ -14,16 +14,6 @@ var DYING = 4;
 //-----------------------------------------------------------------------------
 
 Crafty.c('Zombie', {
-
-	//-----------------------------------------------------------------------------
-	//	Init
-	//-----------------------------------------------------------------------------
-	
-	init : function() {
-		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
-		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
-        this._globalZ = 7;
-	},
 	
 	//-----------------------------------------------------------------------------
 	//	Attributes
@@ -36,6 +26,16 @@ Crafty.c('Zombie', {
 	playerId: 0,
 	animationRate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
 	attackRate: ETA.config.frameRate / ETA.config.zombiAttackAnimationRate,
+	
+	//-----------------------------------------------------------------------------
+	//	Init
+	//-----------------------------------------------------------------------------
+	
+	init : function() {
+		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
+		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
+        this._globalZ = 7;
+	},
 	
 	//-----------------------------------------------------------------------------
 	//	Constructor
@@ -196,8 +196,8 @@ Crafty.c('Zombie', {
 				} else if (this.currentCell.elem.type == CITY) {
 					if (this.currentCell.elem.playerId != this.playerId) {
 						// Attack city
-						if (this.currentCell.elem.nbGards > 0) {
-							this.currentCell.elem.loseGuard(1);
+						if (this.currentCell.elem.nbGuards > 0) {
+							this.currentCell.elem.loseGuards(1);
 							this.attack();
 							return;
 						}
