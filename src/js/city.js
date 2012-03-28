@@ -10,7 +10,7 @@ Crafty.c('City', {
 	outFrames: 0,
 	nbHumans: 0,
 	maxHumans: 0,
-	playerId: 0,
+	player: null,
 	life: null,
 	text: null,
 	hudHeight: 0,
@@ -90,19 +90,19 @@ Crafty.c('City', {
 		this.nbGuards = Math.min(this.nbGuards + value, 99);
 		this.drawText();
 	},
-	changePlayer: function(playerId){
+	changePlayer: function(player){
 		this.doorsOpen = false;
-		this.playerId = playerId;
+		this.player = player;
 		this.updateSprite();
 	},
 	updateSprite: function() {
 		var spriteAnimation;
 		
-		if (this.playerId == 0) {
+		if (this.player == null) {
 			spriteAnimation = "neutral";
-		} else if (this.playerId == 1) {
+		} else if (this.player.id == 1) {
 			spriteAnimation = "red";
-		} else if (this.playerId == 2) {
+		} else if (this.player.id == 2) {
 			spriteAnimation = "blue";
 		}
 		
@@ -146,17 +146,17 @@ Crafty.c('City', {
 	},
 	procreate: function() {
 		if (this.nbHumans > 0) {
-			if (this.playerId == 0 && this.nbHumans < this.maxHumans) {
+			if (this.player == null && this.nbHumans < this.maxHumans) {
 				rand = Crafty.math.randomNumber(0, 1);
 				
-				proclimit = ETA.config.game.procreationSpeed * this.nbHumans/ETA.config.frameRate
+				proclimit = ETA.config.game.procreationSpeed * this.nbHumans / ETA.config.frameRate
 				if (proclimit > rand) {
 					this.nbHumans++;
 					this.drawLife();
 				}
 			}
 			
-			if (this.playerId != 0 && this.nbGuards > 0) {
+			if (this.player != null && this.nbGuards > 0) {
 				this.frames++;
 				
 				if (this.maxHumans == ETA.config.game.nbHumansHameau && this.frames == 180
@@ -183,7 +183,7 @@ Crafty.c('City', {
 				var spriteName;
 				var xoffset;
 				
-				if (this.playerId == 1) {
+				if (this.player.id == 1) {
 					spriteName = "zombieRougeSprite";
 					xoffset = 25;
 				} else {
@@ -192,7 +192,7 @@ Crafty.c('City', {
 				}
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.playerId, false)
+					.Zombie(this.player, false)
 					.attr({ x: this.x + xoffset, y: this.y + 10, z:900 });
 			}
 		}

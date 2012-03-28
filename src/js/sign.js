@@ -43,7 +43,6 @@ Crafty.c('Sign', {
 		}
 		
 		var rateBegin = ETA.config.frameRate/ETA.config.signBeginAnimationRate;
-		var rate = ETA.config.frameRate/ETA.config.signAnimationRate;
 		
 		Crafty.audio.play("signCreate");
 		this.stop().animate("up", rateBegin, 0);
@@ -53,43 +52,41 @@ Crafty.c('Sign', {
 		
 		this.cell = ETA.grid.getCell(this._x + 29, this._y + 48);
 		this.cell.elem = this;
+	},
+	
+	//-----------------------------------------------------------------------------
+	//	Method - rotate
+	//-----------------------------------------------------------------------------
+	
+	rotateSign: function() {
+		var rate = ETA.config.frameRate / ETA.config.signAnimationRate;
 		
-		this.bind('KeyDown', function(el) {
-			this.cell = ETA.grid.getCell(this._x + 29, this._y + 48);
-			this.cell.elem = this;
+		if (!this.isPlaying("turn_right") && this.mvt == "turn_right")  {
+			Crafty.audio.play("signMove");
+			this.stop().animate("turn_right", rate, 0);
+			this.direction = EAST;
+			this.mvt = (this.player.id == 1) ? "turn_bottom" : "turn_up";
+		} else if (!this.isPlaying("turn_bottom") && this.mvt == "turn_bottom")  {
+			Crafty.audio.play("signMove");
+			this.stop().animate("turn_bottom", rate, 0);
+			this.direction = SOUTH;
+			this.mvt = (this.player.id == 1) ? "turn_left" : "turn_right";
+		} else if (!this.isPlaying("turn_left") && this.mvt == "turn_left")  {
+			Crafty.audio.play("signMove");
+			this.stop().animate("turn_left", rate, 0);
+			this.direction = WEST;
+			this.mvt = (this.player.id == 1) ? "turn_up" : "turn_bottom";
+		} else if (!this.isPlaying("turn_up") && this.mvt == "turn_up")  {
+			Crafty.audio.play("signDelete");
+			this.direction = NONE;
+			this.mvt = NONE;
+			this.player.popSign--;
 			
-			if (this.player != null && el.key == this.player.actionKey && this.cell.id == this.player.currentCellId) {
-				if (!this.isPlaying("turn_right") && this.mvt == "turn_right")  {
-					Crafty.audio.play("signMove");
-					this.stop().animate("turn_right", rate, 0);
-					this.direction = EAST;
-					this.mvt = (this.player.id == 1) ? "turn_bottom" : "turn_up";
-				} else if (!this.isPlaying("turn_bottom") && this.mvt == "turn_bottom")  {
-					Crafty.audio.play("signMove");
-					this.stop().animate("turn_bottom", rate, 0);
-					this.direction = SOUTH;
-					this.mvt = (this.player.id == 1) ? "turn_left" : "turn_right";
-				} else if (!this.isPlaying("turn_left") && this.mvt == "turn_left")  {
-					Crafty.audio.play("signMove");
-					this.stop().animate("turn_left", rate, 0);
-					this.direction = WEST;
-					this.mvt = (this.player.id == 1) ? "turn_up" : "turn_bottom";
-				} else if (!this.isPlaying("turn_up") && this.mvt == "turn_up")  {
-					Crafty.audio.play("signDelete");
-					this.direction = NONE;
-					this.mvt = NONE;
-					this.player.popSign--;
-					
-					this.stop().animate("turn_up", rate, 0);
-					this.timeout(function() {
-						this.player = null;
-						this.cell.elem = null;
-						this.destroy();
-					}, (rate * 45) );
-				}
-			}
-		});
-		
-		return this;
+			this.stop().animate("turn_up", rate, 0);
+			this.timeout(function() {
+				this.cell.elem = null;
+				this.destroy();
+			}, (rate * 45) );
+		}
 	}
 });

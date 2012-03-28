@@ -23,7 +23,7 @@ Crafty.c('Zombie', {
 	currentCell: null,
 	walkingDirection: NONE,
 	state: SPAWNING,
-	playerId: 0,
+	player: 0,
 	animationRate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
 	attackRate: ETA.config.frameRate / ETA.config.zombiAttackAnimationRate,
 	
@@ -41,9 +41,9 @@ Crafty.c('Zombie', {
 	//	Constructor
 	//-----------------------------------------------------------------------------
 	
-	Zombie: function(playerId, playSpawnAnimation) {
-		this.playerId = playerId;
-		this.walkingDirection = (playerId == 1) ? EAST : WEST;
+	Zombie: function(player, playSpawnAnimation) {
+		this.player = player;
+		this.walkingDirection = (player.id == 1) ? EAST : WEST;
 		
 		// Setup animation
 		this.animate("spawn", [[12,0],[13,0],[14,0]])
@@ -152,7 +152,7 @@ Crafty.c('Zombie', {
 				
 				if (this.currentCell.elem != null
 				&& this.currentCell.elem.type == SIGN
-				&& this.currentCell.elem.player.id == this.playerId) {
+				&& this.currentCell.elem.player.id == this.player.id) {
 					var signDirection =  this.currentCell.elem.direction;
 					
 					// Sign and upper border
@@ -186,7 +186,7 @@ Crafty.c('Zombie', {
 			// Attack fortress
 			if (this.state == MOVING && this.currentCell.elem != null) {
 				if (this.currentCell.elem.type == FORTRESS || this.currentCell.elem.type == CEMETERY) {
-					if (this.playerId == this.currentCell.elem.player.id) {
+					if (this.player.id == this.currentCell.elem.player.id) {
 						this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
 					} else{
 						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
@@ -194,7 +194,7 @@ Crafty.c('Zombie', {
 						return;
 					}
 				} else if (this.currentCell.elem.type == CITY) {
-					if (this.currentCell.elem.playerId != this.playerId) {
+					if (this.currentCell.elem.player == null || this.currentCell.elem.player.id != this.player.id) {
 						// Attack city
 						if (this.currentCell.elem.nbGuards > 0) {
 							this.currentCell.elem.loseGuards(1);
@@ -203,14 +203,14 @@ Crafty.c('Zombie', {
 						}
 						// Invade city
 						else {
-							this.currentCell.elem.changePlayer(this.playerId);
+							this.currentCell.elem.changePlayer(this.player);
 							this.currentCell.elem.gainGuards(1);
 							this.destroy();
 							return;
 						}
 					}
 					// Enforce city
-					else if (this.playerId == this.currentCell.elem.playerId) {
+					else {
 						this.currentCell.elem.gainGuards(1);
 						this.destroy();
 						return;
@@ -237,7 +237,7 @@ Crafty.c('Zombie', {
 				var collideLength = collide2.length;
 				for (var i = 0; i < collideLength; i++) {
 					if (collide2[i].type == "SAT") {
-						if (collide2[i].obj.playerId != this.playerId) {
+						if (collide2[i].obj.player.id != this.player.id) {
 							if (this.state == MOVING && collide2[i].obj.state == MOVING) {
 								collide2[i].obj.attack();
 								this.attack();
