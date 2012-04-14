@@ -13,6 +13,7 @@ ETA.config = {
 	zombiAnimationRate: 5,
 	zombiAttackAnimationRate: 3,
 	dollAnimationRate: 5,
+	dollStandingAnimationRate: 1,
 	signBeginAnimationRate: 5,
 	signAnimationRate: 8,
 	cemeteryAnimationRate: 2,
@@ -43,7 +44,7 @@ ETA.config = {
 	},
 	p1: {
 		startPosition: { x: 150, y: 250, z: 1000 },
-		keyset:"wasd",
+		keyset: "wasd",
 		actionKey: Crafty.keys.SPACE,
 	},
 	p2: {

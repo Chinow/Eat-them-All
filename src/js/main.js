@@ -3,24 +3,24 @@
 //-----------------------------------------------------------------------------
 
 // Directions
-NONE = '-';
-NORTH = 'n';
-SOUTH = 's';
-EAST = 'e';
-WEST = 'w';
+var NONE = '-';
+var NORTH = 'n';
+var SOUTH = 's';
+var EAST = 'e';
+var WEST = 'w';
 
 // Cell element types
-CEMETERY = 1;
-FORTRESS = 2;
-CITY = 3;
-SIGN = 4;
-ZOMBIE = 5;
+var CEMETERY = 1;
+var FORTRESS = 2;
+var CITY = 3;
+var SIGN = 4;
+var ZOMBIE = 5;
 
 // Game states
-INIT = 1;
-RUNNING = 2;
-PAUSED = 3;
-STOPPED = 4;
+var INIT = 1;
+var RUNNING = 2;
+var PAUSED = 3;
+var STOPPED = 4;
 
 //-----------------------------------------------------------------------------
 //	Main
