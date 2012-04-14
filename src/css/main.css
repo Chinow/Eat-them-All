@@ -62,14 +62,18 @@ body {
 }
 
 /* Pause */
-#pause {
+#pause-screen {
 	position: absolute;
 	width: 1000px;
 	height: 580px;
 	text-align: center;
+	background-color: #000000;
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+	z-index: 2000;
 }
 
-#pause > img {
+#pause-screen img {
 	margin: auto;
-	margin-top: 150px;
+	margin-top: 250px;
 }

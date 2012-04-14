@@ -91,6 +91,7 @@ window.onload = function() {
 
 		Crafty.audio.play("bgMusic", -1);
 		generateWorld();
+		generatePauseScreen();
 		
 		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
 				.VoodooDoll(1);
@@ -185,7 +186,7 @@ window.onload = function() {
 			if (gameState == RUNNING) {
 				gameState = PAUSED;
 				Crafty.pause(true);
-				
+				$("#pause-screen").show();
 				Crafty.audio.settings("pauseStart", { muted: false });
 				Crafty.audio.settings("pauseStart", { muted: false });
 				Crafty.audio.play("pauseStart");
@@ -201,6 +202,7 @@ window.onload = function() {
 				window.clearTimeout(pauseTimeout);
 				
 				gameState = RUNNING;
+				$("#pause-screen").hide();
 				Crafty.pause(false);
 			}
 		} else if ((el.key == Crafty.keys.SPACE || el.key == Crafty.keys.ENTER) && gameState == STOPPED) {
@@ -274,6 +276,19 @@ window.onload = function() {
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
+	}
+
+	//-----------------------------------------------------------------------------
+	//	Method - Pause screen
+	//-----------------------------------------------------------------------------
+
+	function generatePauseScreen() {
+		$('#cr-stage').append(
+			'<div id="pause-screen" hidden="">'+
+				'<img src="img/pause_item.png" alt="PAUSE"/>'+
+			'</div>'
+		);
+		$("#pause-screen").hide();
 	}
 };
 
