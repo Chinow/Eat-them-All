@@ -16,7 +16,9 @@ ETA.config = {
 	signBeginAnimationRate: 5,
 	signAnimationRate: 8,
 	cemeteryAnimationRate: 2,
-
+	sorcererAnimationRate: 2,
+	sorcererSummonAnimationRate: 4,
+	
 	tile:{
 		tileWidth: 50,
 		tileHeight: 50

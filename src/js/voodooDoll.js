@@ -4,7 +4,6 @@ Crafty.c('VoodooDoll', {
 	//	Attributes
 	//-----------------------------------------------------------------------------
 	
-	walking: "none",
 	popSign: 0,
 	id: 0,
 	master: null,
@@ -62,22 +61,17 @@ Crafty.c('VoodooDoll', {
 				if (direction.y != 0) {
 					if (direction.y < 0 && !this.isPlaying("walk_up")) {
 						this.stop().animate("walk_up", rate, -1);
-						this.walking = "up";
 					} else if (direction.y > 0 && !this.isPlaying("walk_down")) {
 						this.stop().animate("walk_down", rate, -1);
-						this.walking = "down";
 					}
 				} else if (direction.x != 0) {
 					if (direction.x < 0 && !this.isPlaying("walk_left")) {
 						this.stop().animate("walk_left", rate, -1);
-						this.walking = "left";
 					} else if (direction.x > 0 && !this.isPlaying("walk_right")) {
 						this.stop().animate("walk_right", rate, -1);
-						this.walking = "right";
 					}
 				} else {
 					this.stop();
-					this.walking = "none"
 				}
 			}
 		})

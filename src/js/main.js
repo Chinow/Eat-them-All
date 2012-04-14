@@ -76,21 +76,7 @@ window.onload = function() {
 						'<div id="start-button" class="hideMenu">start</div>'+
 						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
 						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
-					'</div>'+
-					'<div id="rules">'+
-					'<h4>Rules :</h4>'+
-						'<ul>'+
-							'<li>Destroy the ennemy fortress by Zombies attacks !</li>'+
-							'<li>Capture human city for more Zombies !</li>'+
-							'<li>Place signs to drive your Zombies</li>'+
-						'</ul>'+
-					'<h4>Commands :</h4>'+
-						'<ul>'+
-							'<li>Player 1 : wasd or zqsd + space</li>'+
-							'<li>Player 2 : arrows + enter</li>'+
-						'</ul>'+
-					'</div>'+
-				'</div>'
+					'</div>'+				'</div>'
 		);
 	});
 	//automatically play the loading scene
