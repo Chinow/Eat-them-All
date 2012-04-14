@@ -46,11 +46,11 @@ Crafty.c('VoodooMaster', {
 	//-----------------------------------------------------------------------------
 	
 	summon :function(){
-		this.stop().animate("summon", ETA.config.frameRate / ETA.config.sorcererSummonAnimationRate, 0);
+		this.stop().animate("summon", ETA.config.animation.sorcerer.summon);
 	},
 	setSteady :function(){
 		if (!this.isPlaying("summon")) {
-			this.animate("steady", ETA.config.frameRate / ETA.config.sorcererAnimationRate, -1)
+			this.animate("steady", ETA.config.animation.sorcerer.stand, -1);
 		}
 	}
 });

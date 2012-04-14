@@ -30,7 +30,7 @@ window.onload = function() {
 	gameState = INIT;
 	pauseTimeout = undefined;
 
-	Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+	Crafty.init(ETA.config.scene.dimension.width, ETA.config.scene.dimension.height, ETA.config.frameRate);
 		
 	//-----------------------------------------------------------------------------
 	//	Loading scene
@@ -42,24 +42,24 @@ window.onload = function() {
 		
 		//load takes an array of assets and a callback when complete
 		Crafty.load([
-		"img/bgSprite.png",
-		"img/walkingZombi_rouge.png",
-		"img/walkingZombi_bleu.png",
-		"img/walkingDoll_rouge.png",
-		"img/walkingDoll_bleu.png",
-		"img/panneau_rouge.png",  
-		"img/panneau_bleu.png", 
-		"img/cimetierre_bleu.png", 
-		"img/cimetierre_rouge.png",
-		"img/forteresse_bleu.png",
-		"img/forteresse_rouge.png",
-		"img/hameau.png",
-		"img/village",
-		"img/ville",
-		"img/sorcier_rouge.png",
-		"img/sorcier_bleu.png",
-		"img/totem_gauge.png",
-		"img/chunks.png"
+			"img/bgSprite.png",
+			"img/walkingZombi_rouge.png",
+			"img/walkingZombi_bleu.png",
+			"img/walkingDoll_rouge.png",
+			"img/walkingDoll_bleu.png",
+			"img/panneau_rouge.png",  
+			"img/panneau_bleu.png", 
+			"img/cimetierre_bleu.png", 
+			"img/cimetierre_rouge.png",
+			"img/forteresse_bleu.png",
+			"img/forteresse_rouge.png",
+			"img/hameau.png",
+			"img/village",
+			"img/ville",
+			"img/sorcier_rouge.png",
+			"img/sorcier_bleu.png",
+			"img/totem_gauge.png",
+			"img/chunks.png"
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -70,7 +70,7 @@ window.onload = function() {
 
 		//black background with some loading text
 		Crafty.e('HTML')
-			.attr({ w: ETA.config.stageWidth, h: ETA.config.stageHeight, x: 0, y: 0 })
+			.attr({ w: ETA.config.scene.dimension.width, h: ETA.config.scene.dimension.height, x: 0, y: 0 })
 			.replace(
 				'<div id="menu">'+
 					'<div id="menu-button">'+
@@ -212,7 +212,7 @@ window.onload = function() {
 			gameState = INIT;
 			Crafty.stop(true);
 			Crafty("2D DOM").destroy();
-			Crafty.init(ETA.config.stageWidth, ETA.config.stageHeight, ETA.config.frameRate);
+			Crafty.init(ETA.config.scene.dimension.width, ETA.config.scene.dimension.height, ETA.config.frameRate);
 			Crafty.scene("loading");
 		}
 	})
@@ -281,7 +281,7 @@ window.onload = function() {
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
-		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.nbTileWidth, ETA.config.nbTileHeight);
+		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.scene.board.width, ETA.config.scene.board.height);
 	}
 
 	//-----------------------------------------------------------------------------

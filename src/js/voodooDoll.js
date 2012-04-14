@@ -72,52 +72,47 @@ Crafty.c('VoodooDoll', {
 		.animate("summon_sign", [[12,0],[13,0],[13,0],[12,0],[0,0]])
 		.bind("EnterFrame", function() {
 			if (this.state == SUMMONING && !this.isPlaying("summon_sign")) {
-				var rate = ETA.config.frameRate / ETA.config.dollStandingAnimationRate;
 				this.state = STANDING;
-				this.stop().animate("stand_down", rate, -1);
+				this.stop().animate("stand_down", ETA.config.animation.doll.stand, -1);
 			}
 		})
 		.bind("NewDirection", function (direction) {
 			if (this.state != SUMMONING) {
-				var rate = ETA.config.frameRate / ETA.config.dollAnimationRate;
-			
 				if (direction.y != 0) {
 					this.state = WALKING;
 					
 					if (direction.y < 0 && !this.isPlaying("walk_up")) {
 						this.lastDirection = NORTH;
-						this.stop().animate("walk_up", rate, -1);
+						this.stop().animate("walk_up", ETA.config.animation.doll.walk, -1);
 					} else if (direction.y > 0 && !this.isPlaying("walk_down")) {
 						this.lastDirection = SOUTH;
-						this.stop().animate("walk_down", rate, -1);
+						this.stop().animate("walk_down", ETA.config.animation.doll.walk, -1);
 					}
 				} else if (direction.x != 0) {
 					this.state = WALKING;
 					
 					if (direction.x < 0 && !this.isPlaying("walk_left")) {
 						this.lastDirection = WEST;
-						this.stop().animate("walk_left", rate, -1);
+						this.stop().animate("walk_left", ETA.config.animation.doll.walk, -1);
 					} else if (direction.x > 0 && !this.isPlaying("walk_right")) {
 						this.lastDirection = EAST;
-						this.stop().animate("walk_right", rate, -1);
+						this.stop().animate("walk_right", ETA.config.animation.doll.walk, -1);
 					}
 				} else if (this.state != STANDING) {
-					rate = ETA.config.frameRate / ETA.config.dollStandingAnimationRate;
-					
 					this.state = STANDING;
 					
 					switch (this.lastDirection) {
 						case NORTH:
-							this.stop().animate("stand_up", rate, -1);
+							this.stop().animate("stand_up", ETA.config.animation.doll.stand, -1);
 							break;
 						case SOUTH:
-							this.stop().animate("stand_down", rate, -1);
+							this.stop().animate("stand_down", ETA.config.animation.doll.stand, -1);
 							break;
 						case WEST:
-							this.stop().animate("stand_left", rate, -1);
+							this.stop().animate("stand_left", ETA.config.animation.doll.stand, -1);
 							break;
 						case EAST:
-							this.stop().animate("stand_right", rate, -1);
+							this.stop().animate("stand_right", ETA.config.animation.doll.stand, -1);
 							break;
 					}
 				}
@@ -152,8 +147,7 @@ Crafty.c('VoodooDoll', {
 			if (el.key == this.actionKey) {
 				this.lastDirection = SOUTH;
 				this.state = SUMMONING;
-				var rate = ETA.config.frameRate / ETA.config.dollAnimationRate;
-				this.stop().animate("summon_sign", rate, 0);
+				this.stop().animate("summon_sign",  ETA.config.animation.doll.summon, 0);
 				this.master.summon();
 				var cell = ETA.grid.getCell(this._x + 29, this._y + 48);
 				
@@ -167,11 +161,10 @@ Crafty.c('VoodooDoll', {
 			}
 		});
 		
-		var rate = ETA.config.frameRate / ETA.config.dollStandingAnimationRate;
 		if (this.id == 1) {
-			this.stop().animate("stand_right", rate, -1);
+			this.stop().animate("stand_right", ETA.config.animation.doll.stand, -1);
 		} else {
-			this.stop().animate("stand_left", rate, -1);		
+			this.stop().animate("stand_left", ETA.config.animation.doll.stand, -1);		
 		}
 		
 		return this;

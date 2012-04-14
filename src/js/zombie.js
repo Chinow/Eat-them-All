@@ -3,12 +3,12 @@
 //-----------------------------------------------------------------------------
 
 // Zombie states
-var SPAWNING = 0;
-var MOVING_OUT_OF_SPAWN = 1;
-var MOVING = 2;
-var ATTACKING = 3;
-var DYING = 4;
-var DESTROYING = 5;
+var SPAWNING = 10;
+var MOVING_OUT_OF_SPAWN = 11;
+var MOVING = 12;
+var ATTACKING = 13;
+var DYING = 14;
+var DESTROYING = 15;
 
 //-----------------------------------------------------------------------------
 //	Zombie object
@@ -26,8 +26,6 @@ Crafty.c('Zombie', {
 	state: SPAWNING,
 	destroying: false,
 	player: 0,
-	animationRate: ETA.config.frameRate / ETA.config.zombiAnimationRate,
-	attackRate: ETA.config.frameRate / ETA.config.zombiAttackAnimationRate,
 	
 	//-----------------------------------------------------------------------------
 	//	Init
@@ -77,14 +75,14 @@ Crafty.c('Zombie', {
 		.bind("EnterFrame", this.moveZombi);
 		
 		if (playSpawnAnimation) {
-			this.animate("spawn", this.animationRate);
+			this.animate("spawn", ETA.config.animation.zombie.spawn);
 		} else {
 			this.state = MOVING_OUT_OF_SPAWN;
 			
 			if (this.walkingDirection == EAST) {
-				this.animate("walk_right", this.animationRate, -1);
+				this.animate("walk_right", ETA.config.animation.zombie.walk, -1);
 			} else {
-				this.animate("walk_left", this.animationRate, -1);
+				this.animate("walk_left", ETA.config.animation.zombie.walk, -1);
 			}
 		}
 		
@@ -266,13 +264,13 @@ Crafty.c('Zombie', {
 				this.move(this.walkingDirection, ETA.config.game.zombiSpeed);
 				
 				if (this.walkingDirection == WEST && !this.isPlaying("walk_left")) {
-					this.stop().animate("walk_left", this.animationRate, -1);
+					this.stop().animate("walk_left", ETA.config.animation.zombie.walk, -1);
 				} else if (this.walkingDirection == EAST && !this.isPlaying("walk_right")) {
-					this.stop().animate("walk_right", this.animationRate, -1);
+					this.stop().animate("walk_right", ETA.config.animation.zombie.walk, -1);
 				} else if (this.walkingDirection == NORTH && !this.isPlaying("walk_up")) {
-					this.stop().animate("walk_up", this.animationRate, -1);
+					this.stop().animate("walk_up", ETA.config.animation.zombie.walk, -1);
 				} else if (this.walkingDirection == SOUTH && !this.isPlaying("walk_down")) {
-					this.stop().animate("walk_down", this.animationRate, -1);
+					this.stop().animate("walk_down", ETA.config.animation.zombie.walk, -1);
 				}
 			}
 			
@@ -296,13 +294,13 @@ Crafty.c('Zombie', {
 		
 		// Animate attack
 		if (this.walkingDirection == WEST) {
-			this.stop().animate("attack_left", this.attackRate);
+			this.stop().animate("attack_left", ETA.config.animation.zombie.attack);
 		} else if (this.walkingDirection == EAST) {
-			this.stop().animate("attack_right", this.attackRate);
+			this.stop().animate("attack_right", ETA.config.animation.zombie.attack);
 		} else if (this.walkingDirection == NORTH) {
-			this.stop().animate("attack_up", this.attackRate);
+			this.stop().animate("attack_up", ETA.config.animation.zombie.attack);
 		} else if (this.walkingDirection == SOUTH) {
-			this.stop().animate("attack_down", this.attackRate);
+			this.stop().animate("attack_down", ETA.config.animation.zombie.attack);
 		}
 		
 		// Create chunks		
@@ -333,6 +331,6 @@ Crafty.c('Zombie', {
 	
 	die: function() {
 		this.state = DYING;
-		this.stop().animate("die", this.animationRate);
+		this.stop().animate("die", ETA.config.animation.zombie.die);
 	}
 });
