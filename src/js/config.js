@@ -18,6 +18,7 @@ ETA.config = {
 	cemeteryAnimationRate: 2,
 	sorcererAnimationRate: 2,
 	sorcererSummonAnimationRate: 4,
+	chunksAnimationRate: 6,
 	
 	tile:{
 		tileWidth: 50,

@@ -14,6 +14,7 @@ CEMETERY = 1;
 FORTRESS = 2;
 CITY = 3;
 SIGN = 4;
+ZOMBIE = 5;
 
 // Game states
 INIT = 1;
@@ -57,7 +58,8 @@ window.onload = function() {
 		"img/ville",
 		"img/sorcier_rouge.png",
 		"img/sorcier_bleu.png",
-		"img/totem_gauge.png"
+		"img/totem_gauge.png",
+		"img/chunks.png"
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -76,7 +78,8 @@ window.onload = function() {
 						'<div id="start-button" class="hideMenu">start</div>'+
 						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
 						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
-					'</div>'+				'</div>'
+					'</div>'+
+				'</div>'
 		);
 	});
 	//automatically play the loading scene
@@ -271,6 +274,9 @@ window.onload = function() {
 		});
 		Crafty.sprite(80, "img/totem_gauge.png", {
 			pillar:[0,0]
+		});
+		Crafty.sprite(70, "img/chunks.png", {
+			chunks: [0, 0]
 		});
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
