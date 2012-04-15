@@ -24,7 +24,7 @@ Crafty.c('City', {
 	//-----------------------------------------------------------------------------
 	
 	init: function() {
-		this.requires("2D, DOM, city, SpriteAnimation");
+		this.requires("2D, DOM, City, SpriteAnimation");
 		return this;
 	},
 	
@@ -43,19 +43,19 @@ Crafty.c('City', {
 		this.animate("blueDead", [[4,0],[4,0]]);
 		this.animate("redDead", [[5,0],[5,0]]);
 
-		if (size == "hameau") {
+		if (size == 1) {
 			this.hudHeight = 14;
 			this.hudXOffset = 39;
 			this.hudYOffset = 27;
 			this.textOffsetX = -11;
 			this.config = ETA.config.game.village;
-		} else if (size == "village") {
+		} else if (size == 2) {
 			this.hudHeight = 24;
 			this.hudXOffset = 32
 			this.hudYOffset = 17;
 			this.textOffsetX = -17;
 			this.config = ETA.config.game.town;
-		} else if (size == "ville") {
+		} else if (size == 3) {
 			this.hudHeight = 37;
 			this.hudXOffset = 32;
 			this.hudYOffset = 4;

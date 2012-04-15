@@ -42,24 +42,24 @@ window.onload = function() {
 		
 		//load takes an array of assets and a callback when complete
 		Crafty.load([
-			"img/bgSprite.png",
-			"img/walkingZombi_rouge.png",
-			"img/walkingZombi_bleu.png",
-			"img/walkingDoll_rouge.png",
-			"img/walkingDoll_bleu.png",
-			"img/panneau_rouge.png",  
-			"img/panneau_bleu.png", 
-			"img/cimetierre_bleu.png", 
-			"img/cimetierre_rouge.png",
-			"img/forteresse_bleu.png",
-			"img/forteresse_rouge.png",
-			"img/hameau.png",
-			"img/village",
-			"img/ville",
-			"img/sorcier_rouge.png",
-			"img/sorcier_bleu.png",
-			"img/totem_gauge.png",
-			"img/chunks.png"
+			"img/sprites/background.png",
+			"img/sprites/cemetery-blue.png", 
+			"img/sprites/cemetery-red.png",
+			"img/sprites/chunks.png",
+			"img/sprites/city1.png",
+			"img/sprites/city2.png",
+			"img/sprites/city3.png",
+			"img/sprites/doll-red.png",
+			"img/sprites/doll-blue.png", 
+			"img/sprites/fortress-blue.png",
+			"img/sprites/fortress-red.png",
+			"img/sprites/sign-red.png",  
+			"img/sprites/sign-blue.png",
+			"img/sprites/sorcerer-red.png",
+			"img/sprites/sorcerer-blue.png",
+			"img/sprites/totemGauge.png",
+			"img/sprites/zombie-red.png",
+			"img/sprites/zombie-blue.png",
 		], function () {
 			$('#loading-text').addClass('hideMenu');
 			$('#start-button').removeClass('hideMenu');
@@ -96,88 +96,95 @@ window.onload = function() {
 		generateWorld();
 		generatePauseScreen();
 		
-		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
+		// Create dolls (controlled by players)
+		var player1 = Crafty.e("VoodooDoll, redDoll")
 				.VoodooDoll(1);
-		var player2 = Crafty.e("VoodooDoll, dollBleuSpriteRight")
+		var player2 = Crafty.e("VoodooDoll, blueDoll")
 				.VoodooDoll(2);
-				
-		Crafty.e("VoodooMaster, sorcierRouge")
+		
+		// Create sorcerers
+		Crafty.e("VoodooMaster, redSorcerer")
 			.VoodooMaster(player1, 0, 5);
-		Crafty.e("VoodooMaster, sorcierBleu")
+		Crafty.e("VoodooMaster, blueSorcerer")
 			.VoodooMaster(player2, 18, 5);
 		
+		// Create pillars
 		Crafty.e("Pillar, pillar")
 			.Pillar(player1, 0, 6);
-		
 		Crafty.e("Pillar, pillar")
 			.Pillar(player2, 18, 6);
-				
+		
+		// Create cemeteries
 		var cemetery = [];
-		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
+		cemetery.push(Crafty.e("Cemetery, redCemetery")
 				.Cemetery(player1, 1, 3));
-		cemetery.push(Crafty.e("Cemetery, cemeteryRougeSprite")
+		cemetery.push(Crafty.e("Cemetery, redCemetery")
 				.Cemetery(player1, 1, 7));
 				
-		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
+		cemetery.push(Crafty.e("Cemetery, blueCemetery")
 				.Cemetery(player2, 18, 3));
-		cemetery.push(Crafty.e("Cemetery, cemeteryBleuSprite")
+		cemetery.push(Crafty.e("Cemetery, blueCemetery")
 				.Cemetery(player2, 18, 7));
 		
-		Crafty.e("Fortress, fortresseRougeSprite")
+		// Create fortress parts - Red
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,0,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,1,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,2,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,4,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,5,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,6,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,8,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,9,player1);
-		Crafty.e("Fortress, fortresseRougeSprite")
+		Crafty.e("Fortress, redFortress")
 			.Fortress(1,10,player1);
-			
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,0,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,1,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,2,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,4,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,5,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,6,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,8,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,9,player2);
-		Crafty.e("Fortress, fortresseBleuSprite")
-			.Fortress(18,10,player2);
-
-		Crafty.e("City, hameauNeutralSprite")
-				.City(3, 9, "hameau");
-		Crafty.e("City, hameauNeutralSprite")
-				.City(4, 2, "hameau");
-
-		Crafty.e("City, hameauNeutralSprite")
-				.City(14, 10, "hameau");
-		Crafty.e("City, hameauNeutralSprite")
-				.City(15, 1, "hameau");
-				
-		Crafty.e("City, villageNeutralSprite")
-				.City(6, 4, "village");
-		Crafty.e("City, villageNeutralSprite")
-				.City(13, 6, "village");
 		
-		Crafty.e("City, villeNeutralSprite")
-				.City(10, 5, "ville");
+		// Create fortress parts - Blue
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,0,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,1,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,2,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,4,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,5,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,6,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,8,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,9,player2);
+		Crafty.e("Fortress, blueFortress")
+			.Fortress(18,10,player2);
+		
+		// Create cities - Size 1
+		Crafty.e("City, neutralCity1")
+				.City(3, 9, 1);
+		Crafty.e("City, neutralCity1")
+				.City(4, 2, 1);
+		Crafty.e("City, neutralCity1")
+				.City(14, 10, 1);
+		Crafty.e("City, neutralCity1")
+				.City(15, 1, 1);
+		
+		// Create cities - Size 2
+		Crafty.e("City, neutralCity2")
+				.City(6, 4, 2);
+		Crafty.e("City, neutralCity2")
+				.City(13, 6, 2);
+		
+		// Create cities - Size 3
+		Crafty.e("City, neutralCity3")
+				.City(10, 5, 3);
 	});
 	
 	//-----------------------------------------------------------------------------
@@ -222,66 +229,66 @@ window.onload = function() {
 	//-----------------------------------------------------------------------------
 
 	function generateWorld() {
-		Crafty.sprite(16, "img/bgSprite.png", {
-			bg: [0, 0,1000 ,550]
+		Crafty.sprite(16, "img/sprites/background.png", {
+			bg: [0, 0, 1000, 550]
 		});
-		Crafty.sprite(65, "img/walkingZombi_rouge.png", {
+		Crafty.sprite(65, "img/sprites/zombie-red.png", {
 			zombieRougeSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/walkingZombi_bleu.png", {
+		Crafty.sprite(65, "img/sprites/zombie-blue.png", {
 			zombieBleuSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/walkingDoll_rouge.png", {
-			dollRougeSpriteLeft: [0, 0],
-			dollRougeSpriteRight: [3, 0]
+		Crafty.sprite(65, "img/sprites/doll-red.png", {
+			redDoll: [0, 0]
 		});
-		Crafty.sprite(65, "img/walkingDoll_bleu.png", {
-			dollBleuSpriteLeft: [0, 0],
-			dollBleuSpriteRight: [3, 0]
+		Crafty.sprite(65, "img/sprites/doll-blue.png", {
+			blueDoll: [3, 0]
 		});
-		Crafty.sprite(65, "img/panneau_rouge.png", {
+		Crafty.sprite(65, "img/sprites/sign-red.png", {
 			signRougeSprite: [0, 0]
 		});
-		Crafty.sprite(65, "img/panneau_bleu.png", {
+		Crafty.sprite(65, "img/sprites/sign-blue.png", {
 			signBleuSprite: [0, 0]
 		});
-		Crafty.sprite(110, "img/cimetierre_rouge.png", {
-			cemeteryRougeSprite: [0, 0]
+		Crafty.sprite(110, "img/sprites/cemetery-red.png", {
+			redCemetery: [0, 0]
 		});
-		Crafty.sprite(110, "img/cimetierre_bleu.png", {
-			cemeteryBleuSprite: [0, 0]
+		Crafty.sprite(110, "img/sprites/cemetery-blue.png", {
+			blueCemetery: [0, 0]
 		});
-		Crafty.sprite(70, "img/forteresse_rouge.png", {
-			fortresseRougeSprite:[0, 0]
+		Crafty.sprite(70, "img/sprites/fortress-red.png", {
+			redFortress: [0, 0]
 		});
-		Crafty.sprite(70, "img/forteresse_bleu.png", {
-			fortresseBleuSprite:[0, 0]
+		Crafty.sprite(70, "img/sprites/fortress-blue.png", {
+			blueFortress: [0, 0]
 		});
-		Crafty.sprite(70, "img/hameau.png", {
-			hameauNeutralSprite:[0, 0]
+		Crafty.sprite(70, "img/sprites/city1.png", {
+			neutralCity1: [0, 0]
 		});
-		Crafty.sprite(70, "img/village.png", {
-			villageNeutralSprite:[0, 0]
+		Crafty.sprite(70, "img/sprites/city2.png", {
+			neutralCity2: [0, 0]
 		});
-		Crafty.sprite(70, "img/ville.png", {
-			villeNeutralSprite:[0, 0]
+		Crafty.sprite(70, "img/sprites/city3.png", {
+			neutralCity3: [0, 0]
 		});
-		Crafty.sprite(110, "img/sorcier_rouge.png", {
-			sorcierRouge:[0, 0]
+		Crafty.sprite(110, "img/sprites/sorcerer-red.png", {
+			redSorcerer: [0, 0]
 		});
-		Crafty.sprite(110, "img/sorcier_bleu.png", {
-			sorcierBleu:[0, 0]
+		Crafty.sprite(110, "img/sprites/sorcerer-blue.png", {
+			blueSorcerer: [0, 0]
 		});
-		Crafty.sprite(80, "img/totem_gauge.png", {
-			pillar:[0,0]
+		Crafty.sprite(80, "img/sprites/totemGauge.png", {
+			pillar: [0,0]
 		});
-		Crafty.sprite(70, "img/chunks.png", {
+		Crafty.sprite(70, "img/sprites/chunks.png", {
 			chunks: [0, 0]
 		});
 		
 		ETA.player1FortressLife = ETA.config.game.hitPointsFortress;
 		ETA.player2FortressLife = ETA.config.game.hitPointsFortress;
-		ETA.grid = Crafty.e("BGGrid").grid(ETA.config.scene.board.width, ETA.config.scene.board.height);
+		
+		ETA.grid = Crafty.e("BGGrid").
+			grid(ETA.config.scene.board.width, ETA.config.scene.board.height);
 	}
 
 	//-----------------------------------------------------------------------------
@@ -291,9 +298,10 @@ window.onload = function() {
 	function generatePauseScreen() {
 		$('#cr-stage').append(
 			'<div id="pause-screen" hidden="">'+
-				'<img src="img/pause_item.png" alt="PAUSE"/>'+
+				'<img src="img/pauseText.png" alt="PAUSE"/>'+
 			'</div>'
 		);
+		
 		$("#pause-screen").hide();
 	}
 };
