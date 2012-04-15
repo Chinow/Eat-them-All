@@ -14,9 +14,9 @@ Crafty.c("Controls", {
 	
 	getMultiway: function(keyset) {
 		if (keyset == "wasd") {
-			return {Z: -90, W: -90, S: 90, D: 0, A: 180, Q:180};
+			return { Z: -90, W: -90, S: 90, D: 0, A: 180, Q: 180 };
 		} else if (keyset == "arrows") {
-			return {UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180};
+			return { UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180 };
 		}
 	},
 	

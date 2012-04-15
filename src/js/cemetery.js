@@ -29,13 +29,12 @@ Crafty.c('Cemetery', {
 	
 	Cemetery: function(player, cellX, cellY) {
 		this.player = player;
-		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
 		this.cell.elem = this;
 		
 		this.spawnPoint = { x: this.cell.x, y: this.cell.y - 15 };
 		this.animate("torch_burn", [[0,0],[1,0]])
-			.animate("torch_burn", rate, -1);
+			.animate("torch_burn", ETA.config.animation.cemetery.flame, -1);
 		
 		if (player.id == 1) {
 			this.attr({ x: this.cell.x - 60, y: this.cell.y - 50, z: 0 });
@@ -54,7 +53,7 @@ Crafty.c('Cemetery', {
 	
 	spawn: function() {
 		if (this.spawnRun) {
-			if (++this.spawnCounter == ETA.config.game.timeSpawnFortress * ETA.config.frameRate) {
+			if (++this.spawnCounter == ETA.config.game.cemetery.spawnPeriod * ETA.config.frameRate) {
 				this.spawnCounter = 0;
 				var spriteName = (this.player.id == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
 				

@@ -1,53 +1,44 @@
-Crafty.c('Fortress', {
+Crafty.c('Chunks', {
 
 	//-----------------------------------------------------------------------------
 	//	Attributes
 	//-----------------------------------------------------------------------------
-	
-	type: FORTRESS,
-	hitPoints: ETA.config.game.fortress.hitPoints,
-	player: null,
+
+	destroying: false,
 	
 	//-----------------------------------------------------------------------------
 	//	Init
 	//-----------------------------------------------------------------------------
 	
 	init: function() {
-		this.requires("2D, DOM, fortress, Collision");
-		this.collision();
-		this._globalZ = 3;
+		this.requires("2D, DOM, SpriteAnimation");
+		this._globalZ = 10;
 		return this;
 	},
-	
+
 	//-----------------------------------------------------------------------------
 	//	Constructor
 	//-----------------------------------------------------------------------------
 	
-	Fortress : function(cellX, cellY, player) {
-		this.cell = ETA.grid.cells[cellX][cellY];
-		this.z = this.y;
-		this.player = player;
-		this.cell.elem = this;
-		
-		if (player.id == 1) {
-			this.attr({ x: this.cell.x-18, y: this.cell.y-25, z: this.cell.y-25 });
-		} else {
-			this.attr({ x: this.cell.x, y: this.cell.y-25, z:this.cell.y-25 });
-		}
+	Chunks: function() {
+		// [6,0] is an empty frame to add some delay
+		this.animate("crash", [[6,0],[6,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],
+										   [0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0]])
+			.bind("EnterFrame", this.checkEnd)
+			.animate("crash", ETA.config.animation.chunks.crush);
 		
 		return this;
 	},
 	
 	//-----------------------------------------------------------------------------
-	//	Method - lose HP
+	//	Methods
 	//-----------------------------------------------------------------------------
 	
-	loseHP : function (value){
-		this.player.HPLeft = this.player.HPLeft - value;
-		this.player.pillar.drawLife();
-		
-		if (this.player.HPLeft <= 0) {
-			this.player.youLose();
+	checkEnd :function(){
+		if (!this.destroying && !this.isPlaying("crash")) {
+			this.destroy();
+			this.destroying = true;
 		}
 	}
 });
+

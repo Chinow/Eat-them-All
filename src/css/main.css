@@ -1,5 +1,18 @@
 body {
-	background-color: black;
+	background: url(../img/bg.jpg) #000 center center fixed no-repeat;
+	padding: 0;
+	margin: 0;	
+}
+
+#container {
+	width: 1000px;
+	height: 580px;
+	position: absolute;
+	left: 50%; 
+	top: 50%;
+	margin-top: -290px; /* Half of height */
+	margin-left: -500px; /* Half of width */
+	background: url(../img/stay.jpg) 0 31px no-repeat;
 }
 
 /* 1000 x 580 */
@@ -9,8 +22,8 @@ body {
 	left: 50%;
 	width: 1000px;
 	height: 580px;
+	margin-top: -290px;
 	margin-left: -500px;
-	/* margin-top: -290px; */
 }
 
 /* Start menu */
@@ -19,16 +32,6 @@ body {
 	width: 1000px;
 	height: 580px;
 	background-image:url('../img/StartMenu.png');
-}
-
-#rules {
-	float: right;
-	font-family : arial;
-	color:#a17c4a;
-	width :310px;
-	font-size: 12px;
-	margin-top: 360px;
-	margin-right:30px;
 }
 
 #menu-button {
@@ -59,14 +62,18 @@ body {
 }
 
 /* Pause */
-#pause {
+#pause-screen {
 	position: absolute;
 	width: 1000px;
 	height: 580px;
 	text-align: center;
+	background-color: #000000;
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+	z-index: 2000;
 }
 
-#pause > img {
+#pause-screen img {
 	margin: auto;
-	margin-top: 150px;
+	margin-top: 250px;
 }
