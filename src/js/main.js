@@ -102,8 +102,16 @@ window.onload = function() {
 
 	Crafty.scene("main", function (e) {
 		gameState = RUNNING;
-
-		Crafty.audio.play("bgMusic", -1);
+        $("#jquery_jplayer").jPlayer( {
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                    m4a: "media/ZombieBattleQN.mp3", 
+                    oga: "media/ZombieBattleQN.ogg" 
+                }).jPlayer("play");
+            },
+            supplied: "mp3, oga"
+        });
+		//Crafty.audio.play("bgMusic", -1);
 		generateWorld();
 		
 		var player1 = Crafty.e("VoodooDoll, dollRougeSpriteLeft")
