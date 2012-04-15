@@ -46,7 +46,7 @@ Crafty.c('Zombie', {
 		this.walkingDirection = (player.id == 1) ? EAST : WEST;
 		
 		// Setup animation
-		this.animate("spawn", [[12,0],[13,0],[14,0]])
+		this.animate("spawn", [[12,0],[13,0],[13,0],[14,0],[14,0]])
 		.animate("die", [[14,0],[13,0],[12,0]])
 		.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
 		.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
@@ -76,14 +76,6 @@ Crafty.c('Zombie', {
 		
 		if (playSpawnAnimation) {
 			this.animate("spawn", ETA.config.animation.zombie.spawn);
-		} else {
-			this.state = MOVING_OUT_OF_SPAWN;
-			
-			if (this.walkingDirection == EAST) {
-				this.animate("walk_right", ETA.config.animation.zombie.walk, -1);
-			} else {
-				this.animate("walk_left", ETA.config.animation.zombie.walk, -1);
-			}
 		}
 		
 		return this;

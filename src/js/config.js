@@ -29,30 +29,30 @@ ETA.config = {
 	// Animation
 	animation: {
 		doll: {
-			stand:		1.0 * FRAMERATE,
-			walk:		0.2 * FRAMERATE,
-			summon:		0.2 * FRAMERATE
+			stand:		FRAMERATE / 1,
+			walk:		FRAMERATE / 5,
+			summon:		FRAMERATE / 5
 		},
 		zombie: {
-			spawm:		0.2 * FRAMERATE,
-			walk:		0.2 * FRAMERATE,
-			attack:		0.3 * FRAMERATE,
-			die:		0.2 * FRAMERATE
+			spawn:		FRAMERATE / 4,
+			walk:		FRAMERATE / 5,
+			attack:		FRAMERATE / 3,
+			die:		FRAMERATE / 5
 		},
 		sign: {
-			create:		0.2 * FRAMERATE,
-			rotate:		0.1 * FRAMERATE,
-			destroy:	0.2 * FRAMERATE
+			create:		FRAMERATE / 5,
+			rotate:		FRAMERATE / 10,
+			destroy:	FRAMERATE / 5
 		},
 		cemetery: {
-			flame:		0.5 * FRAMERATE
+			flame:		FRAMERATE / 2
 		},
 		sorcerer: {
-			stand:		0.5 * FRAMERATE,
-			summon:		0.2 * FRAMERATE
+			stand:		FRAMERATE / 2,
+			summon:		FRAMERATE / 5
 		},
 		chunks: {
-			crush:		0.2 * FRAMERATE
+			crush:		FRAMERATE / 5
 		}
 	},
 	
