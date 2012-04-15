@@ -194,7 +194,7 @@ Crafty.c('Zombie', {
 					if (this.player.id == this.currentCell.elem.player.id) {
 						this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
 					} else {
-						this.currentCell.elem.loseHP(ETA.config.game.zombiDamage);
+						this.currentCell.elem.loseHP(ETA.config.game.zombie.damage);
 						this.attack(this.currentCell.elem.type);
 						return;
 					}
@@ -261,7 +261,7 @@ Crafty.c('Zombie', {
 			}
 			
 			if (!collided) {
-				this.move(this.walkingDirection, ETA.config.game.zombiSpeed);
+				this.move(this.walkingDirection, ETA.config.game.zombie.speed);
 				
 				if (this.walkingDirection == WEST && !this.isPlaying("walk_left")) {
 					this.stop().animate("walk_left", ETA.config.animation.zombie.walk, -1);

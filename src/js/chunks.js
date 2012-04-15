@@ -21,9 +21,9 @@ Crafty.c('Chunks', {
 	//-----------------------------------------------------------------------------
 	
 	Chunks: function() {
-		//[6,0] is an empty frame to add some delay
-		this.animate("crash", [[6,0],[6,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],
-									 [6,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0]])
+		// [6,0] is an empty frame to add some delay
+		this.animate("crash", [[6,0],[6,0],[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0],
+										   [0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,0]])
 			.bind("EnterFrame", this.checkEnd)
 			.animate("crash", ETA.config.animation.chunks.crush);
 		

@@ -79,12 +79,23 @@ ETA.config = {
 			exitSpeed: 0.4
 		},
 		
-		dollSpeed: 4,
-		zombiSpeed: 1,
-		zombiDamage: 1,
-		nbSign: 6,
-		hitPointsFortress: 100,
-		timeSpawnFortress: 3,
+		doll: {
+			speed: 4,
+			maxSigns: 6
+		},
+		
+		zombie: {
+			speed: 1,
+			damage: 1
+		},
+		
+		fortress: {
+			hitpoints: 100
+		},
+		
+		cemetery: {
+			spawnPeriod: 3
+		}
 	},
 	
 	p1: {

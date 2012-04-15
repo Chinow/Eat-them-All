@@ -49,12 +49,12 @@ Crafty.c('VoodooDoll', {
 		
 		// Setup keyboard
 		if (this.id == 1) {
-			this.keyboard1Controls(ETA.config.game.dollSpeed)
+			this.keyboard1Controls(ETA.config.game.doll.speed)
 				.attr(ETA.config.p1.startPosition);
 			
 			this.actionKey = ETA.config.p1.actionKey;
 		} else {
-			this.keyboard2Controls(ETA.config.game.dollSpeed)
+			this.keyboard2Controls(ETA.config.game.doll.speed)
 				.attr(ETA.config.p2.startPosition);
 			
 			this.actionKey = ETA.config.p2.actionKey;
@@ -177,7 +177,7 @@ Crafty.c('VoodooDoll', {
 	drawSign : function(cell) {
 		var signSprite = (this.id == 1) ? "signRougeSprite" : "signBleuSprite";
 		
-		if (this.popSign < ETA.config.game.nbSign) {
+		if (this.popSign < ETA.config.game.doll.maxSigns) {
 			Crafty.e("Sign, " + signSprite).attr({
 				x: cell.center.x - 10,
 				y: cell.center.y - 35,

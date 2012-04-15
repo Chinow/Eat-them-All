@@ -5,7 +5,7 @@ Crafty.c('Fortress', {
 	//-----------------------------------------------------------------------------
 	
 	type: FORTRESS,
-	hitPoints: ETA.config.game.hitPointsFortress,
+	hitPoints: ETA.config.game.fortress.hitPoints,
 	player: null,
 	
 	//-----------------------------------------------------------------------------
