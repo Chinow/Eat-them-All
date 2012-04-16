@@ -48,6 +48,7 @@ Crafty.c('VoodooMaster', {
 	summon :function(){
 		this.stop().animate("summon", ETA.config.animation.sorcerer.summon);
 	},
+	
 	setSteady :function(){
 		if (!this.isPlaying("summon")) {
 			this.animate("steady", ETA.config.animation.sorcerer.stand, -1);

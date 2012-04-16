@@ -233,10 +233,16 @@ window.onload = function() {
 			bg: [0, 0, 1000, 550]
 		});
 		Crafty.sprite(65, "img/sprites/zombie-red.png", {
-			zombieRougeSprite: [0, 0]
+			redZombie: [0, 0]
 		});
 		Crafty.sprite(65, "img/sprites/zombie-blue.png", {
-			zombieBleuSprite: [0, 0]
+			blueZombie: [0, 0]
+		});
+		Crafty.sprite(100, "img/sprites/zombiePack-red.png", {
+			redZombiePack: [0, 0]
+		});
+		Crafty.sprite(100, "img/sprites/zombiePack-blue.png", {
+			blueZombiePack: [0, 0]
 		});
 		Crafty.sprite(65, "img/sprites/doll-red.png", {
 			redDoll: [0, 0]
@@ -245,10 +251,10 @@ window.onload = function() {
 			blueDoll: [3, 0]
 		});
 		Crafty.sprite(65, "img/sprites/sign-red.png", {
-			signRougeSprite: [0, 0]
+			redSign: [0, 0]
 		});
 		Crafty.sprite(65, "img/sprites/sign-blue.png", {
-			signBleuSprite: [0, 0]
+			blueSign: [0, 0]
 		});
 		Crafty.sprite(110, "img/sprites/cemetery-red.png", {
 			redCemetery: [0, 0]

@@ -55,11 +55,15 @@ Crafty.c('Cemetery', {
 		if (this.spawnRun) {
 			if (++this.spawnCounter == ETA.config.game.cemetery.spawnPeriod * ETA.config.frameRate) {
 				this.spawnCounter = 0;
-				var spriteName = (this.player.id == 1) ? "zombieRougeSprite" : "zombieBleuSprite";
+				var spriteName = (this.player.id == 1) ? "redZombie" : "blueZombie";
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.player, true)
-					.attr({ x: this.spawnPoint.x, y: this.spawnPoint.y, z: 900 });
+					.Zombie(this.player, 1, true)
+					.attr({
+						x: this.spawnPoint.x,
+						y: this.spawnPoint.y,
+						z: 900
+					});
 			}
 		}
 	},

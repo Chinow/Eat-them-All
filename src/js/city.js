@@ -187,25 +187,57 @@ Crafty.c('City', {
 			}
 		}
 		
+		++this.outFrames;
+		
 		if (this.doorsOpen && this.nbGuards > 0) {
-			if (++this.outFrames >= this.config.exitSpeed * ETA.config.frameRate) {
-				this.loseGuards(1);
+			var exitThreshold;
+			var nbZombies;
+			
+			if (this.nbGuards >= ETA.config.game.zombie.minToPack) {
+				nbZombies = ETA.config.game.zombie.packSize;
+				exitThreshold = this.config.packExitSpeed;
+			} else {
+				nbZombies = 1;
+				exitThreshold = this.config.exitSpeed;
+			}
+			
+			if (this.outFrames >= exitThreshold * ETA.config.frameRate) {
+				this.loseGuards(nbZombies);
 				this.outFrames = 0;
 				
 				var spriteName;
 				var xoffset;
+				var yoffset;
 				
 				if (this.player.id == 1) {
-					spriteName = "zombieRougeSprite";
-					xoffset = 25;
+					if (nbZombies == 1) {
+						spriteName = "redZombie";
+						xoffset = 25;
+						yoffset = 10;
+					} else {
+						spriteName = "redZombiePack";
+						xoffset = 25;
+						yoffset = -10;
+					}
 				} else {
-					spriteName = "zombieBleuSprite";
-					xoffset = -25;
+					if (nbZombies == 1) {
+						spriteName = "blueZombie";
+						xoffset = -25;
+						yoffset = 10;
+					} else {
+						spriteName = "blueZombiePack";
+						xoffset = -60;
+						yoffset = -10;
+					}
 				}
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.player, false)
-					.attr({ x: this.x + xoffset, y: this.y + 10, z:900 });
+					.Zombie(this.player, nbZombies, false)
+					.attr({
+						x: this.x + xoffset,
+						y: this.y + yoffset,
+						z: 900
+					});
 			}
 		}
 	}

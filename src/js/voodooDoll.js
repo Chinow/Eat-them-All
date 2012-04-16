@@ -175,7 +175,7 @@ Crafty.c('VoodooDoll', {
 	//-----------------------------------------------------------------------------
 	
 	drawSign : function(cell) {
-		var signSprite = (this.id == 1) ? "signRougeSprite" : "signBleuSprite";
+		var signSprite = (this.id == 1) ? "redSign" : "blueSign";
 		
 		if (this.popSign < ETA.config.game.doll.maxSigns) {
 			Crafty.e("Sign, " + signSprite).attr({

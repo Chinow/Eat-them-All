@@ -26,6 +26,7 @@ Crafty.c('Zombie', {
 	state: SPAWNING,
 	destroying: false,
 	player: 0,
+	size: 0,
 	
 	//-----------------------------------------------------------------------------
 	//	Init
@@ -41,8 +42,9 @@ Crafty.c('Zombie', {
 	//	Constructor
 	//-----------------------------------------------------------------------------
 	
-	Zombie: function(player, playSpawnAnimation) {
+	Zombie: function(player, size, playSpawnAnimation) {
 		this.player = player;
+		this.size = size;
 		this.walkingDirection = (player.id == 1) ? EAST : WEST;
 		
 		// Setup animation
@@ -72,10 +74,14 @@ Crafty.c('Zombie', {
 				}	
 			}
 		})
-		.bind("EnterFrame", this.moveZombi);
+		.bind("EnterFrame", this.moveZombie);
 		
 		if (playSpawnAnimation) {
 			this.animate("spawn", ETA.config.animation.zombie.spawn);
+		} else if (player.id == 1) {
+			this.animate("walk_right", ETA.config.animation.zombie.walk, -1);
+		} else {
+			this.animate("walk_left", ETA.config.animation.zombie.walk, -1);
 		}
 		
 		return this;
@@ -85,18 +91,18 @@ Crafty.c('Zombie', {
 	//	Method - Move zombie
 	//-----------------------------------------------------------------------------
 	
-	moveZombi: function() {
+	moveZombie: function() {
 		if (this.state == DESTROYING) {
 			return;
 		}
 		
 		// Finish the spawn and start moving
-		if (this.state == SPAWNING && !this.isPlaying("spawn")) {
+		else if (this.state == SPAWNING && !this.isPlaying("spawn")) {
 			this.state = MOVING_OUT_OF_SPAWN;
 		}
 		
 		// Finish the attack and die
-		if (this.state == ATTACKING
+		else if (this.state == ATTACKING
 		&& !this.isPlaying("attack_right")
 		&& !this.isPlaying("attack_left")
 		&& !this.isPlaying("attack_up")
@@ -106,7 +112,7 @@ Crafty.c('Zombie', {
 		}
 		
 		// Delete the sprite
-		if (this.state == DYING && !this.isPlaying("die")) {
+		else if (this.state == DYING && !this.isPlaying("die")) {
 			this.destroy();
 			this.state = DESTROYING;
 			return;
@@ -186,22 +192,22 @@ Crafty.c('Zombie', {
 					if (this.player.id == this.currentCell.elem.player.id) {
 						this.walkingDirection = (this.walkingDirection == EAST) ? WEST : EAST;
 					} else {
-						this.currentCell.elem.loseHP(ETA.config.game.zombie.damage);
+						this.currentCell.elem.loseHP(ETA.config.game.zombie.damage * this.size);
 						this.attack(this.currentCell.elem.type);
 						return;
 					}
 				} else if (this.currentCell.elem.type == CITY) {
 					if (this.currentCell.elem.player == null || this.currentCell.elem.player.id != this.player.id) {
 						// Attack city
-						if (this.currentCell.elem.nbGuards > 0) {
-							this.currentCell.elem.loseGuards(1);
+						if (this.currentCell.elem.nbGuards - this.size >= 0) {
+							this.currentCell.elem.loseGuards(this.size);
 							this.attack(CITY);
 							return;
 						}
 						// Invade city
 						else {
 							this.currentCell.elem.changePlayer(this.player);
-							this.currentCell.elem.gainGuards(1);
+							this.currentCell.elem.gainGuards(this.size);
 							this.destroy();
 							this.state = DESTROYING;
 							return;
@@ -209,7 +215,7 @@ Crafty.c('Zombie', {
 					}
 					// Enforce city
 					else if (this.currentCell.elem.nbGuards < 99) {
-						this.currentCell.elem.gainGuards(1);
+						this.currentCell.elem.gainGuards(this.size);
 						this.destroy();
 						this.state = DESTROYING;
 						return;
@@ -241,10 +247,18 @@ Crafty.c('Zombie', {
 				var collideLength = collide2.length;
 				for (var i = 0; i < collideLength; i++) {
 					if (collide2[i].type == "SAT") {
-						if (collide2[i].obj.player.id != this.player.id) {
-							if (this.state == MOVING && collide2[i].obj.state == MOVING) {
-								collide2[i].obj.attack(ZOMBIE);
-								this.attack(ZOMBIE);
+						var otherZombie = collide2[i].obj;
+						
+						if (otherZombie.player.id != this.player.id) {
+							if (this.state == MOVING && otherZombie.state == MOVING) {
+								if (this.size == otherZombie.size) {
+									this.attack(ZOMBIE);
+									otherZombie.attack(ZOMBIE);
+								} else {
+									this.setApart();
+									otherZombie.setApart();
+								}
+								
 								return;
 							}
 						}
@@ -267,6 +281,7 @@ Crafty.c('Zombie', {
 			}
 			
 			var newCell = ETA.grid.getCell(this.x + this.w / 2 - 5, this.y + this.h / 2 + 10);
+			
 			if (newCell != this.currentCell) {
 				if (this.state == MOVING_OUT_OF_SPAWN) {
 					this.state = MOVING;
@@ -275,6 +290,22 @@ Crafty.c('Zombie', {
 				this.currentCell = newCell;
 			}
 		}
+	},
+	
+	//-----------------------------------------------------------------------------
+	//	Method - Set apart
+	//-----------------------------------------------------------------------------
+	
+	setApart: function() {
+		// TODO:
+		// Create 5 other zombies, apart from each other
+		// Make the first one attack
+		// Make the others walk
+		
+		// TODO for packs: find exactly when changing cell
+		// Check that they turn at the right moment
+		
+		console.error("zombie.setApart: not implemented yet");
 	},
 	
 	//-----------------------------------------------------------------------------

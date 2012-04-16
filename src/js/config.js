@@ -62,21 +62,26 @@ ETA.config = {
 			maxHumans: 10,
 			procreationSpeed: 0.2,
 			eatSpeed: 0.3,
-			exitSpeed: 0.4
+			exitSpeed: 0.4,
+			packExitSpeed: 1.0
 		},
 		town: {
 			maxGuards: 10,
 			maxHumans: 20,
 			procreationSpeed: 0.2,
 			eatSpeed: 0.5,
-			exitSpeed: 0.4
+			packThreshold: 10,
+			exitSpeed: 0.4,
+			packExitSpeed: 1.0
 		},
 		city: {
 			maxGuards: 25,
 			maxHumans: 40,
 			procreationSpeed: 0.2,
 			eatSpeed: 1,
-			exitSpeed: 0.4
+			packThreshold: 10,
+			exitSpeed: 0.4,
+			packExitSpeed: 1.0
 		},
 		
 		doll: {
@@ -86,7 +91,9 @@ ETA.config = {
 		
 		zombie: {
 			speed: 1,
-			damage: 1
+			damage: 1,
+			packSize: 5,
+			minToPack: 10
 		},
 		
 		fortress: {
