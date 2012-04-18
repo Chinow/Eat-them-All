@@ -24,14 +24,13 @@ Crafty.c('Pillar', {
 	
 	Pillar: function(player, cellX, cellY) {
 		this.player = player;
-		var rate = ETA.config.frameRate / ETA.config.cemeteryAnimationRate;
 		this.cell = ETA.grid.cells[cellX][cellY];
 		this.player.pillar = this;
 		
 		if (player.id == 1) {
-			this.attr({ x: this.cell.x-15 , y: this.cell.y-55  , z:this.cell.y});
+			this.attr({ x: this.cell.x - 15, y: this.cell.y - 55, z: this.cell.y });
 		} else {
-			this.attr({ x: this.cell.x+35, y: this.cell.y-55 , z:this.cell.y });
+			this.attr({ x: this.cell.x + 35, y: this.cell.y - 55, z: this.cell.y });
 		}
 		
 		this.drawLife();

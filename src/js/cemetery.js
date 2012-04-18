@@ -54,7 +54,7 @@ Crafty.c('Cemetery', {
 	spawn: function() {
 		if (this.spawnRun) {
 			if (++this.spawnCounter == ETA.config.game.cemetery.spawnPeriod * ETA.config.frameRate) {
-				this.spawnCounter = 0;
+	//			this.spawnCounter = 0;
 				var spriteName = (this.player.id == 1) ? "redZombie" : "blueZombie";
 				
 				Crafty.e("Zombie, " + spriteName)
