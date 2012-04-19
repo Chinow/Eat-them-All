@@ -19,7 +19,8 @@ Crafty.c('VoodooDoll', {
 	popSign: 0,
 	id: 0,
 	master: null,
-	pillar : null,
+	pillar: null,
+	defaultDirection: null,
 	maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
 	HPLeft: ETA.config.game.hitPointsFortress,
@@ -46,6 +47,7 @@ Crafty.c('VoodooDoll', {
 	
 	VoodooDoll: function(playerId) {
 		this.id = playerId;
+		this.defaultDirection = (playerId == 1) ? EAST : WEST;
 		
 		// Setup keyboard
 		if (this.id == 1) {

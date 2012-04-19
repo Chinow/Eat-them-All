@@ -232,7 +232,7 @@ Crafty.c('City', {
 				}
 				
 				Crafty.e("Zombie, " + spriteName)
-					.Zombie(this.player, nbZombies, false)
+					.Zombie(this.player, nbZombies, false, this.player.defaultDirection)
 					.attr({
 						x: this.x + xoffset,
 						y: this.y + yoffset,
