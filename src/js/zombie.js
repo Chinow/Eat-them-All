@@ -45,6 +45,7 @@ Crafty.c('Zombie', {
 	Zombie: function(player, size, playSpawnAnimation, direction) {
 		this.player = player;
 		this.size = size;
+		this.walkingDirection = direction;
 		
 		if (size == 1) {
 			this.centerOffset = { x: this.w / 2 - 5, y: this.h / 2 + 10 };
@@ -72,8 +73,6 @@ Crafty.c('Zombie', {
 			this.animate("spawn", ETA.config.animation.zombie.spawn);
 		} else if (direction) {
 			this.changeDirection(direction);
-		} else {
-			this.changeDirection(player.defaultDirection);
 		}
 		
 		return this;
@@ -91,7 +90,7 @@ Crafty.c('Zombie', {
 		// Finish the spawn and start moving
 		else if (this.state == SPAWNING && !this.isPlaying("spawn")) {
 			this.state = MOVING_OUT_OF_SPAWN;
-			this.changeDirection(this.player.defaultDirection);
+			this.changeDirection(this.walkingDirection);
 		}
 		
 		// Finish the attack and die
@@ -120,7 +119,12 @@ Crafty.c('Zombie', {
 			var xoffset = 0;
 			var yoffset = 0;
 			
-			if (this.size > 1) {
+			if (this.size == 1) {
+				switch (this.walkingDirection) {
+					case WEST:	yoffset = -10;	break;
+					case EAST:	yoffset = -10;	break;
+				}
+			} else {
 				switch (this.walkingDirection) {
 					case NORTH:	yoffset = -10;	break;
 					case SOUTH:	yoffset =  10;	break;
@@ -192,7 +196,7 @@ Crafty.c('Zombie', {
 				if (this.state == MOVING_OUT_OF_SPAWN && this.currentCell) {
 					this.state = MOVING;
 				}
-				
+							
 				this.currentCell = newCell;
 				changedCell = true;
 			}
@@ -206,7 +210,7 @@ Crafty.c('Zombie', {
 				} else if (middleOffset < -1) {
 					this.move(SOUTH, 1);
 				}
-			} else {
+			} else if (this.walkingDirection == NORTH || this.walkingDirection == SOUTH) {
 				var middleOffset = pseudoCenter.x - this.currentCell.center.x;
 				
 				if (middleOffset > 1) {
@@ -332,15 +336,26 @@ Crafty.c('Zombie', {
 	//-----------------------------------------------------------------------------
 	
 	setApart: function() {
-		// TODO:
-		// Create 5 other zombies, apart from each other
-		// Make the first one attack
-		// Make the others walk
-		
-		// TODO for packs: find exactly when changing cell
-		// Check that they turn at the right moment
-		
-		console.error("zombie.setApart: not implemented yet");
+		if (this.size > 1) {
+			var positions = [
+				{ x: this.x -  0, y: this.y + 34, z: this.z },
+				{ x: this.x + 32, y: this.y + 34, z: this.z },
+				{ x: this.x + 14, y: this.y + 20, z: this.z },
+				{ x: this.x + 44, y: this.y + 20, z: this.z },
+				{ x: this.x + 33, y: this.y + 12, z: this.z },
+			];
+			
+			var spriteName = (this.player.id == 1) ? "redZombie" : "blueZombie";
+			
+			for (var i in positions) {
+				Crafty.e("Zombie, " + spriteName)
+					.Zombie(this.player, 1, false, this.walkingDirection)
+					.attr(positions[i]);
+			}
+			
+			this.state = DESTROYING;
+			this.destroy();
+		}
 	},
 	
 	//-----------------------------------------------------------------------------
@@ -388,8 +403,6 @@ Crafty.c('Zombie', {
 	//-----------------------------------------------------------------------------
 	
 	changeDirection: function(newDirection) {
-		console.log("changeDirection("+newDirection+")");
-		
 		this.walkingDirection = newDirection;
 		
 		if (this.walkingDirection == WEST && !this.isPlaying("walk_left")) {
