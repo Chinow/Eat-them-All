@@ -1,5 +1,5 @@
 body {
-	background: url(../img/outerBackground.jpg) #000000 center center fixed no-repeat;
+	background: url('../img/outerBackground.jpg') #000000 center center fixed no-repeat;
 	padding: 0;
 	margin: 0;	
 }
@@ -12,7 +12,6 @@ body {
 	top: 50%;
 	margin-top: -290px; /* Half of height */
 	margin-left: -500px; /* Half of width */
-	background: url(../img/stay.jpg) 0 31px no-repeat;
 }
 
 /* 1000 x 580 */
@@ -31,7 +30,7 @@ body {
 	position: absolute;
 	width: 1000px;
 	height: 580px;
-	background-image:url('../img/StartMenu.png');
+	background-image: url('../img/StartMenu.png');
 }
 
 #menu-button {
@@ -50,7 +49,7 @@ body {
 }
 
 #start-button:hover {
-	background-position:-275px 0px;
+	background-position: -275px 0px;
 }
 
 #option-button {
@@ -68,8 +67,8 @@ body {
 	height: 580px;
 	text-align: center;
 	background-color: #000000;
-	opacity:0.8;
-	filter:alpha(opacity=80); /* For IE8 and earlier */
+	opacity: 0.8;
+	filter: alpha(opacity=80); /* For IE8 and earlier */
 	z-index: 2000;
 }
 

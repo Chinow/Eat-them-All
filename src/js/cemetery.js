@@ -61,7 +61,7 @@ Crafty.c('Cemetery', {
 					.Zombie(this.player, 1, true, this.player.defaultDirection)
 					.attr({
 						x: this.spawnPoint.x,
-						y: this.spawnPoint.y,
+						y: this.spawnPoint.y + Crafty.math.randomNumber(-10, 10),
 						z: 900
 					});
 			}

@@ -208,25 +208,27 @@ Crafty.c('City', {
 				var spriteName;
 				var xoffset;
 				var yoffset;
-				
-				if (this.player.id == 1) {
-					if (nbZombies == 1) {
+
+				if (nbZombies == 1) {
+					if (this.player.id == 1) {
 						spriteName = "redZombie";
 						xoffset = 25;
 						yoffset = 10;
 					} else {
-						spriteName = "redZombiePack";
-						xoffset = 25;
-						yoffset = -10;
-					}
-				} else {
-					if (nbZombies == 1) {
 						spriteName = "blueZombie";
 						xoffset = -25;
 						yoffset = 10;
+					}
+					
+					yoffset += Crafty.math.randomNumber(-10, 10);
+				} else {
+					if (this.player.id == 1) {
+						spriteName = "redZombiePack";
+						xoffset = 25;
+						yoffset = -10;
 					} else {
 						spriteName = "blueZombiePack";
-						xoffset = -60;
+						xoffset = -49;
 						yoffset = -10;
 					}
 				}

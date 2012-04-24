@@ -76,8 +76,8 @@ window.onload = function() {
 					'<div id="menu-button">'+
 						'<div id="loading-text">LOADING ...</div>'+
 						'<div id="start-button" class="hideMenu">start</div>'+
-						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
-						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="OPTION"/></div>'+
+//						'<div id="option-button" class="hideMenu"><img src="img/option.png" alt="OPTION"/></div>'+
+//						'<div id="tutorial-button" class="hideMenu"><img src="img/tuto.png" alt="TUTORIAL"/></div>'+
 					'</div>'+
 				'</div>'
 		);
@@ -101,6 +101,7 @@ window.onload = function() {
             supplied: "mp3, oga"
         });
 		//Crafty.audio.play("bgMusic", -1);
+		
 		generateWorld();
 		generatePauseScreen();
 		

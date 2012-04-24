@@ -34,7 +34,13 @@ Crafty.c('Zombie', {
 	
 	init : function() {
 		this.requires("2D, DOM, SpriteAnimation, zombi, Collision")
-		.collision(new Crafty.polygon([6,22], [47,22], [47,65], [6,65]));
+		
+		if (this.size == 1) {
+			this.collision(new Crafty.polygon([19, 22], [39, 22], [39, 42], [19, 42]));
+		} else {
+			this.collision(new Crafty.polygon([23, 43], [76, 43], [76, 74], [23, 74]));
+		}
+		
 		this._globalZ = 7;
 	},
 	
@@ -173,20 +179,22 @@ Crafty.c('Zombie', {
 				y: this.y + this.centerOffset.y + yoffset
 			};
 			
+			/*
 			//DEBUG
-//			if (this.debug) {
-//				this.debug.destroy();
-//			}
-//			this.debug = Crafty.e("2D, DOM, Color")
-//			   .color("#FF0000")
-//			   .attr({
-//					x: pseudoCenter.x,
-//					y: pseudoCenter.y,
-//					z: this.y + 1,
-//					w: 4,
-//					h: 4
-//				});
+			if (this.debug) {
+				this.debug.destroy();
+			}
+			this.debug = Crafty.e("2D, DOM, Color")
+			   .color("#FF0000")
+			   .attr({
+					x: this.x + 19,
+					y: this.y + 22,
+					z: this.y + 1,
+					w: 20,
+					h: 20
+				});
 			///DEBUG
+			*/
 			
 			// Determine if the zombie changed cell
 			var changedCell = false;
@@ -201,6 +209,7 @@ Crafty.c('Zombie', {
 				changedCell = true;
 			}
 			
+			/*
 			// Correct the zombie trajectory
 			if (this.walkingDirection == WEST || this.walkingDirection == EAST) {
 				var middleOffset = pseudoCenter.y - this.currentCell.center.y;
@@ -218,7 +227,7 @@ Crafty.c('Zombie', {
 				} else if (middleOffset < -1) {
 					this.move(EAST, 1);
 				}
-			}
+			}*/
 			
 			// Check for signs
 			if (pastMiddle) {
