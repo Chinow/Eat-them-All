@@ -97,7 +97,7 @@ ETA.config = {
 		},
 		
 		fortress: {
-			hitpoints: 100
+			hitPoints: 100
 		},
 		
 		cemetery: {

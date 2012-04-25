@@ -23,7 +23,7 @@ Crafty.c('VoodooDoll', {
 	defaultDirection: null,
 	maxSigns: ETA.config.game.nbSign,
 	actionKey: Crafty.keys.ENTER,
-	HPLeft: ETA.config.game.hitPointsFortress,
+	HPLeft: ETA.config.game.fortress.hitPoints,
 	statistics: {
 		zombiesSpawned: 0,
 		guardsKilled: 0,

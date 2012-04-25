@@ -42,7 +42,7 @@ Crafty.c('Pillar', {
 	//-----------------------------------------------------------------------------
 	
 	drawLife: function() {
-		var ratio = this.player.HPLeft / ETA.config.game.hitPointsFortress;
+		var ratio = this.player.HPLeft / ETA.config.game.fortress.hitPoints;
 		
 		var color = (ratio > 0.66) ? 'rgb( 20, 200,  20)':
 					(ratio < 0.33) ? 'rgb(255,   0,   0)':
