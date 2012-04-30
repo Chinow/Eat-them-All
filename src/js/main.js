@@ -91,15 +91,32 @@ window.onload = function() {
 
 	Crafty.scene("main", function (e) {
 		gameState = RUNNING;
-        $("#jquery_jplayer").jPlayer( {
+        $("#boucleJplayer").jPlayer( {
             ready: function () {
                 $(this).jPlayer("setMedia", {
                     m4a: "media/ZombieBattleQN.mp3", 
                     oga: "media/ZombieBattleQN.ogg" 
                 }).jPlayer("play");
             },
+            ended: function() { 
+                $(this).jPlayer("play");
+            },
             supplied: "mp3, oga"
         });
+        
+        $("#pauseJplayer").jPlayer( {
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                    m4a: "media/LaPause.mp3", 
+                    oga: "media/LaPause.ogg" 
+                });
+            },
+            ended: function() { 
+                $(this).jPlayer("play");
+            },
+            supplied: "mp3, oga"
+        });
+        
 		//Crafty.audio.play("bgMusic", -1);
 		
 		generateWorld();
@@ -207,17 +224,15 @@ window.onload = function() {
 				Crafty.pause(true);
 				$("#pause-screen").show();
 				Crafty.audio.settings("pauseStart", { muted: false });
-				Crafty.audio.settings("pauseStart", { muted: false });
 				Crafty.audio.play("pauseStart");
-				
+				$("#boucleJplayer").jPlayer("pause");
 				pauseTimeout = window.setTimeout(function() {
-					Crafty.audio.settings("pause", { muted: false });
-					Crafty.audio.play("pause", -1);
+					$("#pauseJplayer").jPlayer("play");
 				}, 6000 );
 			} else if (gameState == PAUSED) {
 				Crafty.audio.settings("pauseStart", { muted: true });
-				Crafty.audio.settings("pause", { muted: true });
-				
+				$("#boucleJplayer").jPlayer("play");
+                $("#pauseJplayer").jPlayer("stop");
 				window.clearTimeout(pauseTimeout);
 				
 				gameState = RUNNING;
