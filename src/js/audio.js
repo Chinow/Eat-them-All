@@ -1,10 +1,6 @@
 //audio managment
 Crafty.audio.MAX_CHANNEL=1;
 
-Crafty.audio.add("bgMusic", [
-        "media/ZombieBattleQN.mp3", 
-        "media/ZombieBattleQN.ogg"]);
-
 Crafty.audio.add("signCreate", [
         "media/InvocPoto.mp3", 
         "media/InvocPoto.ogg"]);
@@ -66,7 +62,6 @@ Crafty.audio.add("pauseStart", [
         "media/PauseBaron.ogg"]);
 
 //VOLUME BALANCE
-Crafty.audio.settings("bgMusic",{volume:1.0});
 Crafty.audio.settings("signCreate",{volume:0.20});
 Crafty.audio.settings("signMove",{volume:0.30});
 Crafty.audio.settings("signDelete",{volume:0.30});
