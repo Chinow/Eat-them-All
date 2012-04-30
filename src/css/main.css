@@ -76,3 +76,16 @@ body {
 	margin: auto;
 	margin-top: 250px;
 }
+
+/* AUDIO */
+#muter {
+	width: 50px;
+	height: 50px;
+	z-index: 9001;
+}
+#muter.mute {
+	background-image:url('../img/unmute.png');
+}
+#muter.unmute {
+	background-image:url('../img/mute.png');
+}

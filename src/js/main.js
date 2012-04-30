@@ -21,7 +21,7 @@ var INIT = 1;
 var RUNNING = 2;
 var PAUSED = 3;
 var STOPPED = 4;
-
+var MUTE = 0;
 //-----------------------------------------------------------------------------
 //	Main
 //-----------------------------------------------------------------------------
@@ -116,7 +116,52 @@ window.onload = function() {
             },
             supplied: "mp3, oga"
         });
-        
+		$("#boucleJplayer").jPlayer("volume",1);
+		$("#pauseJplayer").jPlayer("volume",1);
+		$("#muter").bind('click', function() {
+			if (MUTE == 0){
+				MUTE=1;
+				$("#boucleJplayer").jPlayer("volume",0);
+				$("#pauseJplayer").jPlayer("volume",0);
+				Crafty.audio.settings("signCreate",{volume:0});
+				Crafty.audio.settings("signMove",{volume:0});
+				Crafty.audio.settings("signDelete",{volume:0});
+				Crafty.audio.settings("doorOpen",{volume:0});
+				Crafty.audio.settings("doorClose",{volume:0});
+				Crafty.audio.settings("holeDig",{volume:0});
+				Crafty.audio.settings("zombieDie",{volume:0});
+				Crafty.audio.settings("zombieSounds",{volume:0});
+				Crafty.audio.settings("zombieRage",{volume:0});
+				Crafty.audio.settings("fortressAttack",{volume:0});
+				Crafty.audio.settings("soldierDie",{volume:0});
+				Crafty.audio.settings("cityDie",{volume:0});
+				Crafty.audio.settings("gameOver",{volume:0});
+				Crafty.audio.settings("pauseStart",{volume:0});
+				$("#muter").removeClass("mute");
+				$("#muter").addClass("unmute");
+			}
+			else if(MUTE==1){
+				MUTE=0;
+				$("#boucleJplayer").jPlayer("volume",1);
+				$("#pauseJplayer").jPlayer("volume",1);
+				Crafty.audio.settings("signCreate",{volume:0.20});
+				Crafty.audio.settings("signMove",{volume:0.30});
+				Crafty.audio.settings("signDelete",{volume:0.30});
+				Crafty.audio.settings("doorOpen",{volume:0.50});
+				Crafty.audio.settings("doorClose",{volume:0.50});
+				Crafty.audio.settings("holeDig",{volume:0.50});
+				Crafty.audio.settings("zombieDie",{volume:0.50});
+				Crafty.audio.settings("zombieSounds",{volume:0.50});
+				Crafty.audio.settings("zombieRage",{volume:0.50});
+				Crafty.audio.settings("fortressAttack",{volume:1.0});
+				Crafty.audio.settings("soldierDie",{volume:1.0});
+				Crafty.audio.settings("cityDie",{volume:0.75});
+				Crafty.audio.settings("gameOver",{volume:1.0});
+				Crafty.audio.settings("pauseStart",{volume:0.5});
+				$("#muter").removeClass("unmute");
+				$("#muter").addClass("mute");
+			} 
+		})
 		//Crafty.audio.play("bgMusic", -1);
 		
 		generateWorld();
